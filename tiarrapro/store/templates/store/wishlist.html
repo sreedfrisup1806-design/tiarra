@@ -1,0 +1,249 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Wishlist — TIARRA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Jost', sans-serif; background: #ffffff; color: #2c2c2c; }
+        nav {
+            background: #fff;
+            border-bottom: 1px solid #e8e0d0;
+            padding: 16px 48px;
+            display: grid;
+            justify-content: 1fr auto 1fr;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .logo-center {
+            text-align: center;
+        }
+
+        .logo-center img {
+            height: 40px;
+        }
+
+        .wishlist-text {
+            text-align: right;
+            font-size: 13px;
+            color: #7a7a7a;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif, serif;
+            font-size: 24px;
+            letter-spacing: 0.3em;
+            text-decoration: none;
+            color: #2c2c2c;
+        }
+        .wishlist-container {
+            max-width: 1200px;
+            margin: 48px auto;
+            padding: 0 48px;
+        }
+        .wishlist-header {
+            margin-bottom: 36px;
+            border-bottom: 1px solid #e8e0d0;
+            padding-bottom: 20px;
+        }
+        .wishlist-header h1 {
+            font-family: 'Playfair Display', serif, serif;
+            font-size: 38px;
+            font-weight: 300;
+            margin-bottom: 6px;
+        }
+        .wishlist-header p { font-size: 13px; color: #7a7a7a; }
+        .wishlist-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+        .wishlist-card {
+            background: #fff;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+        .wishlist-card-img {
+            width: 100%;
+            aspect-ratio: 1;
+            overflow: hidden;
+            background: #e8ede9;
+        }
+        .wishlist-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .wishlist-card:hover .wishlist-card-img img { transform: scale(1.05); }
+        .wishlist-card-info { padding: 16px; }
+        .wishlist-card-category {
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #c9a96e;
+            margin-bottom: 6px;
+        }
+        .wishlist-card-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 300;
+            margin-bottom: 8px;
+        }
+        .wishlist-card-name a { text-decoration: none; color: #2c2c2c; }
+        .wishlist-card-price { font-size: 15px; font-weight: 500; color: #1a4a3a; margin-bottom: 12px; }
+        .remove-btn {
+            background: none;
+            border: 1px solid #e8e0d0;
+            padding: 8px 16px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s;
+            color: #2c2c2c;
+        }
+        .remove-btn:hover { background: #2c2c2c; color: #fff; }
+        .empty-wishlist {
+            text-align: center;
+            padding: 80px 0;
+        }
+        .empty-wishlist h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 300;
+            margin-bottom: 12px;
+        }
+        .empty-wishlist p { color: #7a7a7a; margin-bottom: 24px; }
+        .shop-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: #1a4a3a;
+            color: #fff;
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .wishlist-grid { grid-template-columns: repeat(2, 1fr); }
+            .wishlist-container { padding: 0 20px; }
+        }
+
+        @media (max-width: 600px) {
+            nav { padding: 12px 16px; }
+            .logo-center img { height: 32px; }
+            .wishlist-text { font-size: 11px; }
+
+            .wishlist-container { margin: 28px auto; padding: 0 16px; }
+
+            .wishlist-header { margin-bottom: 24px; padding-bottom: 14px; }
+            .wishlist-header h1 { font-size: 26px; }
+            .wishlist-header p { font-size: 12px; }
+
+            .wishlist-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+
+            .wishlist-card-info { padding: 10px 12px 12px; }
+            .wishlist-card-category { font-size: 10px; margin-bottom: 4px; }
+            .wishlist-card-name { font-size: 15px; margin-bottom: 6px; }
+            .wishlist-card-price { font-size: 13px; margin-bottom: 10px; }
+            .remove-btn { padding: 7px 10px; font-size: 10px; }
+
+            .empty-wishlist { padding: 52px 0; }
+            .empty-wishlist h2 { font-size: 24px; }
+            .shop-btn { padding: 12px 24px; font-size: 11px; }
+        }
+
+        @media (max-width: 360px) {
+            .wishlist-grid { grid-template-columns: repeat(2, 1fr); }
+            .wishlist-card-name { font-size: 13px; }
+            .wishlist-card-price { font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div></div>
+
+    <div class="logo-center">
+        <img src="{% static 'images/TIARRA_Logo_English_2.png' %}" alt="TIARRA"/>
+    </div>
+
+    <div class="wishlist-text">
+        My Wishlist ({{ products|length }} items)
+    </div>
+</nav>
+
+<div class="wishlist-container">
+    <div class="wishlist-header">
+        <h1>My Wishlist</h1>
+        <p>{{ products|length }} item{{ products|length|pluralize }} saved</p>
+    </div>
+
+    {% if products %}
+    <div class="wishlist-grid">
+        {% for product in products %}
+        <div class="wishlist-card" id="card-{{ product.id }}">
+            <div class="wishlist-card-img">
+                <a href="/product/{{ product.id }}/">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}"/>
+                    {% endif %}
+                </a>
+            </div>
+            <div class="wishlist-card-info">
+                <div class="wishlist-card-category">{{ product.category }}</div>
+                <div class="wishlist-card-name"><a href="/product/{{ product.id }}/">{{ product.name }}</a></div>
+                <div class="wishlist-card-price">₹{{ product.price }}</div>
+                <button class="remove-btn" onclick="removeFromWishlist({{ product.id }})">Remove</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-wishlist">
+        <h2>Your wishlist is empty</h2>   
+        <p>Save items you love and come back to them anytime.</p>
+        <a href="/" class="shop-btn">Continue Shopping</a>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    function removeFromWishlist(productId) {
+        fetch(`/wishlist/toggle/${productId}/`, {
+            method : 'POST',
+            headers: { 'X-CSRFToken': getCookie('csrftoken') },
+        })
+        .then(res => res.json())
+        .then(() => {
+            document.getElementById(`card-${productId}`).remove();
+            const count = document.querySelectorAll('.wishlist-card').length; 
+            document.querySelector('.wishlist-header p').textContent =
+                `${count} item${count !== 1 ? 's' : ''} saved`;
+            document.querySelector('.wishlist-text').textContent =
+                `My Wishlist (${count} items)`;
+            if (count === 0) location.reload();
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,2501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Tiarra | Fine Jewelry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+    
+    <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #fff;
+      color: #1c1c1c;
+    }
+
+    /* ── ANNOUNCEMENT BAR ── */
+    .announcement {
+      background: #0f2e28;
+      color: #fff;
+      text-align: center;
+      font-size: 13px;
+      letter-spacing: .06em;
+      padding: 11px 16px;
+      font-weight: 300;
+    }
+    .announcement strong { font-weight: 500; }
+
+    /* ── TOP NAV ── */
+    .topnav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 72px;
+      border-bottom: 1px solid #e8e4de;
+      background: #fff;
+    }
+    .topnav-left {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-size: 13px;
+      color: #444;
+      font-weight: 300;
+      letter-spacing: .02em;
+      min-width: 260px;
+    }
+    .topnav-left a {
+      text-decoration: none;
+      color: #444;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color .2s;
+    }
+    .topnav-left a:hover { color: #1a4a42; }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: #1c1c1c;
+      flex: 1;
+      justify-content: center;
+    }
+    .logo-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 21px;
+      font-weight: 500;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+    }
+    .logo-divider {
+      color: #999;
+      font-weight: 300;
+      font-size: 20px;
+      line-height: 1;
+    }
+    .logo-tagline {
+      font-family: 'Playfair Display', serif;
+      font-size: 19px;
+      font-weight: 400;
+      font-style: italic;
+      letter-spacing: .06em;
+    }
+
+    .topnav-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      min-width: 260px;
+      justify-content: flex-end;
+    }
+    .icon-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      color: #333;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color .2s;
+    }
+    .icon-btn:hover { color: #1a4a42; }
+    .badge {
+      position: absolute;
+      top: -2px; right: -4px;
+      width: 15px; height: 15px;
+      background: #1a4a42;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 400;
+    }
+
+/* ── MAIN NAV ── */
+    .mainnav {
+      background: #fff;
+      border-bottom: 1px solid #e8e4de;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 100;
+    }
+
+
+
+
+    /* ── HERO SPLIT ── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      height: 490px;
+      width: 100%;
+    }
+    .hero-left {
+      background-color: #1b4a41;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding-bottom: 56px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .ring-img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -56%);
+      width: 360px;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+      transition: transform .8s cubic-bezier(.25,.46,.45,.94);
+      pointer-events: none;
+    }
+    .hero-left:hover .ring-img {
+      transform: translate(-50%, -60%);
+    }
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding-bottom: 56px;
+      cursor: pointer;
+    }
+    .hero-right .bg-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: brightness(0.72);
+      transition: transform .8s cubic-bezier(.25,.46,.45,.94);
+    }
+    .hero-right:hover .bg-img {
+      transform: scale(1.04);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+    .hero-content h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 50px;
+      font-weight: 400;
+      color: #fff;
+      letter-spacing: .01em;
+      margin-bottom: 26px;
+      text-shadow: 0 2px 16px rgba(0,0,0,0.12);
+    }
+    .hero-btn {
+      display: inline-block;
+      padding: 13px 30px;
+      background: #fff;
+      border: 1.5px solid #fff;
+      color: #1c1c1c;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12.5px;
+      font-weight: 400;
+      letter-spacing: .06em;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background .25s, color .25s;
+    }
+    .hero-btn:hover {
+      background: transparent;
+      color: #fff;
+    }
+
+    /* ── SHOP BY CATEGORY ── */
+    .category-section {
+      padding: 52px 40px 48px;
+      background: #fff;
+    }
+    .category-section .section-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 38px;
+      font-weight: 500;
+      color: #1c1c1c;
+      letter-spacing: .01em;
+      margin-bottom: 8px;
+    }
+    .category-section .section-sub {
+      font-size: 13.5px;
+      color: #555;
+      font-weight: 300;
+      letter-spacing: .01em;
+      margin-bottom: 28px;
+    }
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+    }
+    .cat-card {
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+      display: block;
+    }
+    .cat-card-img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      background: #1b4a41;
+      margin-bottom: 12px;
+    }
+    .cat-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform .6s cubic-bezier(.25,.46,.45,.94);
+    }
+    .cat-card:hover .cat-card-img img {
+      transform: scale(1.06);
+    }
+    .cat-card-label {
+      font-size: 13.5px;
+      font-weight: 300;
+      color: #1c1c1c;
+      letter-spacing: .01em;
+      text-transform: capitalize;
+    }
+
+    /* ── DIAMOND SECTION ── */
+    .diamond-section {
+      background: #f5f4f2;
+      padding: 72px 40px 80px;
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      align-items: center;
+      gap: 40px;
+    }
+    .diamond-section .left h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 38px;
+      font-weight: 500;
+      color: #1c1c1c;
+      margin-bottom: 32px;
+      line-height: 1.2;
+    }
+    .diamond-section .left img {
+      width: 100%;
+      max-width: 320px;
+      height: auto;
+      display: block;
+    }
+    .diamond-section .right {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      row-gap: 36px;
+      column-gap: 8px;
+    }
+    .shape {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+    }
+    .shape img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      transition: transform .3s ease;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.10));
+    }
+    .shape:hover img {
+      transform: translateY(-4px) scale(1.06);
+    }
+    .shape p {
+      font-size: 13px;
+      font-weight: 300;
+      color: #1c1c1c;
+      text-align: center;
+    }
+
+    /* ── POPULAR ENGAGEMENT RINGS ── */
+    .rings-section {
+      padding: 52px 40px 48px;
+      background: #fff;
+    }
+    .rings-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 38px;
+      font-weight: 500;
+      color: #1c1c1c;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      font-size: 13.5px;
+      color: #555;
+      font-weight: 300;
+      margin-bottom: 28px;
+    }
+    .rings-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+    }
+    .ring-card {
+      display: block;
+      cursor: pointer;
+    }
+    .ring-card-img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .ring-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      transition: transform .6s cubic-bezier(.25,.46,.45,.94);
+    }
+    .ring-card:hover .ring-card-img img {
+      transform: scale(1.06);
+    }
+    .ring-card p {
+      font-size: 13.5px;
+      font-weight: 300;
+      color: #1c1c1c;
+    }
+
+    /* ── TREND REPORT ── */
+    .trend-section {
+      background: #fff;
+      padding: 56px 0 0;
+    }
+    .trend-header {
+      padding: 0 40px 32px;
+      border-bottom: 1px solid #e8e4de;
+    }
+    .trend-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 38px;
+      font-weight: 600;
+      color: #1c1c1c;
+      margin-bottom: 10px;
+    }
+    .trend-header p {
+      font-size: 13.5px;
+      font-weight: 300;
+      color: #555;
+    }
+    .trend-btn {
+      display: inline-block;
+      padding: 14px 48px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: .05em;
+      text-decoration: none;
+      background: #fff;
+      color: #1c1c1c;
+      border: 1.5px solid #1c1c1c;
+      transition: background .25s, color .25s;
+      cursor: pointer;
+    }
+    .trend-btn:hover { background: #1c1c1c; color: #fff; }
+
+    /* ── CHAT WIDGET ── */
+    .chat-widget {
+      position: fixed;
+      bottom: 24px; right: 24px;
+      background: #fff;
+      border-radius: 50px;
+      padding: 11px 18px 11px 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.16);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      z-index: 999;
+      transition: box-shadow .2s;
+    }
+    .chat-widget:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.22); }
+    .chat-close {
+      width: 20px; height: 20px;
+      background: #bbb;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: #fff;
+    }
+    .chat-text {
+      font-size: 13.5px;
+      font-weight: 400;
+      color: #1a4a42;
+      line-height: 1.3;
+    }
+    .chat-text small {
+      display: block;
+      font-size: 11.5px;
+      color: #666;
+      font-weight: 300;
+    }
+    .chat-icon-wrap {
+      width: 34px; height: 34px;
+      background: #1a4a42;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .why-section {
+      background: #ffffff;
+      padding: 56px 40px 60px;
+      text-align: center;
+    }
+    .why-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 38px;
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: #1c1c1c;
+      margin-bottom: 48px;
+    }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .why-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .why-icon-wrap {
+      width: 72px;
+      height: 72px;
+      background: #ddddf0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .why-item p {
+      font-size: 14px;
+      font-weight: 400;
+      color: #1c1c1c;
+      line-height: 1.5;
+      text-align: center;
+    }
+    .mainnav a {
+      gap: 6px;
+    }
+    .mainnav a svg {
+      flex-shrink: 0;
+    }
+    
+    
+    .logo-img {
+      height: 28px;
+      width: auto;
+      mix-blend-mode: multiply;
+    }
+    
+    
+    
+    .video-section {
+      padding: 64px 40px 80px;
+      background: #fff;
+      text-align: center;
+      overflow: hidden;
+    }
+    .video-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: #1c1c1c;
+      margin-bottom: 48px;
+    }
+    .video-carousel-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .video-carousel {
+      display: flex;
+      align-items: center;
+      justify-content: center;    
+      gap: 0;
+      position: relative;
+      height: 640px;
+    }
+    .video-card {
+      border-radius: 20px;
+      overflow: hidden;
+      position: absolute;
+      transition: all 0.6s cubic-bezier(.25,.46,.45,.94);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(600px) scale(0.7);
+    }
+    .video-card iframe {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border: none;
+    }
+/* Active center card */
+    .video-card.center {
+      width: 340px;
+      height: 580px;
+      z-index: 3;
+      transform: translateX(0) scale(1);
+      opacity: 1;
+    }
+/* Left side card */
+    .video-card.side-left {
+      width: 280px;
+      height: 480px;
+      z-index: 2;
+      transform: translateX(-260px) scale(0.88) rotate(-4deg);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+/* Right side card */
+    .video-card.side-right {
+      width: 280px;
+      height: 480px;
+      z-index: 2;
+      transform: translateX(260px) scale(0.88) rotate(4deg);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+    /* Next arrow button */
+    .carousel-btn {
+      position: absolute;
+      right: -20px;
+      background: none;
+      border: none;
+      font-size: 32px;
+      color: #1c1c1c;
+      cursor: pointer;
+      z-index: 10;
+      padding: 8px 12px;
+      transition: color .2s;
+    }
+    .carousel-btn:hover { color: #1a4a42; }
+
+
+
+
+    .video-card video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+
+
+
+
+    /* ── SOCIAL SECTION ── */
+    .social-section {
+      padding: 56px 40px 60px;
+      background: #fff;
+      text-align: center;
+      border-top: 1px solid #e8e4de;
+    }
+    .social-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 500;
+      color: #1c1c1c;
+      margin-bottom: 10px;
+    }
+    .social-sub {
+      font-size: 14px;
+      font-weight: 300;
+      color: #555;
+      margin-bottom: 32px;
+    }
+    .social-sub strong {
+      font-weight: 500;
+      color: #1c1c1c;
+    } 
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    .social-btn {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s, transform .2s;
+      text-decoration: none;
+    }
+    .social-btn:hover {
+      background: #eaeaea;
+      transform: scale(1.08);
+    }
+
+
+
+
+
+
+
+    /* ── CATEGORY WISHLIST BUTTON ── */
+    .cat-card-img {
+      position: relative;
+    }
+    
+    
+    .cat-wishlist {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 22px;
+      height: 22px;
+      background: none;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #fff;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.4));
+      transition: color .2s, transform .2s;
+      z-index: 2;
+      padding: 0;
+      transform: none !important;
+      margin: 0 !important;
+      left: auto !important;
+      bottom: auto !important;
+    }
+
+
+    .cat-wishlist:hover {
+      color: #c0392b;
+      transform: scale(1.1);
+    }
+    .cat-wishlist.active {
+      color: #c0392b;
+    }
+    .cat-wishlist.active svg {
+      fill: #c0392b;
+      stroke: #c0392b;
+    }
+
+
+
+
+
+
+
+
+
+
+
+    /* ── SHOP ON A BUDGET ── */
+    .budget-section {
+      padding: 56px 40px 60px;
+      background: #fff;
+      text-align: center;
+    }
+    .budget-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 500;
+      color: #1c1c1c;
+      margin-bottom: 8px;
+    }
+    .budget-sub {
+      font-size: 14px;
+      font-weight: 300;
+      color: #555;
+      margin-bottom: 32px;
+    }
+    .budget-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .budget-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 4px;
+      display: block;
+      text-decoration: none;
+      aspect-ratio: 1 / 1;
+    }
+    .budget-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .6s cubic-bezier(.25,.46,.45,.94);
+    }
+    .budget-card:hover img {
+      transform: scale(1.05);
+    }
+    .budget-label {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 18px;
+      font-weight: 500;
+      color: #fff;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+
+
+
+
+
+
+    .nav-item { position: relative; }
+    .nav-item > a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 15px 18px;
+      font-size: 11.5px;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #1c1c1c;
+      font-weight: 400;
+      position: relative;
+      transition: color .2s;
+      white-space: nowrap;
+    }
+    .nav-item > a svg { flex-shrink: 0; }
+    .nav-item > a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 18px; right: 18px;
+      height: 2px;
+      background: #1a4a42;
+      transform: scaleX(0);
+      transition: transform .25s ease;
+    }
+    .nav-item:hover > a { color: #1a4a42; }
+    .nav-item:hover > a::after { transform: scaleX(1); }
+
+    .dropdown {
+      display: none;          /* ← hidden by default */
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      border-top: 2px solid #1a4a42;
+      border-bottom: 1px solid #e8e4de;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.10);
+      padding: 28px 32px;
+      min-width: 320px;
+      z-index: 200;
+      gap: 40px;
+    }
+    .nav-item:hover .dropdown { display: flex; }  /* ← shows on hover */
+
+    .drop-col h4 {
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: #1a4a42;
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #e8e4de;
+    }
+    .drop-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .drop-col ul li a {
+      font-size: 13.5px;
+      font-weight: 300;
+      color: #333;
+      text-decoration: none;
+      letter-spacing: .01em;
+      transition: color .2s;
+    }
+    .drop-col ul li a:hover { color: #1a4a42; }
+    .drop-col ul li a.bold-link { font-weight: 500; color: #1c1c1c; }
+
+
+
+
+
+
+
+
+
+
+    /* ── BUDGET WISHLIST BUTTON ── */
+  .budget-wishlist {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #fff;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.4));
+    transition: color .2s, transform .2s;
+    z-index: 2;
+  }
+  .budget-wishlist:hover {
+    color: #c0392b;
+    transform: scale(1.1);
+  }
+  .budget-wishlist.active {
+    color: #c0392b;
+  }
+  .budget-wishlist.active svg {
+    fill: #c0392b;
+    stroke: #c0392b;
+  }
+
+
+  .budget-filters {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+  .budget-filter-btn {
+    display: inline-block;
+    padding: 9px 22px;
+    border-radius: 50px;
+    border: 1.5px solid #1c3a2b;
+    background: transparent;
+    color: #1c3a2b;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: .04em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background .22s, color .22s, border-color .22s;
+  }
+  .budget-filter-btn:hover,
+  .budget-filter-btn.active {
+    background: #1c3a2b;
+    color: #fff;
+    border-color: #1c3a2b;
+  }
+  @media (max-width: 768px) {
+  .budget-filters { gap: 6px; justify-content: center; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 4px; }
+  .budget-filters::-webkit-scrollbar { display: none; }
+  .budget-filter-btn { font-size: 11px; padding: 6px 13px; white-space: nowrap; flex-shrink: 0; }
+  }
+
+  /* ── STICKY HEADER ── */
+/* STICKY HEADER FIX */
+  .sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+    background: white;
+  }
+
+/* Make sure header has no issues */
+  .topnav {
+    background: white;
+  }
+
+
+
+  .topnav {
+    background: white;
+  }
+
+
+  /* ── FOOTER ── */
+  footer { background: #1a1a1a; color: rgba(255,255,255,.55); padding: 60px 32px 32px; }
+  .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: #c9a84c; letter-spacing: .1em; margin-bottom: 12px; }
+  .footer-brand p { font-size: .8rem; line-height: 1.7; margin-bottom: 18px; }
+  .footer-social { display: flex; gap: 12px; }
+  .footer-social a { width: 34px; height: 34px; border: 1px solid rgba(255,255,255,.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: border-color .2s; }
+  .footer-social a:hover { border-color: #c9a84c; }
+  .footer-social svg { width: 14px; height: 14px; stroke: rgba(255,255,255,.5); fill: none; stroke-width: 1.5; }
+  .footer-col h5 { font-size: .65rem; letter-spacing: .22em; text-transform: uppercase; color: #c9a84c; margin-bottom: 16px; }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 8px; }
+  .footer-col a { font-size: .8rem; color: rgba(255,255,255,.5); text-decoration: none; transition: color .2s; }
+  .footer-col a:hover { color: #e2c07a; }
+  .footer-bottom { max-width: 1200px; margin: 24px auto 0; display: flex; justify-content: space-between; align-items: center; font-size: .72rem; }
+
+
+
+
+  /* ── MOBILE HAMBURGER ── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #1c1c1c;
+      border-radius: 2px;
+      transition: all .3s;
+    }
+    .mobile-nav {
+      display: none;
+      flex-direction: column;
+      background: #fff;
+      border-top: 1px solid #e8e4de;
+      padding: 16px 20px;
+      gap: 4px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-size: 13px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #1c1c1c;
+      text-decoration: none;
+      padding: 10px 0;
+      border-bottom: 1px solid #f0ede8;
+      font-weight: 400;
+    }
+    .mobile-nav a:last-child { border-bottom: none; }
+    .mobile-nav a:hover { color: #1a4a42; }
+
+
+
+
+    /* ── MOBILE RINGS SUBMENU ── */
+    .mobile-nav-item { border-bottom: 1px solid #f0ede8; }
+    .mobile-nav-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      font-size: 13px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #1c1c1c;
+      cursor: pointer;
+      font-weight: 400;
+    }
+    .mobile-nav-header:hover { color: #1a4a42; }
+    .mobile-nav-arrow {
+      transition: transform .3s ease;
+      flex-shrink: 0;
+    }
+    .mobile-nav-header.open .mobile-nav-arrow {
+      transform: rotate(180deg);
+    }
+    .mobile-submenu {
+      display: none;
+      padding: 8px 0 14px;
+    }
+    .mobile-submenu.open { display: block; }
+    .mobile-submenu-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .mobile-submenu-heading {
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: #1a4a42;
+      font-weight: 500;
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #e8e4de;
+    }
+    .mobile-submenu a {
+      display: block;
+      font-size: 12px;
+      letter-spacing: .03em;
+      text-transform: none;
+      color: #444;
+      padding: 5px 0;
+      border-bottom: none;
+      font-weight: 300;
+    }
+    .mobile-submenu a:hover { color: #1a4a42; }
+
+    @media (max-width: 768px) {
+
+      /* ── ANNOUNCEMENT ── */
+      .announcement { font-size: 11px; padding: 9px 12px; }
+
+      /* ── TOP NAV ── */
+      .topnav { padding: 0 8px; height: auto; }
+      .topnav-left { display: flex; min-width: unset; gap: 0; }
+      .topnav-right { gap: 6px; min-width: unset; padding-right: 4px; margin-left: auto; }
+      .topnav-right form { display: none; }
+      .topnav-right .icon-btn svg { width: 17px; height: 17px; }
+      .logo-wrap { gap: 8px; }
+      .logo-img { height: 24px; }
+      .logo-divider { display: none; }
+      .logo-tagline { display: none; }
+      .logo-name { font-size: 16px; letter-spacing: .14em; }
+      .hamburger { display: flex; }
+
+      /* ── MAIN NAV ── */
+      .mainnav { display: none; }
+
+      /* ── HERO ── */
+      /* ── HERO ── */
+      .hero { grid-template-columns: 1fr 1fr !important; height: 320px !important; }
+      .hero-left { height: 320px; padding-bottom: 36px; }
+      .ring-img { width: 160px; transform: translate(-50%, -48%); }
+      .hero-left:hover .ring-img { transform: translate(-50%, -56%); }
+      .hero-right { height: 320px; padding-bottom: 32px; }
+      .hero-content h2 { font-size: 22px; margin-bottom: 12px; }
+      .hero-btn { font-size: 10px; padding: 8px 14px; }
+
+      /* ── CATEGORY SECTION ── */
+      .category-section { padding: 36px 16px 32px; }
+      .category-section .section-heading { font-size: 26px; }
+      .chat-widget { bottom: 12px; right: 12px; }
+      .category-section .section-sub { font-size: 12px; margin-bottom: 20px; }
+      .category-grid { grid-template-columns: repeat(6, 1fr) !important; gap: 6px; }
+      .cat-card-label { font-size: 10px; }
+
+      .cat-card-img {
+        position: relative !important;
+        overflow: hidden !important;
+      }
+
+      .cat-wishlist {
+        position: absolute !important;
+        top: 3px !important;
+        right: 3px !important;
+        left: auto !important;
+        bottom: auto !important;
+        width: 14px !important;
+        height: 14px !important;
+        transform: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        z-index: 10 !important;
+        display: flex !important;
+        align-items: flex-start !important;
+        justify-content: flex-end !important;
+      }
+
+      .cat-wishlist svg {
+        width: 9px !important;
+        height: 9px !important;
+        display: block !important;
+        flex-shrink: 0 !important;
+      }
+
+      /* ── BUDGET SECTION ── */
+      .budget-section { padding: 36px 16px 40px; }
+      .budget-title { font-size: 18px; }
+      .budget-sub { font-size: 12px; }
+      .budget-grid { grid-template-columns: repeat(4, 1fr) !important; gap: 8px; }
+      .budget-label { font-size: 12px; bottom: 8px; left: 8px; }
+
+      /* ── RINGS / BRIDAL SECTION ── */
+      .rings-section { padding: 36px 16px 32px; }
+      .rings-section h2 { font-size: 26px; }
+      .subtitle { font-size: 12px; }
+      .rings-grid { grid-template-columns: repeat(6, 1fr) !important; gap: 6px; }
+      .ring-card p { font-size: 10px; }
+
+      /* ── TREND SECTION ── */
+      .trend-section { padding: 40px 0 0; }
+      .trend-header { padding: 0 16px 24px; }
+      .trend-header h2 { font-size: 24px; }
+      .trend-header p { font-size: 12px; }
+      .trend-section > div[style] {
+        flex-direction: row !important;
+        height: 340px !important;
+        gap: 3px !important;
+      }
+      .trend-section > div[style] > div[style] {
+        width: 33.3333% !important;
+        height: 340px !important;
+        flex-shrink: 0 !important;
+      }
+      .trend-section h3 { font-size: 18px !important; margin-bottom: 8px !important; }
+      .trend-section p { font-size: 11px !important; margin-bottom: 12px !important; }
+      .trend-btn { padding: 8px 16px !important; font-size: 10px !important; }
+
+      /* ── WHY TIARRA ── */
+      .why-section { padding: 40px 16px 44px; }
+      .why-title { font-size: 22px; letter-spacing: .08em; margin-bottom: 32px; }
+      .why-grid { grid-template-columns: repeat(4, 1fr) !important; gap: 12px; }
+      .why-icon-wrap { width: 56px; height: 56px; }
+      .why-item p { font-size: 11px; }
+
+
+
+
+
+
+      /* ── VIDEO SECTION ── */
+      /* ── VIDEO SECTION ── */
+      .video-section { padding: 40px 16px 56px; }
+      .video-title { font-size: 12px; margin-bottom: 32px; }
+      .video-carousel { height: 580px; }
+      .video-card.center { width: 300px; height: 520px; }
+      .video-card.side-left,
+      .video-card.side-right { width: 220px; height: 420px; }
+      .video-card.side-left { transform: translateX(-200px) scale(0.85) rotate(-4deg); opacity: 0.5; }
+      .video-card.side-right { transform: translateX(200px) scale(0.85) rotate(4deg); opacity: 0.5; }
+      .video-carousel-wrapper { overflow: visible; }
+      .carousel-btn { right: -16px; font-size: 28px; }
+
+      /* ── SOCIAL SECTION ── */
+      .social-section { padding: 36px 16px 40px; }
+      .social-title { font-size: 18px; }
+      .social-sub { font-size: 12px; }
+      .social-btn { width: 52px; height: 52px; }
+
+      /* ── FOOTER ── */
+      footer { padding: 40px 16px 24px; }
+      .footer-inner { grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; padding-bottom: 28px; }
+      .footer-brand { grid-column: 1 / -1; }
+      .footer-col h5 { font-size: .6rem; }
+      .footer-col a { font-size: .75rem; }
+      .footer-bottom { flex-direction: column; gap: 8px; text-align: center; font-size: .62rem; padding: 0 12px; }
+      .footer-logo { font-size: 1.4rem; }
+      .footer-brand p { font-size: .75rem; }
+
+      /* ── CHAT WIDGET ── */
+      /* ── CHAT WIDGET ── */
+      .chat-widget { bottom: 16px; right: 16px; padding: 8px 12px 8px 10px; }
+      #searchInput { font-size: 16px !important; }
+    }
+    </style>
+    </head>
+    <body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div class="announcement">
+    Tiarra offers exquisite bridal jewellery and luxurious silk sarees in Nagercoil. Discover elegant wedding collections, traditional designs, and timeless styles perfect for every special occasion.
+  </div>
+
+  <!-- TOP NAV -->
+   <div class="sticky-header">
+
+  <header class="topnav" style="flex-direction: column; height: auto; padding: 0;">
+
+  <!-- Row 1: Hamburger (left) + Logo (center) -->
+  <div style="display:flex; align-items:center; justify-content:space-between; width:100%; padding: 0 8px 0 4px; height: 72px;">
+    <div class="topnav-left" style="padding-left: 4px;">
+      <button class="hamburger" onclick="document.querySelector('.mobile-nav').classList.toggle('open')">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <a href="#" class="logo-wrap" style="position:absolute; left:50%; transform:translateX(-50%);">
+      <img src="{% static 'images/TIARRA_Logo_English_2.png' %}" alt="Tiarra" class="logo-img"/>
+      <span class="logo-divider">|</span>
+      <span class="logo-tagline">Bridal Jewellery & Silks Sarees</span>
+    </a>
+
+    <!-- Empty right spacer to balance layout -->
+    <div style="min-width: 260px;"></div>
+  </div>
+
+  <!-- Row 2: Icons aligned to the right -->
+  <div style="display:flex; justify-content:flex-end; align-items:center; width:100%; padding: 6px 8px 10px; border-top: 1px solid #e8e4de; gap: 18px;">
+    <div class="topnav-right">
+
+
+
+
+
+
+
+
+      <button class="icon-btn" title="Search" onclick="document.getElementById('searchOverlay').style.display='flex'; document.getElementById('searchInput').focus();">
+        <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </button>
+
+      <!-- SEARCH OVERLAY -->
+      <div id="searchOverlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:1000; align-items:flex-start; justify-content:center; padding-top:80px;">
+        <div style="background:#fff; width:100%; max-width:640px; border-radius:12px; padding:24px; position:relative; margin:0 16px;">
+          <div style="display:flex; align-items:center; gap:12px; border:1.5px solid #e8e4de; border-radius:8px; padding:12px 16px;">
+            <svg width="18" height="18" fill="none" stroke="#888" stroke-width="1.7" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            
+            
+            <input id="searchInput" type="text" placeholder="Search for jewellery, sarees..."
+              style="flex:1; border:none; outline:none; font-family:'DM Sans',sans-serif; font-size:15px; font-weight:300; color:#1c1c1c;"
+              oninput="handleSearch(this.value)"
+              onkeydown="if(event.key==='Escape') closeSearch(); if(event.key==='Enter' && this.value.trim()) window.location.href='/search-results/?q=' + encodeURIComponent(this.value.trim());"/>
+            <button onclick="closeSearch()" style="background:none; border:none; cursor:pointer; color:#999; font-size:20px; line-height:1;">✕</button>
+
+
+
+          </div> 
+
+          <!-- Quick links -->
+          <div id="searchDefault" style="margin-top:20px;">
+            <p style="font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#888; font-weight:400; margin-bottom:12px;">Popular Searches</p>
+            <div style="display:flex; flex-wrap:wrap; gap:8px;">
+              <a href="/search-results/?q=Engagement+Rings" style="padding:8px 16px; border:1px solid #e8e4de; border-radius:50px; font-size:13px; font-weight:300; color:#333; text-decoration:none; transition:all .2s;" onmouseover="this.style.borderColor='#1a4a42'; this.style.color='#1a4a42'" onmouseout="this.style.borderColor='#e8e4de'; this.style.color='#333'">Engagement Rings</a>
+              <a href="/search-results/?q=Kanjivaram+Sarees" style="padding:8px 16px; border:1px solid #e8e4de; border-radius:50px; font-size:13px; font-weight:300; color:#333; text-decoration:none; transition:all .2s;" onmouseover="this.style.borderColor='#1a4a42'; this.style.color='#1a4a42'" onmouseout="this.style.borderColor='#e8e4de'; this.style.color='#333'">Kanjivaram Sarees</a>
+              <a href="/search-results/?q=Gold+Necklace" style="padding:8px 16px; border:1px solid #e8e4de; border-radius:50px; font-size:13px; font-weight:300; color:#333; text-decoration:none; transition:all .2s;" onmouseover="this.style.borderColor='#1a4a42'; this.style.color='#1a4a42'" onmouseout="this.style.borderColor='#e8e4de'; this.style.color='#333'">Gold Necklace</a>
+              <a href="/search-results/?q=Diamond+Earrings" style="padding:8px 16px; border:1px solid #e8e4de; border-radius:50px; font-size:13px; font-weight:300; color:#333; text-decoration:none; transition:all .2s;" onmouseover="this.style.borderColor='#1a4a42'; this.style.color='#1a4a42'" onmouseout="this.style.borderColor='#e8e4de'; this.style.color='#333'">Diamond Earrings</a>
+              <a href="/search-results/?q=Bridal+Sets" style="padding:8px 16px; border:1px solid #e8e4de; border-radius:50px; font-size:13px; font-weight:300; color:#333; text-decoration:none; transition:all .2s;" onmouseover="this.style.borderColor='#1a4a42'; this.style.color='#1a4a42'" onmouseout="this.style.borderColor='#e8e4de'; this.style.color='#333'">Bridal Sets</a>
+              <a href="/search-results/?q=Silver+Bangles" style="padding:8px 16px; border:1px solid #e8e4de; border-radius:50px; font-size:13px; font-weight:300; color:#333; text-decoration:none; transition:all .2s;" onmouseover="this.style.borderColor='#1a4a42'; this.style.color='#1a4a42'" onmouseout="this.style.borderColor='#e8e4de'; this.style.color='#333'">Silver Bangles</a>
+            </div>
+          </div>
+
+          <!-- Search results -->
+          <div id="searchResults" style="display:none; margin-top:16px; max-height:320px; overflow-y:auto;"></div>
+        </div>
+      </div>
+      
+      
+      
+      
+      {% if request.session.logged_in %}
+      <a href="/dashboard/" class="icon-btn" title="Account">
+        <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+        </svg>
+      </a>
+      {% else %}
+      <a href="/login/" class="icon-btn" title="Account">
+        <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+        </svg>
+      </a>
+      {% endif %}
+      
+      
+      
+      <a href="/wishlist/" class="icon-btn" title="Wishlist">
+        <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+        <span class="badge wishlist-badge" id="wishlistBadge" style="display:none;">0</span>
+      </a>
+
+
+
+
+
+      <a href="/cart/" class="icon-btn" title="Cart">
+        <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        <span class="badge cart-badge" style="display:none;">0</span>
+      </a>
+      
+      
+      
+    <!-- logout view -->
+      <form method="post" action="/logout/" style="margin:0; padding:0; display:flex;">
+        {% csrf_token %}
+        <button type="submit" class="icon-btn" title="Logout">
+          <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+        </button>
+      </form>
+
+
+
+  <!-- <button class="currency-btn">🇺🇸 USD</button> -->
+    </div>
+  </div>
+  </header>
+
+
+ <!-- MOBILE NAV -->
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav">
+    <div class="mobile-nav-item">
+      <div class="mobile-nav-header" onclick="toggleMobileSubmenu(this)">
+        <span>Rings</span>
+        <svg class="mobile-nav-arrow" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="mobile-submenu">
+        <div class="mobile-submenu-cols">
+          <div>
+            <p class="mobile-submenu-heading">All Rings</p>
+            <a href="/products/?category=ring">All Rings</a>
+            <a href="/products/?category=ring&filter=latest">Latest Designs</a>
+            <a href="/products/?category=ring&filter=bestseller">Bestsellers</a>
+            <a href="/products/?category=ring&filter=special">Special Deals</a>
+          </div>
+          <div>
+            <p class="mobile-submenu-heading">By Style</p>
+            <a href="/products/?category=ring&style=engagement">Engagement</a>
+            <a href="/products/?category=ring&style=solitaire">Solitaire</a>
+            <a href="/products/?category=ring&style=couple">Couple Rings</a>
+            <a href="/products/?category=ring&style=bands">Bands</a>
+            <a href="/products/?category=ring&style=dailywear">Dailywear</a>
+            <a href="/products/?category=ring&style=kada+ring">Kada & Ring</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mobile-nav-item">
+  <div class="mobile-nav-header" onclick="toggleMobileSubmenu(this)">
+    <span>Necklace</span>
+    <svg class="mobile-nav-arrow" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+  <div class="mobile-submenu">
+    <div class="mobile-submenu-cols">
+      <div>
+        <p class="mobile-submenu-heading">Featured</p>
+        <a href="/products/?category=necklace">All Necklaces</a>
+        <a href="/products/?category=necklace&filter=latest">Latest Designs</a>
+        <a href="/products/?category=necklace&filter=bestseller">Bestsellers</a>
+        <a href="/products/?category=necklace&filter=special">Special Deals</a>
+      </div>
+      <div>
+        <p class="mobile-submenu-heading">By Style</p>
+        <a href="/products/?category=necklace&style=chains">Chains</a>
+        <a href="/products/?category=necklace&style=pendants">Pendants</a>
+        <a href="/products/?category=necklace&style=pendant+set">Pendant Set</a>
+        <a href="/products/?category=necklace&style=chokers">Chokers</a>
+        <a href="/products/?category=necklace&style=mangalsutra">Mangalsutra</a>
+        <a href="/products/?category=necklace&style=layered">Layered Sets</a>
+        <a href="/products/?category=necklace&style=backchain">Backchain</a>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="mobile-nav-item">
+  <div class="mobile-nav-header" onclick="toggleMobileSubmenu(this)">
+    <span>Earrings</span>
+    <svg class="mobile-nav-arrow" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+  <div class="mobile-submenu">
+    <div class="mobile-submenu-cols">
+      <div>
+        <p class="mobile-submenu-heading">Featured</p>
+        <a href="/products/?category=earring">All Earrings</a>
+        <a href="/products/?category=earring&filter=latest">Latest Designs</a>
+        <a href="/products/?category=earring&filter=bestseller">Bestsellers</a>
+        <a href="/products/?category=earring&filter=special">Special Deals</a>
+      </div>
+      <div>
+        <p class="mobile-submenu-heading">By Style</p>
+        <a href="/products/?category=earring&style=studs">Studs</a>
+        <a href="/products/?category=earring&style=hoops">Hoops</a>
+        <a href="/products/?category=earring&style=drops">Drops</a>
+        <a href="/products/?category=earring&style=jhumkas">Jhumkas</a>
+        <a href="/products/?category=earring&style=earcuffs">Earcuffs</a>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="mobile-nav-item">
+  <div class="mobile-nav-header" onclick="toggleMobileSubmenu(this)">
+    <span>Bracelets</span>
+    <svg class="mobile-nav-arrow" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+  <div class="mobile-submenu">
+    <div class="mobile-submenu-cols">
+      <div>
+        <p class="mobile-submenu-heading">Featured</p>
+        <a href="/products/?category=bracelet">All Bracelets</a>
+        <a href="/products/?category=bracelet&filter=latest">Latest Designs</a>
+        <a href="/products/?category=bracelet&filter=bestseller">Bestsellers</a>
+        <a href="/products/?category=bracelet&filter=special">Special Deals</a>
+      </div>
+      <div>
+        <p class="mobile-submenu-heading">By Style</p>
+        <a href="/products/?category=bracelet&style=bangles">Bangles</a>
+        <a href="/products/?category=bracelet&style=baby+bangle">Baby Bangles</a>
+        <a href="/products/?category=bracelet&style=baby+kada">Baby Kada</a>
+        <a href="/products/?category=bracelet&style=baby+pin">Baby Pin</a>
+        <a href="/products/?category=bracelet&style=kadas">Kadas</a>
+        <a href="/products/?category=bracelet&style=chain">Chain Bracelets</a>
+        <a href="/products/?category=bracelet&style=charm">Charm Bracelets</a>
+        <a href="/products/?category=bracelet&style=tennis">Tennis Bracelets</a>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="mobile-nav-item">
+  <div class="mobile-nav-header" onclick="toggleMobileSubmenu(this)">
+    <span>Silk Sarees</span>
+    <svg class="mobile-nav-arrow" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+  <div class="mobile-submenu">
+    <div class="mobile-submenu-cols">
+      <div>
+        <p class="mobile-submenu-heading">Featured</p>
+        <a href="/products/?category=silk+saree">All Silk Sarees</a>
+        <a href="/products/?category=silk+saree&filter=latest">Latest Designs</a>
+        <a href="/products/?category=silk+saree&filter=bestseller">Bestsellers</a>
+        <a href="/products/?category=silk+saree&filter=special">Special Deals</a>
+      </div>
+      <div>
+        <p class="mobile-submenu-heading">By Type</p>
+        <a href="/products/?category=silk+saree&style=kanjivaram">Kanjivaram</a>
+        <a href="/products/?category=silk+saree&style=banarasi">Banarasi</a>
+        <a href="/products/?category=silk+saree&style=mysore">Mysore Silk</a>
+        <a href="/products/?category=silk+saree&style=patola">Patola</a>
+        <a href="/products/?category=silk+saree&style=chanderi">Chanderi</a>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="mobile-nav-item">
+  <div class="mobile-nav-header" onclick="toggleMobileSubmenu(this)">
+    <span>Bridal Sarees</span>
+    <svg class="mobile-nav-arrow" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+  <div class="mobile-submenu">
+    <div class="mobile-submenu-cols">
+      <div>
+        <p class="mobile-submenu-heading">Featured</p>
+        <a href="/products/?category=bridal+saree">All Bridal Sarees</a>
+        <a href="/products/?category=bridal+saree&filter=latest">Latest Designs</a>
+        <a href="/products/?category=bridal+saree&filter=bestseller">Bestsellers</a>
+        <a href="/products/?category=bridal+saree&filter=special">Special Deals</a>
+      </div>
+      <div>
+        <p class="mobile-submenu-heading">By Type</p>
+        <a href="/products/?category=bridal+saree&style=kanjivaram">Kanjivaram Bridal</a>
+        <a href="/products/?category=bridal+saree&style=banarasi">Banarasi Bridal</a>
+        <a href="/products/?category=bridal+saree&style=lehenga">Lehenga Sarees</a>
+        <a href="/products/?category=bridal+saree&style=half">Half & Half</a>
+        <a href="/products/?category=bridal+saree&style=designer">Designer Bridal</a>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="mobile-nav-item">
+  <div class="mobile-nav-header" onclick="toggleMobileSubmenu(this)">
+    <span>More</span>
+    <svg class="mobile-nav-arrow" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+  <div class="mobile-submenu">
+    <div class="mobile-submenu-cols">
+      <div>
+        <p class="mobile-submenu-heading">Collections</p>
+        <a href="/products/">All Collections</a>
+        <a href="/products/?filter=latest">New Arrivals</a>
+        <a href="/products/?filter=bestseller">Trending Now</a>
+        <a href="/products/?filter=special">Gift Sets</a>
+      </div>
+      <div>
+        <p class="mobile-submenu-heading">Other</p>
+        <a href="/products/?category=anklet">Anklets</a>
+        <a href="/products/?category=maang+tikka">Maang Tikka</a>
+        <a href="/products/?category=nose+pin">Nose Pins</a>
+        <a href="/products/?category=waist+chain">Waist Chains</a>
+        <a href="/products/?category=hair+accessory">Hair Accessories</a>
+        <a href="/products/?category=articles">Articles</a>
+        <a href="/products/?category=coin+bar">Coin / BAR</a>
+        <a href="/products/?category=crown">Crown</a>
+        <a href="/products/?category=charms">Charms</a>
+        <a href="/products/?category=idol">Idol</a>
+        <a href="/products/?category=keychain">Keychain</a>
+        <a href="/products/?category=neckset">Neckset</a>
+        <a href="/products/?category=saree+clip">Saree Clip</a>
+        <a href="/products/?category=toering">Toering</a>
+      </div>
+    </div>
+  </div>
+</div>
+    <a href="/about/">About</a>
+  </div>
+
+  
+
+<!-- MAIN NAV -->
+<nav class="mainnav">
+
+  <div class="nav-item">
+    <a href="#">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+        <ellipse cx="12" cy="13" rx="7" ry="5"/>
+        <path d="M9 13c0-1.5.8-4 3-6.5C14.2 9 15 11.5 15 13"/>
+        <path d="M5 13c0 3.3 3.1 6 7 6s7-2.7 7-6"/>
+      </svg>
+      Rings
+    </a>
+    <div class="dropdown">
+      <div class="drop-col">
+        <h4>All Rings</h4>
+        <ul>
+          
+          
+          <li><a href="/products/?category=ring" class="bold-link">All Rings</a></li>
+          <li><a href="/products/?category=ring&filter=latest" >Latest Designs</a></li>
+          <li><a href="/products/?category=ring&filter=bestseller">Bestsellers</a></li>
+          <li><a href="/products/?category=ring&filter=special">Special Deals</a></li>
+
+
+        </ul>
+      </div>
+      <div class="drop-col">
+        <h4>By Style</h4>
+        <ul>
+          
+          
+          
+          <li><a href="/products/?category=ring&style=engagement">Engagement</a></li>
+          <li><a href="/products/?category=ring&style=solitaire">Solitaire</a></li>
+          <li><a href="/products/?category=ring&style=couple">Couple Rings</a></li>
+          <li><a href="/products/?category=ring&style=bands">Bands</a></li>
+          <li><a href="/products/?category=ring&style=dailywear">Dailywear</a></li>
+          <li><a href="/products/?category=ring&style=kada+ring">Kada & Ring</a></li>
+
+
+
+        </ul>
+      </div>
+    </div>
+  </div>
+
+<div class="nav-item">
+    <a href="#">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+        <path d="M5 4 Q5 14 12 16 Q19 14 19 4"/>
+        <circle cx="12" cy="19" r="2"/>
+        <line x1="12" y1="16" x2="12" y2="17"/>
+      </svg>
+      Necklace
+    </a>
+    <div class="dropdown">
+      <div class="drop-col">
+        <h4>Featured</h4>
+        <ul>
+
+
+          <li><a href="/products/?category=necklace" class="bold-link">All Necklaces</a></li>
+          <li><a href="/products/?category=necklace&filter=latest">Latest Designs</a></li>
+          <li><a href="/products/?category=necklace&filter=bestseller">Bestsellers</a></li>
+          <li><a href="/products/?category=necklace&filter=special">Special Deals</a></li>
+
+
+        </ul>
+      </div>
+      <div class="drop-col">
+        <h4>By Style</h4>
+        <ul>
+          <li><a href="/products/?category=necklace&style=chains">Chains</a></li>
+          <li><a href="/products/?category=necklace&style=pendants">Pendants</a></li>
+          <li><a href="/products/?category=necklace&style=pendant+set">Pendant Set</a></li>
+          <li><a href="/products/?category=necklace&style=chokers">Chokers</a></li>
+          <li><a href="/products/?category=necklace&style=mangalsutra">Mangalsutra</a></li>
+          <li><a href="/products/?category=necklace&style=layered">Layered Sets</a></li>
+          <li><a href="/products/?category=necklace&style=backchain">Backchain</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+<div class="nav-item">
+    <a href="#">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+        <path d="M8 3 Q6 4 7 6"/>
+        <ellipse cx="7.5" cy="9" rx="2" ry="3"/>
+        <path d="M16 3 Q18 4 17 6"/>
+        <ellipse cx="16.5" cy="9" rx="2" ry="3"/>
+      </svg>
+      Earrings
+    </a>
+    <div class="dropdown">
+      <div class="drop-col">
+        <h4>Featured</h4>
+        <ul>
+          <li><a href="/products/?category=earring" class="bold-link">All Earrings</a></li>
+          <li><a href="/products/?category=earring&filter=latest">Latest Designs</a></li>
+          <li><a href="/products/?category=earring&filter=bestseller">Bestsellers</a></li>
+          <li><a href="/products/?category=earring&filter=special">Special Deals</a></li>
+        </ul>
+      </div>
+      <div class="drop-col">
+        <h4>By Style</h4>
+        <ul>
+          <li><a href="/products/?category=earring&style=studs">Studs</a></li>
+          <li><a href="/products/?category=earring&style=hoops">Hoops</a></li>
+          <li><a href="/products/?category=earring&style=drops">Drops</a></li>
+          <li><a href="/products/?category=earring&style=jhumkas">Jhumkas</a></li>
+          <li><a href="/products/?category=earring&style=earcuffs">Earcuffs</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+<div class="nav-item">
+    <a href="#">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+        <path d="M6 12 Q6 6 12 6 Q18 6 18 12 Q18 18 12 18 Q6 18 6 12"/>
+        <circle cx="6" cy="12" r="1.5" fill="currentColor"/>
+      </svg>
+      Bracelets
+    </a>
+    <div class="dropdown">
+      <div class="drop-col">
+        <h4>Featured</h4>
+        <ul>
+          <li><a href="/products/?category=bracelet" class="bold-link">All Bracelets</a></li>
+          <li><a href="/products/?category=bracelet&filter=latest">Latest Designs</a></li>
+          <li><a href="/products/?category=bracelet&filter=bestseller">Bestsellers</a></li>
+          <li><a href="/products/?category=bracelet&filter=special">Special Deals</a></li>
+        </ul>
+      </div>
+      <div class="drop-col">
+        <h4>By Style</h4>
+        <ul>
+          <li><a href="/products/?category=bracelet&style=bangles">Bangles</a></li>
+          <li><a href="/products/?category=bracelet&style=baby+bangle">Baby Bangles</a></li>
+          <li><a href="/products/?category=bracelet&style=baby+kada">Baby Kada</a></li>
+          <li><a href="/products/?category=bracelet&style=baby+pin">Baby Pin</a></li>
+          <li><a href="/products/?category=bracelet&style=kadas">Kadas</a></li>
+          <li><a href="/products/?category=bracelet&style=chain">Chain Bracelets</a></li>
+          <li><a href="/products/?category=bracelet&style=charm">Charm Bracelets</a></li>
+          <li><a href="/products/?category=bracelet&style=tennis">Tennis Bracelets</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+<div class="nav-item">
+    <a href="#">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+        <path d="M5 3 Q7 6 6 10 Q5 14 7 17 Q9 20 12 21"/>
+        <path d="M5 3 Q10 5 14 4 Q18 3 19 6 Q20 10 17 13 Q14 16 12 21"/>
+        <path d="M8 8 Q11 9 14 8"/>
+      </svg>
+      Silk Sarees
+    </a>
+    <div class="dropdown">
+      <div class="drop-col">
+        <h4>Featured</h4>
+        <ul>
+          <li><a href="/products/?category=silk+saree" class="bold-link">All Silk Sarees</a></li>
+          <li><a href="/products/?category=silk+saree&filter=latest">Latest Designs</a></li>
+          <li><a href="/products/?category=silk+saree&filter=bestseller">Bestsellers</a></li>
+          <li><a href="/products/?category=silk+saree&filter=special">Special Deals</a></li>
+        </ul>
+      </div>
+      <div class="drop-col">
+        <h4>By Type</h4>
+        <ul>
+          <li><a href="/products/?category=silk+saree&style=kanjivaram">Kanjivaram</a></li>
+          <li><a href="/products/?category=silk+saree&style=banarasi">Banarasi</a></li>
+          <li><a href="/products/?category=silk+saree&style=mysore">Mysore Silk</a></li>
+          <li><a href="/products/?category=silk+saree&style=patola">Patola</a></li>
+          <li><a href="/products/?category=silk+saree&style=chanderi">Chanderi</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+<div class="nav-item">
+    <a href="#">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+        <path d="M4 3 Q6 7 5 11 Q4 15 6 18 Q8 21 11 22"/>
+        <path d="M4 3 Q9 5 13 4 Q17 3 18 6 Q19 10 16 13 Q13 16 11 22"/>
+        <path d="M17 2 l0.5 1.5 1.5 0.5-1.5 0.5-0.5 1.5-0.5-1.5-1.5-0.5 1.5-0.5z"/>
+      </svg>
+      Bridal Sarees
+    </a>
+    <div class="dropdown">
+      <div class="drop-col">
+        <h4>Featured</h4>
+        <ul>
+          <li><a href="/products/?category=bridal+saree" class="bold-link">All Bridal Sarees</a></li>
+          <li><a href="/products/?category=bridal+saree&filter=latest">Latest Designs</a></li>
+          <li><a href="/products/?category=bridal+saree&filter=bestseller">Bestsellers</a></li>
+          <li><a href="/products/?category=bridal+saree&filter=special">Special Deals</a></li>
+        </ul>
+      </div>
+      <div class="drop-col">
+        <h4>By Type</h4>
+        <ul>
+          <li><a href="/products/?category=bridal+saree&style=kanjivaram">Kanjivaram Bridal</a></li>
+          <li><a href="/products/?category=bridal+saree&style=banarasi">Banarasi Bridal</a></li>
+          <li><a href="/products/?category=bridal+saree&style=lehenga">Lehenga Sarees</a></li>
+          <li><a href="/products/?category=bridal+saree&style=half">Half & Half</a></li>
+          <li><a href="/products/?category=bridal+saree&style=designer">Designer Bridal</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+<div class="nav-item">
+    <a href="#">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+      </svg>
+      More
+    </a>
+    <div class="dropdown">
+      <div class="drop-col">
+        <h4>Collections</h4>
+        <ul>
+          <li><a href="/products/" class="bold-link">All Collections</a></li>
+          <li><a href="/products/?filter=latest">New Arrivals</a></li>
+          <li><a href="/products/?filter=bestseller">Trending Now</a></li>
+          <li><a href="/products/?filter=special">Gift Sets</a></li>
+        </ul>
+      </div>
+      <div class="drop-col">
+        <h4>Other</h4>
+        <ul>
+          <li><a href="/products/?category=anklet">Anklets</a></li>
+          <li><a href="/products/?category=maang+tikka">Maang Tikka</a></li>
+          <li><a href="/products/?category=nose+pin">Nose Pins</a></li>
+          <li><a href="/products/?category=waist+chain">Waist Chains</a></li>
+          <li><a href="/products/?category=hair+accessory">Hair Accessories</a></li>
+          <li><a href="/products/?category=articles">Articles</a></li>
+          <li><a href="/products/?category=coin+bar">Coin / BAR</a></li>
+          <li><a href="/products/?category=crown">Crown</a></li>
+          <li><a href="/products/?category=charms">Charms</a></li>
+          <li><a href="/products/?category=idol">Idol</a></li>
+          <li><a href="/products/?category=keychain">Keychain</a></li>
+          <li><a href="/products/?category=neckset">Neckset</a></li>
+          <li><a href="/products/?category=saree+clip">Saree Clip</a></li>
+          <li><a href="/products/?category=toering">Toering</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-item">
+    <a href="/about/">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+      About
+    </a>
+  </div>
+
+</nav>
+</div>
+
+
+
+<!-- SHOP BY CATEGORY -->
+  <section class="category-section">
+    <h2 class="section-heading">Shop Jewelry by Category</h2>
+    <p class="section-sub">Thoughtfully designed collections for the big day and every day.</p>
+<div class="category-grid">
+  <a href="{% if cat_stone %}/product/{{ cat_stone.id }}/{% else %}#{% endif %}" class="cat-card">
+    <div class="cat-card-img">
+      {% if cat_stone %}<img src="{{ cat_stone.image.url }}" alt="{{ cat_stone.name }}"/>{% else %}<img src="{% static 'images/engagement.png' %}" alt="Stone Earrings"/>{% endif %}
+      <button class="cat-wishlist" onclick="toggleWishlist(event, this, {{ cat_stone.id }})">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+    </div>
+    <div class="cat-card-label">{% if cat_stone %}{{ cat_stone.name }}{% else %}Stone Earrings{% endif %}</div>
+  </a>
+  <a href="{% if cat_wedding %}/product/{{ cat_wedding.id }}/{% else %}#{% endif %}" class="cat-card">
+    <div class="cat-card-img">
+      {% if cat_wedding %}<img src="{{ cat_wedding.image.url }}" alt="{{ cat_wedding.name }}"/>{% else %}<img src="{% static 'images/womens_wedding.png' %}" alt="Wedding Rings"/>{% endif %}
+      <button class="cat-wishlist" onclick="toggleWishlist(event, this, {{ cat_wedding.id }})">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+    </div>
+    <div class="cat-card-label">{% if cat_wedding %}{{ cat_wedding.name }}{% else %}Wedding Rings{% endif %}</div>
+  </a>
+  <a href="{% if cat_stud %}/product/{{ cat_stud.id }}/{% else %}#{% endif %}" class="cat-card">
+    <div class="cat-card-img">
+      {% if cat_stud %}<img src="{{ cat_stud.image.url }}" alt="{{ cat_stud.name }}"/>{% else %}<img src="{% static 'images/mens_wedding.png' %}" alt="Stud Earrings"/>{% endif %}
+      <button class="cat-wishlist" onclick="toggleWishlist(event, this, {{ cat_stud.id }})">
+
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+    </div>
+    <div class="cat-card-label">{% if cat_stud %}{{ cat_stud.name }}{% else %}Stud Earrings{% endif %}</div>
+  </a>
+  <a href="{% if cat_gold %}/product/{{ cat_gold.id }}/{% else %}#{% endif %}" class="cat-card">
+    <div class="cat-card-img">
+      {% if cat_gold %}<img src="{{ cat_gold.image.url }}" alt="{{ cat_gold.name }}"/>{% else %}<img src="{% static 'images/gemstone.png' %}" alt="Gold Jewellery"/>{% endif %}
+      <button class="cat-wishlist" onclick="toggleWishlist(event, this, {{ cat_gold.id }})">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+    </div>
+    <div class="cat-card-label">{% if cat_gold %}{{ cat_gold.name }}{% else %}Gold Jewellery{% endif %}</div>
+  </a>
+  <a href="{% if cat_fine %}/product/{{ cat_fine.id }}/{% else %}#{% endif %}" class="cat-card">
+    <div class="cat-card-img">
+      {% if cat_fine %}<img src="{{ cat_fine.image.url }}" alt="{{ cat_fine.name }}"/>{% else %}<img src="{% static 'images/fine_jewelry.png' %}" alt="Fine Jewelry"/>{% endif %}
+      <button class="cat-wishlist" onclick="toggleWishlist(event, this, {{ cat_fine.id }})">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+    </div>
+    <div class="cat-card-label">{% if cat_fine %}{{ cat_fine.name }}{% else %}Fine Jewelry{% endif %}</div>
+  </a>
+  <a href="{% if cat_diamond %}/product/{{ cat_diamond.id }}/{% else %}#{% endif %}" class="cat-card">
+    <div class="cat-card-img">
+      {% if cat_diamond %}<img src="{{ cat_diamond.image.url }}" alt="{{ cat_diamond.name }}"/>{% else %}<img src="{% static 'images/bestsellers.png' %}" alt="Diamond Ring"/>{% endif %}
+      <button class="cat-wishlist" onclick="toggleWishlist(event, this, {{ cat_diamond.id }})">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+    </div>
+    <div class="cat-card-label">{% if cat_diamond %}{{ cat_diamond.name }}{% else %}Diamond Ring{% endif %}</div>
+  </a>
+</div>
+    
+  </section>
+  <!-- HERO SPLIT -->
+  <section class="hero">
+    <div class="hero-left">
+      <img class="ring-img" src="{% static 'images/ring.png' %}" alt="Diamond Engagement Ring"/>
+      <div class="hero-content">
+        <h2>Make It Official</h2>
+        <a href="/products/?category=ring" class="hero-btn">Shop Engagement Rings</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <img class="bg-img" src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=1000&q=85&auto=format&fit=crop" alt="Jewelry on hands"/>
+      <div class="hero-content">
+        <h2>Bestseller Status</h2>
+        <a href="/products/?category=necklace" class="hero-btn">Shop Top Jewelry</a>
+      </div>
+    </div>
+  </section>
+
+
+
+
+ 
+
+
+
+ 
+  <!-- CHAT WIDGET -->
+  <div class="chat-widget" id="chatWidget" onclick="window.location.href='/contact/'">
+    <div class="chat-text" id="chatText" style="max-width:0; overflow:hidden; opacity:0; white-space:nowrap; transition: max-width 0.4s ease, opacity 0.4s ease; margin:0;">
+      Have a question?
+      <small>We're happy to help</small>
+    </div>
+    <div class="chat-icon-wrap">
+      <svg width="16" height="16" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const text = document.getElementById('chatText');
+      function showText() {
+        text.style.maxWidth = '160px';
+        text.style.opacity = '1';
+        text.style.margin = '0 8px 0 0';
+        setTimeout(hideText, 4000);
+      }
+      function hideText() {
+        text.style.maxWidth = '0';
+        text.style.opacity = '0';
+        text.style.margin = '0';
+      }
+      setTimeout(showText, 1000);
+      setInterval(function() { showText(); }, 10000);
+    })();
+  </script>
+
+
+
+
+<!-- SHOP ON A BUDGET -->
+<section class="budget-section">
+  <h2 class="budget-title">Shop on a Budget</h2>
+  <p class="budget-sub">Affordable isn't just a word – it's our motto</p>
+
+  <div class="budget-filters">
+    <a href="/shop/budget/?max=2000" class="budget-filter-btn active" onclick="setActive(event,this)">Under 2k</a>
+    <a href="/shop/budget/?max=5000" class="budget-filter-btn" onclick="setActive(event,this)">Under 5k</a>
+    <a href="/shop/budget/?max=8000" class="budget-filter-btn" onclick="setActive(event,this)">Under 8k</a>
+    <a href="/shop/budget/?max=10000" class="budget-filter-btn" onclick="setActive(event,this)">Under 10k</a>
+  </div>
+
+  <div class="budget-grid">
+    <a href="/products/?max_price=2000" class="budget-card">
+      <img src="{% static 'images/budget_10k.jpg' %}" alt="Under 2k"/>
+      <span class="budget-label">Under 2k</span>
+    </a>
+    <a href="/products/?max_price=5000" class="budget-card">
+      <img src="{% static 'images/budget_20k.jpg' %}" alt="Under 5k"/>
+      <span class="budget-label">Under 5k</span>
+    </a>
+    <a href="/products/?max_price=8000" class="budget-card">
+      <img src="{% static 'images/budget_30k.jpg' %}" alt="Under 8k"/>
+      <span class="budget-label">Under 8k</span>
+    </a>
+    <a href="/products/?max_price=10000" class="budget-card">
+      <img src="{% static 'images/budget_50k.jpg' %}" alt="Under 10k"/>
+      <span class="budget-label">Under 10k</span>
+    </a>
+  </div>
+</section>
+
+  <!-- POPULAR ENGAGEMENT RINGS -->
+  <section class="rings-section">
+    <h2>Bridal Collections</h2>
+    <p class="subtitle">Timeless elegance crafted for your special day.</p>
+    <div class="rings-grid">
+      <div class="ring-card">
+        <div class="ring-card-img"><img src="{% static 'images/saree1.jpg' %}" alt="Nature Inspired Rings"/></div>
+        <p>Bridal Gold Sets</p>
+      </div>
+      <div class="ring-card">
+        <div class="ring-card-img"><img src="{% static 'images/saree2.jpg' %}" alt="Solitaire Rings"/></div>
+        <p>Temple Jewellery</p>
+      </div>
+      <div class="ring-card">
+        <div class="ring-card-img"><img src="{% static 'images/saree3.jpg' %}" alt="Three Stone Rings"/></div>
+        <p>Kanjivaram Bridal</p>
+      </div>
+      <div class="ring-card">
+        <div class="ring-card-img"><img src="{% static 'images/saree4.jpg' %}" alt="Bridal Sets"/></div>
+        <p>Bridal Necklace</p>
+      </div>
+      <div class="ring-card">
+        <div class="ring-card-img"><img src="{% static 'images/saree5.jpg' %}" alt="Bezel Rings"/></div>
+        <p>Silk Saree Bridal</p>
+      </div>
+      <div class="ring-card">
+        <div class="ring-card-img"><img src="{% static 'images/saree6.jpg' %}" alt="Ready to Ship Rings"/></div>
+        <p>Wedding Collection</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2026 TREND REPORT -->
+  <section class="trend-section">
+    <div class="trend-header">
+      <h2>2026 Trend Report</h2>
+      <p>This year's must-have trends combine classic traditions with artistic expressions to feel both timeless and personal.</p>
+    </div> 
+
+    <div style="width:100%; display:flex; flex-direction:row; height:620px; overflow:hidden; gap: 4px;">
+
+      <div style="width:33.3333%; height:620px; position:relative; overflow:hidden; flex-shrink:0;">
+        <img src="{% static 'images/trend1.jpg' %}" alt="Fine Jewelry"
+          style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center top;filter:brightness(0.68);display:block;"/>
+        <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,transparent 100%);padding:0 36px 48px;text-align:center;z-index:2;">
+          <h3 style="font-family:'Playfair Display',serif;font-size:34px;font-weight:400;color:#fff;letter-spacing:.02em;margin-bottom:14px;">Fine Jewelry</h3>
+          <p style="font-size:13px;font-weight:300;color:rgba(255,255,255,0.90);line-height:1.75;margin-bottom:24px;max-width:300px;margin-left:auto;margin-right:auto;">Designed with passion and perfected with precision.</p>
+          <a href="/products/?filter=latest" class="trend-btn">Shop Now</a>
+        </div>
+      </div>
+
+      <div style="width:33.3333%; height:620px; position:relative; overflow:hidden; flex-shrink:0;">
+        <img src="{% static 'images/trend2.jpg' %}" alt="Engagement Rings"
+          style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center;filter:brightness(1);display:block;"/>
+
+
+
+          
+        <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,rgba(205,195,180,0.5) 55%,transparent 100%);padding:0 36px 48px;text-align:center;z-index:2;">
+          <h3 style="font-family:'Playfair Display',serif;font-size:34px;font-weight:400;color:#fff;letter-spacing:.02em;margin-bottom:14px;">Engagement Rings</h3>
+          <p style="font-size:13px;font-weight:300;color: rgba(255,255,255,0.90);line-height:1.75;margin-bottom:24px;max-width:300px;margin-left:auto;margin-right:auto;">A classic charm that completes every traditional look.</p>
+          <a href="/products/?category=ring&style=engagement" class="trend-btn">Shop Now</a>
+        </div>
+      </div>
+
+      <div style="width:33.3333%; height:620px; position:relative; overflow:hidden; flex-shrink:0;">
+        <img src="{% static 'images/trend3.jpg' %}" alt="Wedding Bands"
+          style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center top;filter:brightness(0.68);display:block;"/>
+        <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,transparent 100%);padding:0 36px 48px;text-align:center;z-index:2;">
+          <h3 style="font-family:'Playfair Display',serif;font-size:34px;font-weight:400;color:#fff;letter-spacing:.02em;margin-bottom:14px;">Wedding Bands</h3>
+          <p style="font-size:13px;font-weight:300;color:rgba(255,255,255,0.90);line-height:1.75;margin-bottom:24px;max-width:300px;margin-left:auto;margin-right:auto;">Where elegance flow in every shimmering drop.</p>
+          <a href="/products/?category=ring&style=bands" class="trend-btn">Shop Now</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+
+
+
+
+  <!-- WHY TIARRA -->
+<section class="why-section">
+  <h2 class="why-title">Why Tiarra</h2>
+
+
+
+
+<div class="why-grid">
+
+    <div class="why-item">
+      <div class="why-icon-wrap">
+        <img src="{% static 'images/silver.png' %}" alt="Pure Silver Jewels" style="width:40px; height:40px; object-fit:contain;"/>
+      </div>
+      <p>Pure Silver Jewels</p>
+    </div>
+
+    <div class="why-item">
+      <div class="why-icon-wrap">
+        <img src="{% static 'images/payment.png' %}" alt="Secure Payments" style="width:40px; height:40px; object-fit:contain;"/>
+      </div>
+      <p>Secure Payments</p>
+    </div>
+
+    <div class="why-item">
+      <div class="why-icon-wrap">
+        <img src="{% static 'images/return.png' %}" alt="Zero Return Policy" style="width:40px; height:40px; object-fit:contain;"/>
+      </div>
+      <p>Zero Return Policy</p>
+    </div>
+
+    <div class="why-item">
+      <div class="why-icon-wrap">
+        <img src="{% static 'images/gift.png' %}" alt="Gift-Ready Packaging" style="width:40px; height:40px; object-fit:contain;"/>
+      </div>
+      <p>Gift-Ready Packaging</p>
+    </div>
+
+  </div>
+
+
+
+
+</section>
+
+
+
+<!-- VIDEO COLLECTIONS -->
+<section class="video-section">
+  <h2 class="video-title">Our Jewellery Design Collections</h2>
+
+  <div class="video-carousel-wrapper">
+    <div class="video-carousel" id="videoCarousel">
+
+      <div class="video-card center">
+        <video muted playsinline>
+          <source src="{% static 'videos/video1.mp4' %}" type="video/mp4"/>
+        </video>
+      </div>
+
+      <div class="video-card side-right">
+        <video muted playsinline>
+          <source src="{% static 'videos/video2.mp4' %}" type="video/mp4"/>
+        </video>
+      </div>
+
+      <div class="video-card side-left">
+        <video muted playsinline>
+          <source src="{% static 'videos/video3.mp4' %}" type="video/mp4"/>
+        </video>
+      </div>
+      
+      <div class="video-card side-left">
+        <video muted playsinline preload="auto">
+          <source src="{% static 'videos/video4.mp4' %}" type="video/mp4"/>
+        </video>
+      </div>
+
+      <div class="video-card side-left">
+        <video muted playsinline preload="auto">
+          <source src="{% static 'videos/video5.mp4' %}" type="video/mp4"/>
+        </video>
+      </div>
+
+    </div>
+    <button class="carousel-btn next-btn" onclick="slideNext()">&#8250;</button>
+  </div>
+</section>
+
+
+
+<script>
+  const cards = document.querySelectorAll('.video-card');
+  const videos = document.querySelectorAll('.video-card video');
+  let current = 0;
+  let isSliding = false;
+
+
+
+
+function updateCarousel() {
+    const total = cards.length;
+    cards.forEach((card, i) => {
+      card.className = 'video-card';
+      card.style.opacity = '0';
+      card.style.pointerEvents = 'none';
+      card.style.transform = 'translateX(600px) scale(0.7)';
+      if (i === current) {
+        card.classList.add('center');
+        card.style.opacity = '1';
+        card.style.pointerEvents = 'auto';
+        card.style.transform = 'translateX(0) scale(1)';
+      } else if (i === (current + 1) % total) {
+        card.classList.add('side-right');
+        card.style.opacity = '0.6';
+        card.style.pointerEvents = 'none';
+        card.style.transform = 'translateX(260px) scale(0.88) rotate(4deg)';
+      } else if (i === (current - 1 + total) % total) {
+        card.classList.add('side-left');
+        card.style.opacity = '0.6';
+        card.style.pointerEvents = 'none';
+        card.style.transform = 'translateX(-260px) scale(0.88) rotate(-4deg)';
+      }
+    });
+  }
+
+
+
+
+  function attachEndedListener(index) {
+    const v = videos[index];
+    v.removeEventListener('ended', onVideoEnded);
+    v.addEventListener('ended', onVideoEnded);
+  }
+
+  function onVideoEnded() {
+    slideNext();
+  }
+
+  function slideNext() {
+    if (isSliding) return;
+    isSliding = true;
+
+    videos[current].pause();
+    videos[current].currentTime = 0;
+    videos[current].removeEventListener('ended', onVideoEnded);
+
+    current = (current + 1) % cards.length;
+    updateCarousel();
+
+    setTimeout(() => {
+      const v = videos[current];
+      v.muted = true;
+      v.currentTime = 0;
+      attachEndedListener(current);
+      v.play().catch(() => {
+        document.addEventListener('click', () => {
+          v.play();
+        }, { once: true });
+      });
+      isSliding = false;
+    }, 650);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    updateCarousel();
+    const v = videos[current];
+    v.muted = true;
+    v.currentTime = 0;
+    attachEndedListener(current);
+    v.play().catch(() => {
+      document.addEventListener('click', () => {
+        v.play();
+        attachEndedListener(current);
+      }, { once: true });
+    });
+  });
+
+  const searchItems = [
+    { name: 'Stone Earrings', category: 'Earrings' },
+    { name: 'Wedding Rings', category: 'Rings' },
+    { name: 'Stud Earrings', category: 'Earrings' },
+    { name: 'Gold Jewellery', category: 'Jewellery' },
+    { name: 'Fine Jewelry', category: 'Jewellery' },
+    { name: 'Diamond Ring', category: 'Rings' },
+    { name: 'Kanjivaram Saree', category: 'Silk Sarees' },
+    { name: 'Banarasi Saree', category: 'Silk Sarees' },
+    { name: 'Bridal Saree', category: 'Bridal Sarees' },
+    { name: 'Gold Necklace', category: 'Necklace' },
+    { name: 'Diamond Earrings', category: 'Earrings' },
+    { name: 'Engagement Ring', category: 'Rings' },
+    { name: 'Bangles', category: 'Bracelets' },
+    { name: 'Mangalsutra', category: 'Necklace' },
+    { name: 'Jhumkas', category: 'Earrings' },
+  ];
+
+  let searchTimer;
+  function handleSearch(query) {
+    const def = document.getElementById('searchDefault');
+    const results = document.getElementById('searchResults');
+    if (!query.trim()) {
+      def.style.display = 'block';
+      results.style.display = 'none';
+      return;
+    }
+    def.style.display = 'none';
+    results.style.display = 'block';
+    results.innerHTML = '<p style="font-size:14px; font-weight:300; color:#888; text-align:center; padding:20px 0;">Searching...</p>';
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+      fetch(`/search/?q=${encodeURIComponent(query)}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.results.length === 0) {
+            results.innerHTML = `<p style="font-size:14px; font-weight:300; color:#888; text-align:center; padding:20px 0;">No results found for "<strong>${query}</strong>"</p>`;
+          } else {
+            results.innerHTML = data.results.map(item => `
+              <a href="/product/${item.id}/" style="display:flex; align-items:center; gap:12px; padding:12px 8px; border-bottom:1px solid #f0ede8; text-decoration:none;" onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='transparent'">
+                <img src="${item.image}" alt="${item.name}" style="width:48px; height:48px; object-fit:cover; border-radius:6px; background:#f0f0f0;"/>
+                <div style="flex:1;">
+                  <p style="font-size:14px; font-weight:400; color:#1c1c1c; margin-bottom:2px;">${item.name}</p>
+                  <p style="font-size:12px; font-weight:300; color:#888;">${item.category}</p>
+                </div>
+                <p style="font-size:13px; font-weight:500; color:#1a4a42;">₹${Number(item.price).toLocaleString('en-IN')}</p>
+              </a>`).join('');
+          }
+        });
+    }, 300);
+  }
+
+  function closeSearch() {
+    document.getElementById('searchOverlay').style.display = 'none';
+    document.getElementById('searchInput').value = '';
+    document.getElementById('searchDefault').style.display = 'block';
+    document.getElementById('searchResults').style.display = 'none';
+  }
+
+  document.getElementById('searchOverlay').addEventListener('click', function(e) {
+    if (e.target === this) closeSearch();
+  });
+
+  function toggleWishlist(event, btn, productId) {
+    event.preventDefault();
+    fetch(`/wishlist/toggle/${productId}/`)
+        .then(res => res.json())
+        .then(data => {
+            if (data.redirect) {
+                window.location.href = data.redirect;
+                return;
+            }
+            btn.classList.toggle('active', data.added);
+            const wishlistBadge = document.querySelector('.wishlist-badge');
+            if (wishlistBadge) {
+                wishlistBadge.textContent = data.count;
+            }
+            if (data.added) {
+                btn.style.color = '#c0392b';
+                btn.querySelector('svg').style.fill = '#c0392b';
+            } else {
+                btn.style.color = '#fff';
+                btn.querySelector('svg').style.fill = 'none';
+            }
+        });
+  }
+
+  // ── LOAD COUNTS ON PAGE LOAD ──
+  document.addEventListener('DOMContentLoaded', () => {
+      // Wishlist count
+      fetch('/wishlist/count/')
+    .then(res => res.json())
+    .then(data => {
+        const wishlistBadge = document.querySelector('.wishlist-badge');
+        if (wishlistBadge && data.count > 0) {
+            wishlistBadge.textContent = data.count;
+            wishlistBadge.style.display = 'flex';
+        }
+    }).catch(() => {});
+
+      // Cart count
+      fetch('/cart/count/')
+          .then(res => res.json())
+          .then(data => {
+              const cartBadge = document.querySelector('.cart-badge');
+              if (cartBadge && data.count > 0) {
+                  cartBadge.textContent = data.count;
+                  cartBadge.style.display = 'flex';
+              }
+          }).catch(() => {});
+  });
+
+
+
+  function setActive(e, btn) {
+    document.querySelectorAll('.budget-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  // navigation happens naturally via the href
+  }
+
+
+  function toggleMobileSubmenu(header) {
+    header.classList.toggle('open');
+    const submenu = header.nextElementSibling;
+    submenu.classList.toggle('open');
+  }
+</script>
+
+
+
+
+<!-- SOCIAL SECTION -->
+<section class="social-section">
+  <h2 class="social-title">Share your #TiarraStory with us</h2>
+  <p class="social-sub">Use <strong>#TiarraJewels</strong> in your Instagram pics to get featured on our page</p>
+  <div class="social-icons">
+
+    <a href="https://www.youtube.com/@Tiarrajewelsandsilks" target="_blank" class="social-btn">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="#FF0000">
+        <path d="M23.5 6.2s-.3-1.9-1.1-2.7c-1-.8-2.2-.8-2.7-.9C16.8 2.4 12 2.4 12 2.4s-4.8 0-7.7.2c-.5.1-1.7.1-2.7.9C.8 4.3.5 6.2.5 6.2S.2 8.4.2 10.6v2.1c0 2.2.3 4.4.3 4.4s.3 1.9 1.1 2.7c1 .8 2.4.8 3 .9C6.6 21 12 21 12 21s4.8 0 7.7-.3c.5-.1 1.7-.1 2.7-.9.8-.8 1.1-2.7 1.1-2.7s.3-2.2.3-4.4v-2.1c0-2.2-.3-4.4-.3-4.4zM9.7 15.5V8.3l7.3 3.6-7.3 3.6z"/>
+      </svg>
+    </a>
+
+    <a href="https://www.facebook.com/TiarraJewelsandSilks/" target="_blank" class="social-btn">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="#1877F2">
+        <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.268h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
+      </svg>
+    </a>
+
+    <a href="https://www.instagram.com/tiarra.co.in" target="_blank" class="social-btn">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="url(#igGrad)">
+        <defs>
+          <linearGradient id="igGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#f09433"/>
+            <stop offset="25%" style="stop-color:#e6683c"/>
+            <stop offset="50%" style="stop-color:#dc2743"/>
+            <stop offset="75%" style="stop-color:#cc2366"/>
+            <stop offset="100%" style="stop-color:#bc1888"/>
+          </linearGradient>
+        </defs>
+        <path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.2 4.8 1.7 5 5 .1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.2 3.3-1.7 4.8-5 5-1.3.1-1.6.1-4.9.1s-3.6 0-4.8-.1c-3.3-.2-4.8-1.7-5-5C2.1 15.6 2 15.2 2 12s0-3.6.1-4.8c.2-3.3 1.7-4.8 5-5 1.2-.1 1.5-.1 4.9-.1zm0-2.2C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.2 4.4 2.6 6.8 7 7C8.3 24 8.7 24 12 24s3.7 0 4.9-.1c4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.2-4.4-2.6-6.8-7-7C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zm0 10.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/>
+      </svg>
+    </a>  
+
+
+    <a href="https://wa.me/919150709155" target="_blank" class="social-btn">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="#25D366">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+    </a>
+
+  </div>
+</section>
+
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">TIARRA</div>
+      <p>Bridal Jewellery &amp; Silk Sarees since 2010. Serving brides and families across Nagercoil and Kanyakumari with love and heritage.</p>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/tiarra.co.in" target="_blank" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://www.facebook.com/TiarraJewelsandSilks/" target="_blank" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@Tiarrajewelsandsilks" target="_blank" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="rgba(255,255,255,0.5)" stroke="none"/></svg>
+        </a>
+
+        <a href="https://wa.me/919150709155" target="_blank" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 21l1.65-4.85A8.5 8.5 0 1 1 7.5 19.5z"/>
+            <path d="M9 10.5c.5 1 1.5 2 2.5 2.5"/>
+            <path d="M9 10.5c-.3-.7 0-1.5.5-1.5h.5c.3 0 .5.2.7.5l.5 1c.1.3 0 .6-.2.8l-.3.3c.4.7 1 1.3 1.7 1.7l.3-.3c.2-.2.5-.3.8-.2l1 .5c.3.2.5.4.5.7v.5c0 .5-.8.8-1.5.5"/>
+          </svg>
+        </a>
+
+
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Shop</h5>
+      <ul>
+        <li><a href="/products/?category=ring">Rings</a></li>
+        <li><a href="/products/?category=necklace">Necklace</a></li>
+        <li><a href="/products/?category=earring">Earrings</a></li>
+        <li><a href="/products/?category=bracelet">Bracelets</a></li>
+        <li><a href="/products/?category=silk+saree">Silk Sarees</a></li>
+        <li><a href="/products/?category=bridal+saree">Bridal Sarees</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="/about/">About Us</a></li>
+        <li><a href="{% url 'craftsmanship' %}">Our Craft</a></li>
+        <li><a href="{% url 'blog' %}">Journal</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Help</h5>
+      <ul>
+        <li><a href="{% url 'faq' %}">FAQ</a></li>
+        <li><a href="{% url 'shipping' %}">Shipping</a></li>
+        
+        <li><a href="{% url 'size_guide' %}">Size Guide</a></li>
+        <li><a href="/care/">Jewellery Care</a></li>
+        <li><a href="/privacy/">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Tiarra Bridal Jewellery &amp; Silk Sarees, Nagercoil. All rights reserved.</span>
+    <span>Made with love in Tamil Nadu 🤍</span>
+  </div>
+</footer>
+
+</body>
+</html>
+
+

@@ -1,0 +1,317 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Under ₹{{ max_price }} — TIARRA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Jost', sans-serif; background: #ffffff; color: #2c2c2c; }
+        nav {
+            background: #fff;
+            border-bottom: 1px solid #e8e0d0;
+            padding: 16px 48px;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .logo-center { text-align: center; }
+        .logo-center img { height: 40px; }
+        .back-text { text-align: right; }
+        .back-text a { font-size: 13px; color: #7a7a7a; text-decoration: none; }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            letter-spacing: 0.3em;
+            text-decoration: none;
+            color: #2c2c2c;
+        }
+        .container { max-width: 1200px; margin: 48px auto; padding: 0 48px; }
+        .page-header {
+            margin-bottom: 36px;
+            border-bottom: 1px solid #e8e0d0;
+            padding-bottom: 20px;
+        }
+        .page-header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 38px;
+            font-weight: 300;
+            margin-bottom: 6px;
+        }
+        .page-header p { font-size: 13px; color: #7a7a7a; }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+        .product-card {
+            background: #fff;
+            border-radius: 4px;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .product-card-img {
+            width: 100%;
+            aspect-ratio: 1;
+            overflow: hidden;
+            background: #e8ede9;
+        }
+        .product-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .product-card:hover .product-card-img img { transform: scale(1.05); }
+        .product-card-info { padding: 16px; }
+        .product-card-category {
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #c9a96e;
+            margin-bottom: 6px;
+        }
+        .product-card-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 300;
+            margin-bottom: 8px;
+        }
+        .product-card-price { font-size: 15px; font-weight: 500; color: #1a4a3a; }
+        .empty { text-align: center; padding: 80px 0; }
+        .empty h2 { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 300; margin-bottom: 12px; }
+        .empty p { color: #7a7a7a; margin-bottom: 24px; }
+        .back-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: #1a4a3a;
+            color: #fff;
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        /* ── BUDGET FILTER BUTTONS ── */
+        .budget-filters {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .filter-btn {
+            padding: 10px 24px;
+            border: 1.5px solid #1c3a2b;
+            background: #fff;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            color: #1c3a2b;
+            transition: background 0.22s, color 0.22s, border-color 0.22s;
+        }
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: #1c3a2b;
+            color: #fff;
+            border-color: #1c3a2b;
+        }
+
+        @media (max-width: 900px) {
+            .products-grid { grid-template-columns: repeat(2, 1fr); }
+            .container { padding: 0 20px; }
+        }
+
+        /* ── MOBILE ── */
+        @media (max-width: 600px) {
+            nav { padding: 12px 16px; }
+            .logo-center img { height: 32px; }
+            .back-text a { font-size: 11px; }
+            .container { margin: 28px auto; padding: 0 16px; }
+            .page-header { margin-bottom: 24px; padding-bottom: 14px; }
+            .page-header h1 { font-size: 26px; }
+            .budget-filters { gap: 6px; margin-bottom: 24px; flex-wrap: nowrap; overflow-x: hidden; justify-content: space-between; }
+            .filter-btn { padding: 6px 10px; font-size: 10px; white-space: nowrap; flex-shrink: 1; flex: 1; text-align: center; }
+            .products-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+            .product-card-info { padding: 12px; }
+            .product-card-name { font-size: 15px; }
+            .product-card-price { font-size: 13px; }
+            .empty { padding: 52px 0; }
+            .empty h2 { font-size: 24px; }
+        }
+
+        /* ── FIX 1: single column on very small screens ── */
+        @media (max-width: 360px) {
+            .products-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+
+        .budget-wish {
+            position: absolute; top: 10px; right: 10px;
+            background: none; border: none;
+            cursor: pointer;
+            /* FIX 2: enlarge touch target to ~40px without changing icon size */
+            padding: 12px;
+            margin: -12px;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.4));
+            transition: transform 0.2s;
+        }
+        .budget-wish:hover { transform: scale(1.15); }
+        .budget-wish.wished svg { fill: #c0392b; stroke: #c0392b; }
+
+        /* FIX 3: active feedback on product cards for touch devices */
+        .product-card:active { opacity: 0.85; }
+
+        /* FIX 4: minimum readable size for back-text link on mobile */
+        @media (max-width: 600px) {
+            .back-text a {
+                font-size: 12px;
+                /* FIX 5: ensure tappable area for back link */
+                display: inline-block;
+                padding: 8px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div></div>
+    <div class="logo-center">
+        <img src="{% static 'images/TIARRA_Logo_English_2.png' %}" alt="TIARRA"/>
+    </div>
+    <div class="back-text">
+        <a href="/">← Back to Home</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="page-header">
+        <h1>Shop Under ₹{{ max_price|floatformat:"0" }}</h1>
+        <p>{{ products|length }} product{{ products|length|pluralize }} found</p>
+    </div>
+
+    <!-- FILTER BUTTONS — ?max= matches shop_by_budget view's GET param -->
+    <div class="budget-filters">
+        <a href="/shop/budget/?max=2000"
+           class="filter-btn {% if max_price == '2000' %}active{% endif %}">
+            Under 2k
+        </a>
+        <a href="/shop/budget/?max=5000"
+           class="filter-btn {% if max_price == '5000' %}active{% endif %}">
+            Under 5k
+        </a>
+        <a href="/shop/budget/?max=8000"
+           class="filter-btn {% if max_price == '8000' %}active{% endif %}">
+            Under 8k
+        </a>
+        <a href="/shop/budget/?max=10000"
+           class="filter-btn {% if max_price == '10000' %}active{% endif %}">
+            Under 10k
+        </a>
+    </div>
+
+    {% if products %}
+    <div class="products-grid">
+        {% for product in products %}
+        
+        
+        <a href="/product/{{ product.id }}/" class="product-card">
+            <div class="product-card-img" style="position:relative;">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}"/>
+                {% endif %}
+                <button class="budget-wish" onclick="event.preventDefault(); toggleWish({{ product.id }}, this)" title="Add to Wishlist">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" width="16" height="16">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                </button>
+            </div>
+
+
+
+
+            <div class="product-card-info">
+                <div class="product-card-category">{{ product.category }}</div>
+                <div class="product-card-name">{{ product.name }}</div>
+                <div class="product-card-price">₹{{ product.price }}</div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty">
+        <h2>No products found</h2>
+        <p>We don't have any products in this price range right now.</p>
+        <a href="/" class="back-btn">Back to Home</a>
+    </div>
+    {% endif %}
+</div>
+
+
+
+
+<script>
+    function getCookie(name) {
+        const v = `; ${document.cookie}`, p = v.split(`; ${name}=`);
+        if (p.length === 2) return p.pop().split(';').shift();
+    }
+
+    function toggleWish(productId, btn) {
+        fetch(`/wishlist/toggle/${productId}/`, {
+            method: 'POST',
+            headers: { 'X-CSRFToken': getCookie('csrftoken') },
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.redirect) { window.location.href = data.redirect; return; }
+            const svg = btn.querySelector('svg');
+            svg.style.fill = data.added ? '#c0392b' : 'none';
+            svg.style.stroke = data.added ? '#c0392b' : '#fff';
+            btn.classList.toggle('wished', data.added);
+        });
+    }
+
+
+
+    
+
+    // Sync wishlisted state on page load
+    fetch('/wishlist/toggle/0/', {
+        method: 'POST',
+        headers: { 'X-CSRFToken': getCookie('csrftoken') },
+    })
+    .then(r => r.json())
+    .then(data => {
+        const wishlist = data.wishlist || [];
+        document.querySelectorAll('.budget-wish').forEach(btn => {
+            const id = parseInt(btn.getAttribute('onclick').match(/\d+/)[0]);
+            if (wishlist.includes(id)) {
+                btn.classList.add('wished');
+                const svg = btn.querySelector('svg');
+                svg.style.fill = '#c0392b';
+                svg.style.stroke = '#c0392b';
+            }
+        });
+    });
+
+</script>
+
+</body>
+</html>
+
+
+
+            

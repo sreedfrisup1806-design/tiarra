@@ -1,0 +1,518 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Order Details — TIARRA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'DM Sans', sans-serif; background: #ffffff; color: #1c1c1c; min-height: 100vh; }
+
+        .od-header {
+            background: #fff; border-bottom: 1px solid #e8e4de;
+            padding: 0 40px; height: 64px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .od-header-left { display: flex; align-items: center; gap: 16px; }
+        .od-back {
+            display: flex; align-items: center; gap: 6px;
+            font-size: 14px; font-weight: 400; color: #555;
+            text-decoration: none; transition: color .2s;
+        }
+        .od-back:hover { color: #1a4a42; }
+        .od-header-title { font-size: 16px; font-weight: 500; color: #1c1c1c; }
+        .od-help-btn {
+            padding: 8px 20px; border: 1px solid #ccc; border-radius: 4px;
+            background: #fff; font-family: 'DM Sans', sans-serif;
+            font-size: 13px; font-weight: 400; color: #333; cursor: pointer; transition: border-color .2s;
+        }
+        .od-help-btn:hover { border-color: #1a4a42; color: #1a4a42; }
+
+        .od-body {
+            max-width: 760px; margin: 28px auto;
+            padding: 0 20px; display: flex; flex-direction: column; gap: 16px;
+        }
+
+        .od-product-title { font-size: 15px; font-weight: 400; color: #1c1c1c; line-height: 1.5; }
+        .od-product-sub   { font-size: 13px; font-weight: 300; color: #888; margin-top: 2px; }
+
+        .od-status-card { background: #fff; border-radius: 8px; border: 1px solid #e8e4de; overflow: hidden; }
+        .od-status-top  { display: flex; align-items: center; justify-content: space-between; padding: 20px 20px 14px; }
+        .od-status-text { font-size: 18px; font-weight: 600; }
+        .od-status-text.confirmed        { color: #2874f0; }
+        .od-status-text.shipped          { color: #7b1fa2; }
+        .od-status-text.out_for_delivery { color: #f57c00; }
+        .od-status-text.delivered        { color: #388e3c; }
+        .od-status-text.cancelled        { color: #c62828; }
+        .od-status-text.pending          { color: #f57c00; }
+        .od-status-icon { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .od-status-icon.confirmed        { background: #e3f0ff; }
+        .od-status-icon.shipped          { background: #f3e5ff; }
+        .od-status-icon.out_for_delivery { background: #fff3e0; }
+        .od-status-icon.delivered        { background: #e8f5e9; }
+        .od-status-icon.cancelled        { background: #fce8e8; }
+        .od-status-icon.pending          { background: #fff3e0; }
+        .od-return-policy { font-size: 12px; color: #888; font-weight: 300; padding: 0 20px 14px; display: flex; align-items: center; gap: 6px; }
+        .od-divider { border: none; border-top: 1px solid #f0ede8; }
+        .od-see-updates {
+            display: block; text-align: center; padding: 14px;
+            font-size: 14px; font-weight: 500; color: #2874f0;
+            text-decoration: none; cursor: pointer; transition: background .15s;
+        }
+        .od-see-updates:hover { background: #f0f6ff; }
+
+        .od-tracking { display: none; padding: 16px 20px; border-top: 1px solid #f0ede8; }
+        .od-tracking.open { display: block; }
+        .od-track-step { display: flex; gap: 14px; margin-bottom: 20px; position: relative; }
+        .od-track-step:last-child { margin-bottom: 0; }
+        .od-track-dot { width: 14px; height: 14px; border-radius: 50%; background: #ccc; flex-shrink: 0; margin-top: 3px; position: relative; z-index: 1; }
+        .od-track-dot.active { background: #388e3c; }
+        .od-track-dot.blue   { background: #2874f0; }
+        .od-track-dot.purple { background: #7b1fa2; }
+        .od-track-dot.orange { background: #f57c00; }
+        .od-track-step:not(:last-child) .od-track-dot::after {
+            content: ''; position: absolute; top: 14px; left: 50%;
+            transform: translateX(-50%); width: 2px; height: 30px; background: #e0e0e0;
+        }
+        .od-track-label { font-size: 13px; font-weight: 500; color: #1c1c1c; }
+        .od-track-date  { font-size: 12px; font-weight: 300; color: #888; margin-top: 2px; }
+
+        .od-section-title { font-size: 16px; font-weight: 600; color: #1c1c1c; margin-bottom: 12px; }
+
+        .od-rate-card { background: #fff; border-radius: 8px; border: 1px solid #e8e4de; padding: 20px; }
+        .od-rate-row  { display: flex; align-items: center; justify-content: space-between; cursor: pointer; padding: 4px 0; }
+        .od-rate-row:hover { opacity: .8; }
+        .od-rate-left { display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 400; color: #1c1c1c; }
+
+        .od-products-scroll { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+        .od-products-scroll::-webkit-scrollbar { display: none; }
+        .od-prod-card { flex-shrink: 0; width: 140px; background: #fff; border-radius: 6px; border: 1px solid #e8e4de; overflow: hidden; cursor: pointer; transition: box-shadow .2s; text-decoration: none; }
+        .od-prod-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .od-prod-card img { width: 100%; height: 120px; object-fit: cover; background: #f0ede8; }
+        .od-prod-card-img-placeholder { width: 100%; height: 120px; background: #f0ede8; }
+        .od-prod-info { padding: 8px 10px; }
+        .od-prod-discount { font-size: 11px; font-weight: 500; color: #388e3c; margin-bottom: 2px; }
+        .od-prod-name { font-size: 12px; font-weight: 400; color: #888; }
+
+        .od-delivery-card { background: #fff; border-radius: 8px; border: 1px solid #e8e4de; overflow: hidden; }
+        .od-delivery-row  { display: flex; align-items: flex-start; gap: 12px; padding: 14px 20px; border-bottom: 1px solid #f0ede8; font-size: 14px; color: #1c1c1c; }
+        .od-delivery-row:last-child { border-bottom: none; }
+        .od-delivery-row svg { flex-shrink: 0; margin-top: 2px; }
+        .od-delivery-label { font-weight: 500; margin-right: 6px; }
+
+        .od-price-card { background: #fff; border-radius: 8px; border: 1px solid #e8e4de; overflow: hidden; }
+        .od-price-row  { display: flex; justify-content: space-between; align-items: center; padding: 13px 20px; border-bottom: 1px solid #f0ede8; font-size: 14px; color: #1c1c1c; }
+        .od-price-row:last-child { border-bottom: none; }
+        .od-price-row .lbl { color: #555; font-weight: 300; }
+        .od-price-row .val { font-weight: 400; }
+        .od-price-row .discount { color: #388e3c; font-weight: 500; }
+        .od-price-row.total .lbl,
+        .od-price-row.total .val { font-weight: 600; font-size: 15px; color: #1c1c1c; }
+
+        .od-payment-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; background: #fff; border-radius: 8px; border: 1px solid #e8e4de; font-size: 14px; }
+        .od-payment-row .lbl { color: #555; font-weight: 300; }
+        .od-payment-val { display: flex; align-items: center; gap: 8px; font-weight: 500; color: #1c1c1c; }
+
+        .od-shop-btn { display: block; text-align: center; padding: 16px; background: #fff; border-radius: 8px; border: 1px solid #1a4a42; font-size: 15px; font-weight: 500; color: #1a4a42; text-decoration: none; transition: background .2s; }
+        .od-shop-btn:hover { background: #f0f7f5; }
+
+        .od-stars { display: flex; gap: 4px; }
+        .od-stars span { font-size: 22px; color: #ccc; cursor: pointer; transition: color .15s; }
+        .od-stars span:hover,
+        .od-stars span.filled { color: #f5a623; }
+
+        /* MOBILE FIT */
+        @media (max-width: 480px) {
+            .od-header {
+                padding: 0 16px;
+                height: 54px;
+            }
+
+            .od-back {
+                font-size: 13px;
+            }
+
+            /* FIX 1: header title scaling */
+            .od-header-title {
+                font-size: 14px;
+            }
+
+            .od-help-btn {
+                padding: 6px 14px;
+                font-size: 12px;
+            }
+
+            .od-body {
+                margin: 16px auto;
+                padding: 0 12px;
+                gap: 14px;
+            }
+
+            .od-product-title {
+                font-size: 14px;
+            }
+
+            .od-product-sub {
+                font-size: 12px;
+            }
+
+            .od-status-top {
+                padding: 14px 14px 10px;
+            }
+
+            .od-status-text {
+                font-size: 15px;
+            }
+
+            .od-return-policy {
+                padding: 0 14px 12px;
+                font-size: 11px;
+            }
+
+            .od-tracking {
+                padding: 14px 14px;
+            }
+
+            .od-section-title {
+                font-size: 14px;
+            }
+
+            .od-rate-card {
+                padding: 14px;
+            }
+
+            .od-rate-left {
+                font-size: 13px;
+            }
+
+            /* FIX 2: related product card width on small screens */
+            .od-prod-card {
+                width: 120px;
+            }
+
+            .od-prod-card img,
+            .od-prod-card-img-placeholder {
+                height: 100px;
+            }
+
+            .od-delivery-row {
+                padding: 12px 14px;
+                font-size: 13px;
+            }
+
+            .od-price-row {
+                padding: 11px 14px;
+                font-size: 13px;
+            }
+
+            .od-price-row.total .lbl,
+            .od-price-row.total .val {
+                font-size: 14px;
+            }
+
+            .od-payment-row {
+                padding: 12px 14px;
+                font-size: 13px;
+            }
+
+            .od-shop-btn {
+                padding: 14px;
+                font-size: 14px;
+            }
+
+            .od-see-updates {
+                font-size: 13px;
+                padding: 12px;
+            }
+
+            /* FIX 3: star rating size on mobile */
+            .od-stars span {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="od-header">
+    <div class="od-header-left">
+        <a href="/dashboard/" class="od-back">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M19 12H5M12 5l-7 7 7 7"/>
+            </svg>
+            Order Details
+        </a>
+    </div>
+    <button class="od-help-btn">Help</button>
+</header>
+
+<div class="od-body">
+
+    <!-- Product name -->
+    <div>
+        <div class="od-product-title">{{ order.product.name }}</div>
+        <div class="od-product-sub">{{ order.product.category }} &nbsp;·&nbsp; Qty: {{ order.qty }}</div>
+    </div>
+
+    <!-- Status card -->
+    <div class="od-status-card">
+        <div class="od-status-top">
+            <div>
+                <div class="od-status-text {{ order.status }}">
+                    {% if order.status == 'confirmed' %}Order Confirmed
+                    {% elif order.status == 'shipped' %}Shipped
+                    {% elif order.status == 'out_for_delivery' %}Out for Delivery
+                    {% elif order.status == 'delivered' %}Delivered{% if order.delivery_date %}, {{ order.delivery_date|date:"D M d" }}{% endif %}
+                    {% elif order.status == 'cancelled' %}Cancelled on {{ order.created_at|date:"M d" }}
+                    {% else %}Order Pending{% endif %}
+                </div>
+                <div class="od-return-policy">
+                    <svg width="14" height="14" fill="none" stroke="#888" stroke-width="1.7" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="8" x2="12" y2="12"/>
+                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                    </svg>
+                    {% if order.delivery_date %}Expected delivery: {{ order.delivery_date|date:"D, M d Y" }}{% else %}Return policy ends {{ order.created_at|date:"D M d" }}{% endif %}
+                </div>
+            </div>
+            <div class="od-status-icon {{ order.status }}">
+                {% if order.status == 'delivered' %}
+                <svg width="18" height="18" fill="none" stroke="#388e3c" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                {% elif order.status == 'confirmed' %}
+                <svg width="18" height="18" fill="none" stroke="#2874f0" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                {% elif order.status == 'shipped' %}
+                <svg width="18" height="18" fill="none" stroke="#7b1fa2" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                {% elif order.status == 'out_for_delivery' %}
+                <svg width="18" height="18" fill="none" stroke="#f57c00" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                {% elif order.status == 'cancelled' %}
+                <svg width="18" height="18" fill="none" stroke="#c62828" stroke-width="2.5" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                {% else %}
+                <svg width="18" height="18" fill="none" stroke="#f57c00" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/></svg>
+                {% endif %}
+            </div>
+        </div>
+        <hr class="od-divider"/>
+        <a class="od-see-updates" onclick="toggleTracking(this)">See all updates</a>
+        <div class="od-tracking" id="od-tracking">
+            <div class="od-track-step">
+                <div class="od-track-dot {% if order.status == 'confirmed' %}blue{% elif order.status == 'shipped' or order.status == 'out_for_delivery' or order.status == 'delivered' %}active{% endif %}"></div>
+                <div>
+                    <div class="od-track-label">Order Confirmed</div>
+                    <div class="od-track-date">{{ order.created_at|date:"D, M d Y" }}</div>
+                </div>
+            </div>
+            <div class="od-track-step">
+                <div class="od-track-dot {% if order.status == 'shipped' %}purple{% elif order.status == 'out_for_delivery' or order.status == 'delivered' %}active{% endif %}"></div>
+                <div>
+                    <div class="od-track-label">Packed</div>
+                    <div class="od-track-date">{% if order.status == 'shipped' or order.status == 'out_for_delivery' or order.status == 'delivered' %}{{ order.created_at|date:"D, M d Y" }}{% else %}Pending{% endif %}</div>
+                </div>
+            </div>
+            <div class="od-track-step">
+                <div class="od-track-dot {% if order.status == 'out_for_delivery' %}orange{% elif order.status == 'delivered' %}active{% endif %}"></div>
+                <div>
+                    <div class="od-track-label">Out for Delivery</div>
+                    <div class="od-track-date">{% if order.status == 'out_for_delivery' or order.status == 'delivered' %}{% if order.delivery_date %}{{ order.delivery_date|date:"D, M d Y" }}{% else %}{{ order.created_at|date:"D, M d Y" }}{% endif %}{% else %}Pending{% endif %}</div>
+                </div>
+            </div>
+            <div class="od-track-step">
+                <div class="od-track-dot {% if order.status == 'delivered' %}active{% endif %}"></div>
+                <div>
+                    <div class="od-track-label">Delivered</div>
+                    <div class="od-track-date">{% if order.status == 'delivered' %}{% if order.delivery_date %}{{ order.delivery_date|date:"D, M d Y" }}{% else %}{{ order.created_at|date:"D, M d Y" }}{% endif %}{% else %}{% if order.delivery_date %}Expected: {{ order.delivery_date|date:"D, M d Y" }}{% else %}Pending{% endif %}{% endif %}</div>
+                </div>
+            </div>
+
+
+
+            {% if order.delivery_note %}
+            <div style="margin-top: 16px; padding: 12px 14px; background: #fff8e1; border-left: 3px solid #f57c00; border-radius: 4px;">
+                <div style="font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #f57c00; margin-bottom: 4px;">Note from Tiarra</div>
+                <div style="font-size: 13px; color: #555; font-weight: 300; line-height: 1.6;">{{ order.delivery_note }}</div>
+            </div>
+            {% endif %}
+
+
+
+
+
+        </div>
+    </div>
+
+    <!-- Rate your experience -->
+    <div>
+        <div class="od-section-title">Rate your experience</div>
+        <div class="od-rate-card">
+            <div class="od-rate-row">
+                <div class="od-rate-left">
+                    <svg width="20" height="20" fill="none" stroke="#555" stroke-width="1.7" viewBox="0 0 24 24">
+                        <rect x="1" y="3" width="15" height="13" rx="2"/>
+                        <path d="M16 8h4l3 3v5h-7V8z"/>
+                        <circle cx="5.5" cy="18.5" r="2.5"/>
+                        <circle cx="18.5" cy="18.5" r="2.5"/>
+                    </svg>
+                    How was your delivery experience?
+                </div>
+                <svg width="16" height="16" fill="none" stroke="#bbb" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+            </div>
+            <hr style="border:none; border-top:1px solid #f0ede8; margin:12px 0;"/>
+            <div style="font-size:13px; color:#888; font-weight:300; margin-bottom:10px;">Rate this product</div>
+            <div class="od-stars" id="od-prod-stars">
+                <span onclick="rateProduct(1)" onmouseover="hoverStars(1)" onmouseout="resetStars()">★</span>
+                <span onclick="rateProduct(2)" onmouseover="hoverStars(2)" onmouseout="resetStars()">★</span>
+                <span onclick="rateProduct(3)" onmouseover="hoverStars(3)" onmouseout="resetStars()">★</span>
+                <span onclick="rateProduct(4)" onmouseover="hoverStars(4)" onmouseout="resetStars()">★</span>
+                <span onclick="rateProduct(5)" onmouseover="hoverStars(5)" onmouseout="resetStars()">★</span>
+            </div>
+            <p id="ratingMsg" style="font-size:12px; color:#888; margin-top:10px;"></p>
+        </div>
+    </div>
+
+    <!-- You might also be interested in -->
+    {% if related_products %}
+    <div>
+        <div class="od-section-title">You might also be interested in</div>
+        <div class="od-products-scroll">
+            {% for p in related_products %}
+            <a href="/product/{{ p.id }}/" class="od-prod-card">
+                {% if p.image %}
+                <img src="{{ p.image.url }}" alt="{{ p.name }}"/>
+                {% else %}
+                <div class="od-prod-card-img-placeholder"></div>
+                {% endif %}
+                <div class="od-prod-info">
+                    <div class="od-prod-discount">Min. 20% off</div>
+                    <div class="od-prod-name">{{ p.category }}</div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Delivery details -->
+    <div>
+        <div class="od-section-title">Delivery details</div>
+        <div class="od-delivery-card">
+            {% if address %}
+            <div class="od-delivery-row">
+                <svg width="16" height="16" fill="none" stroke="#555" stroke-width="1.7" viewBox="0 0 24 24">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+                <div>
+                    <span class="od-delivery-label">{{ address.type|upper|default:"Home" }}</span>
+                    {{ address.address }}{% if address.road %}, {{ address.road }}{% endif %}, {{ address.city }} {{ address.pin }}
+                </div>
+            </div>
+            <div class="od-delivery-row">
+                <svg width="16" height="16" fill="none" stroke="#555" stroke-width="1.7" viewBox="0 0 24 24">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
+                <div><span class="od-delivery-label">{{ address.name }}</span>{{ address.phone }}</div>
+            </div>
+            {% else %}
+            <div class="od-delivery-row">No delivery address saved</div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Price details -->
+    <div>
+        <div class="od-section-title">Price details</div>
+        <div class="od-price-card">
+            <div class="od-price-row">
+                <span class="lbl">Listing price</span>
+                <span class="val">&#8377;{{ mrp|floatformat:"0" }}</span>
+            </div>
+            <div class="od-price-row">
+                <span class="lbl">Special price</span>
+                <span class="val">&#8377;{{ special_price|floatformat:"0" }}</span>
+            </div>
+            <div class="od-price-row">
+                <span class="lbl">Total fees</span>
+                <span class="val">&#8377;{{ fees|floatformat:"0" }}</span>
+            </div>
+            <div class="od-price-row">
+                <span class="lbl">Discount</span>
+                <span class="val discount">− &#8377;{{ discount|floatformat:"0" }}</span>
+            </div>
+            <div class="od-price-row total">
+                <span class="lbl">Total amount</span>
+                <span class="val">&#8377;{{ order.total_amount|floatformat:"0" }}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment method -->
+    <!-- <div class="od-payment-row">
+        <span class="lbl">Payment method</span>
+        <div class="od-payment-val">
+            <svg width="16" height="16" fill="none" stroke="#555" stroke-width="1.7" viewBox="0 0 24 24">
+                <rect x="2" y="5" width="20" height="14" rx="2"/>
+                <line x1="2" y1="10" x2="22" y2="10"/>
+            </svg>
+            {% if order.payment_method == 'cod' %}Cash on Delivery{% else %}Paid Online{% endif %}
+        </div>
+    </div> -->
+
+    <!-- Shop more -->
+    <a href="/" class="od-shop-btn">Shop more from TIARRA</a>
+
+</div>
+
+<script>
+    function toggleTracking(el) {
+        const tracking = document.getElementById('od-tracking');
+        const isOpen = tracking.classList.contains('open');
+        tracking.classList.toggle('open');
+        el.textContent = isOpen ? 'See all updates' : 'Hide updates';
+    }
+
+    // Track the user's saved rating (0 = none)
+    var currentRating = {{ existing_rating|default:0 }};
+
+    function colorStars(upTo) {
+        document.querySelectorAll('#od-prod-stars span').forEach(function(s, i) {
+            s.classList.toggle('filled', i < upTo);
+        });
+    }
+
+    function hoverStars(val)  { colorStars(val); }
+    function resetStars()     { colorStars(currentRating); }
+
+    // Pre-fill existing rating when page loads
+    colorStars(currentRating);
+
+    function rateProduct(rating) {
+        currentRating = rating;
+        colorStars(rating);
+
+        const csrf = document.cookie.split(';').find(c => c.trim().startsWith('csrftoken=')).trim().split('=')[1];
+        fetch('/review/{{ order.product.id }}/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrf },
+            body: JSON.stringify({ rating: rating })
+        })
+        .then(res => res.json())
+        .then(data => {
+            const msg = document.getElementById('ratingMsg');
+            if (data.success) {
+                msg.textContent = '✓ Your ' + rating + '-star rating was saved!';
+                msg.style.color = '#388e3c';
+            } else {
+                msg.textContent = 'Could not save rating. Please try again.';
+                msg.style.color = '#c62828';
+            }
+        })
+        .catch(function() {
+            document.getElementById('ratingMsg').textContent = 'Network error. Please try again.';
+        });
+    }
+</script>
+
+</body>
+</html>

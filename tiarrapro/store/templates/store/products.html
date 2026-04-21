@@ -1,0 +1,647 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if active_category %}{{ active_category }}{% else %}TIARRA{% endif %} — TIARRA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --emerald: #1a4a3a;
+            --emerald-light: #245c48;
+            --gold: #c9a96e;
+            --gold-light: #e2c898;
+            --cream: #faf8f4;
+            --charcoal: #2c2c2c;
+            --muted: #7a7a7a;
+            --border: #e8e0d0;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #fff;
+            color: var(--charcoal);
+            overflow-x: hidden;
+        }
+
+        nav {
+            background: #fff;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .nav-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 48px;
+            font-size: 12px;
+            color: var(--muted);
+            letter-spacing: 0.05em;
+        }
+        .nav-top a { color: var(--muted); text-decoration: none; }
+        .nav-top a:hover { color: var(--gold); }
+
+        .nav-brand { text-align: center; padding: 8px 48px 0; }
+        .nav-brand h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px; font-weight: 400;
+            letter-spacing: 0.3em; color: var(--charcoal);
+        }
+        .nav-brand span { font-style: italic; font-size: 14px; color: var(--muted); letter-spacing: 0.15em; }
+
+        /* ── FIX 1: Nav links scrollable on mobile instead of wrapping ── */
+        .nav-links {
+            display: flex; justify-content: center;
+            gap: 40px; padding: 14px 48px; list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none; font-size: 11px;
+            letter-spacing: 0.18em; text-transform: uppercase;
+            color: var(--charcoal); transition: color 0.2s;
+            position: relative; padding-bottom: 4px;
+            white-space: nowrap;
+        }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-links a.active { color: var(--gold); }
+        .nav-links a.active::after {
+            content: ''; position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 1.5px; background: var(--gold);
+        }
+
+        .breadcrumb {
+            padding: 14px 48px;
+            font-size: 12px; color: var(--muted);
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid var(--border);
+        }
+        .breadcrumb a { color: var(--muted); text-decoration: none; }
+        .breadcrumb a:hover { color: var(--gold); }
+        .breadcrumb span { margin: 0 8px; }
+
+        .page { max-width: 1280px; margin: 0 auto; padding: 40px 48px 80px; }
+
+        .page-header {
+            display: flex; justify-content: space-between;
+            align-items: flex-end; margin-bottom: 36px;
+        }
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px; font-weight: 300;
+            letter-spacing: 0.04em; color: var(--charcoal);
+        }
+        .page-meta { font-size: 12px; color: var(--muted); letter-spacing: 0.05em; }
+
+        /* ── BUDGET FILTER BUTTONS ── */
+        .budget-filters {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 32px;
+            justify-content: center;
+        }
+        .budget-filter-btn {
+            padding: 10px 24px;
+            border: 1.5px solid #1c3a2b;
+            background: #fff;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            color: #1c3a2b;
+            transition: background 0.22s, color 0.22s, border-color 0.22s;
+        }
+        .budget-filter-btn:hover,
+        .budget-filter-btn.active {
+            background: #1c3a2b;
+            color: #fff;
+            border-color: #1c3a2b;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px 24px;
+        }
+
+        .card {
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.5s ease forwards;
+        }
+        .card:nth-child(1)  { animation-delay: 0.04s }
+        .card:nth-child(2)  { animation-delay: 0.08s }
+        .card:nth-child(3)  { animation-delay: 0.12s }
+        .card:nth-child(4)  { animation-delay: 0.16s }
+        .card:nth-child(5)  { animation-delay: 0.20s }
+        .card:nth-child(6)  { animation-delay: 0.24s }
+        .card:nth-child(7)  { animation-delay: 0.28s }
+        .card:nth-child(8)  { animation-delay: 0.32s }
+        .card:nth-child(9)  { animation-delay: 0.36s }
+        .card:nth-child(10) { animation-delay: 0.40s }
+        .card:nth-child(11) { animation-delay: 0.44s }
+        .card:nth-child(12) { animation-delay: 0.48s }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-img {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1;
+            background: #ede9e2;
+            border-radius: 2px;
+        }
+        .card-img img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.55s ease;
+            display: block;
+        }
+        .card:hover .card-img img { transform: scale(1.06); }
+
+        .card-wish {
+            position: absolute; top: 12px; right: 12px;
+            background: none !important;
+            border: none; border-radius: 50%;
+            width: 32px; height: 32px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: transform 0.2s;
+            opacity: 0;
+        }
+
+        .card:hover .card-wish { opacity: 1; }
+        .card-wish.wished { opacity: 1; }
+
+        .card-wish:hover { background: none; transform: scale(1.1); }
+        .card-wish svg { width: 15px; height: 15px; }
+
+        .card-info { padding: 14px 2px 0; }
+        .card-cat {
+            font-size: 10px; letter-spacing: 0.18em;
+            text-transform: uppercase; color: var(--gold); margin-bottom: 5px;
+        }
+        .card-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px; font-weight: 300;
+            color: var(--charcoal); margin-bottom: 8px; line-height: 1.3;
+            text-decoration: none; display: block;
+        }
+        .card-name:hover { color: var(--emerald); }
+        .card-price {
+            font-size: 14px; font-weight: 500; color: var(--charcoal);
+            letter-spacing: 0.02em;
+        }
+
+        .empty {
+            grid-column: 1 / -1;
+            text-align: center; padding: 100px 20px; color: var(--muted);
+        }
+        .empty h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px; font-weight: 300; margin-bottom: 10px;
+        }
+        .empty p { font-size: 13px; }
+
+        .nav-icons { display: flex; align-items: center; gap: 20px; }
+        .nav-icons a, .nav-icons button {
+            color: var(--charcoal); display: flex; align-items: center;
+            background: none; border: none; cursor: pointer; padding: 0;
+            position: relative;
+        }
+        .nav-badge {
+            display: none; position: absolute; top: -6px; right: -7px;
+            background: var(--emerald); color: #fff;
+            font-size: 9px; width: 15px; height: 15px; border-radius: 50%;
+            align-items: center; justify-content: center;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        /* ── SEARCH OVERLAY ── */
+        .search-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 1000;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 80px;
+        }
+
+        .search-box {
+            background: #fff;
+            width: 100%;
+            max-width: 640px;
+            border-radius: 12px;
+            padding: 24px;
+            position: relative;
+            margin: 0 16px;
+        }
+
+        .search-input-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1.5px solid #e8e4de;
+            border-radius: 8px;
+            padding: 12px 16px;
+        }
+
+        .search-input-row input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 300;
+            color: #1c1c1c;
+            min-width: 0;
+        }
+
+        .search-input-row button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #999;
+            font-size: 20px;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .search-popular { margin-top: 20px; }
+        .search-popular p {
+            font-size: 11px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 12px;
+        }
+        .search-popular-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .search-popular-tags a {
+            padding: 8px 16px;
+            border: 1px solid #e8e4de;
+            border-radius: 50px;
+            font-size: 13px;
+            color: #333;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .search-results {
+            display: none;
+            margin-top: 16px;
+            max-height: 320px;
+            overflow-y: auto;
+        }
+
+        /* ── TABLET ── */
+        @media (max-width: 1100px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+
+        /* ── FIX 2: Nav links horizontally scrollable at tablet/mobile ── */
+        @media (max-width: 900px) {
+            .nav-links {
+                justify-content: flex-start;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                gap: 28px;
+                padding: 14px 20px;
+            }
+            .nav-links::-webkit-scrollbar { display: none; }
+        }
+
+        @media (max-width: 760px) {
+            .grid { grid-template-columns: repeat(2, 1fr); gap: 20px 14px; }
+            .page { padding: 24px 20px 60px; }
+            .nav-top, .nav-brand { padding-left: 20px; padding-right: 20px; }
+            .nav-links { gap: 20px; padding: 12px 20px; }
+            .breadcrumb { padding: 12px 20px; }
+
+            /* ── FIX 3: Show wish button on touch devices (tablet range) ── */
+            .card-wish { opacity: 1; }
+
+            /* ── FIX 4: Page header wraps gracefully ── */
+            .page-header {
+                flex-wrap: wrap;
+                gap: 6px;
+                align-items: center;
+                margin-bottom: 28px;
+            }
+        }
+
+        /* ── MOBILE ── */
+        @media (max-width: 600px) {
+            .nav-top { padding: 10px 16px; }
+            /* ── FIX 5: Hide empty spacer div in nav-top on mobile ── */
+            .nav-top > div:first-child { display: none; }
+            .nav-top { justify-content: flex-end; }
+            .nav-brand { padding: 6px 16px 0; }
+            .nav-brand img { height: 32px; }
+            .nav-brand span { font-size: 11px; }
+            .nav-links { gap: 18px; padding: 10px 16px; }
+            .nav-links a { font-size: 10px; letter-spacing: 0.12em; }
+            .nav-icons { gap: 14px; }
+            .breadcrumb { padding: 10px 16px; font-size: 11px; }
+            .page { padding: 20px 16px 52px; }
+            .page-header { margin-bottom: 24px; align-items: center; }
+            .page-title { font-size: 24px; }
+            .page-meta { font-size: 11px; }
+            .grid { grid-template-columns: repeat(2, 1fr); gap: 16px 12px; }
+            .card-wish { opacity: 1; width: 28px; height: 28px; top: 8px; right: 8px; }
+            .card-wish svg { width: 13px; height: 13px; }
+            .card-info { padding: 10px 2px 0; }
+            .card-cat { font-size: 9px; letter-spacing: 0.14em; }
+            .card-name { font-size: 14px; margin-bottom: 6px; }
+            .card-price { font-size: 13px; }
+            .empty { padding: 60px 16px; }
+            .empty h3 { font-size: 22px; }
+            .search-overlay { padding-top: 0; align-items: flex-start; }
+            .search-box { border-radius: 0 0 12px 12px; margin: 0; max-width: 100%; padding: 20px 16px; }
+            .search-input-row { padding: 10px 12px; }
+            .search-input-row input { font-size: 14px; }
+            .search-popular-tags a { font-size: 12px; padding: 7px 12px; }
+            .budget-filters { gap: 6px; margin-bottom: 20px; flex-wrap: nowrap; justify-content: space-between; }
+            .budget-filter-btn { padding: 6px 10px; font-size: 10px; white-space: nowrap; flex-shrink: 1; flex: 1; text-align: center; }
+        }
+
+        @media (max-width: 380px) {
+            .nav-top { padding: 8px 12px; }
+            .nav-brand { padding: 6px 12px 0; }
+            .nav-links { gap: 14px; padding: 8px 12px; }
+            .breadcrumb { padding: 8px 12px; }
+            .page { padding: 16px 12px 44px; }
+            .grid { gap: 12px 10px; }
+            .page-title { font-size: 20px; }
+            .card-name { font-size: 13px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-top">
+        <div></div>
+        <div class="nav-icons">
+            <button onclick="document.getElementById('searchOverlay').style.display='flex'; document.getElementById('searchInput').focus();">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+            </button>
+            <a href="/login/">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                </svg>
+            </a>
+            <a href="/wishlist/" style="position:relative;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+                <span id="wishNavBadge" class="nav-badge"></span>
+            </a>
+            <a href="/cart/" style="position:relative;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+                </svg>
+                <span id="cartNavBadge" class="nav-badge"></span>
+            </a>
+        </div>
+    </div>
+
+    <div class="nav-brand">
+        <img src="{% static 'images/TIARRA_Logo_English_2.png' %}" alt="TIARRA" style="height:40px; width:auto;"/>
+        <div><span>Bridal Jewellery &amp; Silks Sarees</span></div>
+    </div>
+
+    <ul class="nav-links">
+        <li><a href="/products/?category=Ring"         {% if active_category == 'Rings' %}class="active"{% endif %}>Rings</a></li>
+        <li><a href="/products/?category=Necklace"      {% if active_category == 'Necklace' %}class="active"{% endif %}>Necklace</a></li>
+        <li><a href="/products/?category=Earrings"      {% if active_category == 'Earrings' %}class="active"{% endif %}>Earrings</a></li>
+        <li><a href="/products/?category=Bracelets"     {% if active_category == 'Bracelets' %}class="active"{% endif %}>Bracelets</a></li>
+        <li><a href="/products/?category=Silk+Sarees"   {% if active_category == 'Silk Sarees' %}class="active"{% endif %}>Silk Sarees</a></li>
+        <li><a href="/products/?category=Bridal+Sarees" {% if active_category == 'Bridal Sarees' %}class="active"{% endif %}>Bridal Sarees</a></li>
+        <li><a href="/products/"                        {% if not active_category %}class="active"{% endif %}>More</a></li>
+        <li><a href="/about/">About</a></li>
+    </ul>
+</nav>
+
+<div class="breadcrumb">
+    <a href="/">Home</a>
+    <span>/</span>
+    {% if active_category %}
+        <a href="/products/">Products</a>
+        <span>/</span>
+        {{ active_category }}
+    {% elif max_price %}
+        <a href="/products/">Products</a>
+        <span>/</span>
+        Under ₹{{ max_price }}
+    
+    {% endif %}
+</div>
+
+<div class="page">
+    <div class="page-header">
+        <div class="page-title">
+            {% if max_price %}
+                Under ₹{{ max_price }}
+            {% elif active_category %}
+                {{ active_category }}
+            
+            {% endif %}
+        </div>
+        <!-- <div class="page-meta">{{ products|length }} product{{ products|length|pluralize }}</div> -->
+    </div>
+
+    <!-- BUDGET FILTER BUTTONS — shown only when browsing by price -->
+    {% if max_price %}
+    <div class="budget-filters">
+        <a href="/products/?max_price=2000"
+           class="budget-filter-btn {% if max_price == '2000' %}active{% endif %}">
+            Under 2k
+        </a>
+        <a href="/products/?max_price=5000"
+           class="budget-filter-btn {% if max_price == '5000' %}active{% endif %}">
+            Under 5k
+        </a>
+        <a href="/products/?max_price=8000"
+           class="budget-filter-btn {% if max_price == '8000' %}active{% endif %}">
+            Under 8k
+        </a>
+        <a href="/products/?max_price=10000"
+           class="budget-filter-btn {% if max_price == '10000' %}active{% endif %}">
+            Under 10k
+        </a>
+    </div>
+    {% endif %}
+
+    <div class="grid">
+        {% for product in products %}
+        <div class="card">
+            <a href="/product/{{ product.id }}/" style="text-decoration:none; color:inherit; display:block;">
+                <div class="card-img">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" loading="lazy"/>
+                    {% else %}
+                        <img src="https://via.placeholder.com/400x400/ede9e2/1a4a3a?text=TIARRA" alt="{{ product.name }}" loading="lazy"/>
+                    {% endif %}
+                    <button class="card-wish" onclick="event.preventDefault(); toggleWish({{ product.id }}, this)" title="Add to Wishlist">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" stroke-width="1.8">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="card-info">
+                    <div class="card-cat">{{ product.category }}</div>
+                    <div class="card-name">{{ product.name }}</div>
+                    <div class="card-price">₹{{ product.price }}</div>
+                </div>
+            </a>
+        </div>
+        {% empty %}
+        <div class="empty">
+            <h3>No products found</h3>
+            <p>Try browsing a different category or check back soon for new arrivals.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- SEARCH OVERLAY -->
+<div id="searchOverlay" class="search-overlay">
+    <div class="search-box">
+        <div class="search-input-row">
+            <svg width="18" height="18" fill="none" stroke="#888" stroke-width="1.7" viewBox="0 0 24 24" style="flex-shrink:0;">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input id="searchInput" type="text" placeholder="Search for jewellery, sarees..."
+                oninput="handleSearch(this.value)"
+                onkeydown="if(event.key==='Escape') closeSearch(); if(event.key==='Enter' && this.value.trim()) window.location.href='/search-results/?q=' + encodeURIComponent(this.value.trim());"/>
+            <button onclick="closeSearch()">✕</button>
+        </div>
+
+        <div id="searchDefault" class="search-popular">
+            <p>Popular Searches</p>
+            <div class="search-popular-tags">
+                <a href="/search-results/?q=Engagement+Rings">Engagement Rings</a>
+                <a href="/search-results/?q=Kanjivaram+Sarees">Kanjivaram Sarees</a>
+                <a href="/search-results/?q=Gold+Necklace">Gold Necklace</a>
+                <a href="/search-results/?q=Diamond+Earrings">Diamond Earrings</a>
+                <a href="/search-results/?q=Bridal+Sets">Bridal Sets</a>
+            </div>
+        </div>
+
+        <div id="searchResults" class="search-results"></div>
+    </div>
+</div>
+
+<script>
+    function getCookie(name) {
+        const v = `; ${document.cookie}`, p = v.split(`; ${name}=`);
+        if (p.length === 2) return p.pop().split(';').shift();
+    }
+
+    function setBadge(id, count) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.textContent = count;
+        el.style.display = count > 0 ? 'flex' : 'none';
+    }
+    
+    
+    fetch('/wishlist/count/').then(r => r.json()).then(d => setBadge('wishNavBadge', d.count));
+
+    fetch('/wishlist/toggle/0/', { method: 'POST', headers: { 'X-CSRFToken': getCookie('csrftoken') } })
+        .then(r => r.json())
+        .then(data => {
+            const wishlist = data.wishlist || [];
+            document.querySelectorAll('.card-wish').forEach(btn => {
+                const id = parseInt(btn.getAttribute('onclick').match(/\d+/)[0]);
+                if (wishlist.includes(id)) {
+                    btn.classList.add('wished');
+                    const svg = btn.querySelector('svg');
+                    svg.style.fill = '#c0392b';
+                    svg.style.stroke = '#c0392b';
+                }
+            });
+        });
+    fetch('/cart/count/').then(r => r.json()).then(d => setBadge('cartNavBadge', d.count));
+
+    function toggleWish(productId, btn) {
+        fetch(`/wishlist/toggle/${productId}/`, {
+            method: 'POST',
+            headers: { 'X-CSRFToken': getCookie('csrftoken') },
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.redirect) { window.location.href = data.redirect; return; }
+            setBadge('wishNavBadge', data.count);
+            
+            
+            
+            const svg = btn.querySelector('svg');
+            svg.style.fill = data.added ? '#c0392b' : 'none';
+            svg.style.stroke = data.added ? '#c0392b' : 'var(--emerald)';
+            btn.classList.toggle('wished', data.added);
+
+
+
+        });
+    }
+
+    let searchTimer;
+    function handleSearch(query) {
+        const def = document.getElementById('searchDefault');
+        const res = document.getElementById('searchResults');
+        if (!query.trim()) { def.style.display = 'block'; res.style.display = 'none'; return; }
+        def.style.display = 'none'; res.style.display = 'block';
+        res.innerHTML = '<p style="font-size:14px;color:#888;text-align:center;padding:20px 0;">Searching…</p>';
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(() => {
+            fetch(`/search/?q=${encodeURIComponent(query)}`)
+                .then(r => r.json())
+                .then(data => {
+                    if (!data.results.length) {
+                        res.innerHTML = `<p style="font-size:14px;color:#888;text-align:center;padding:20px 0;">No results for "<strong>${query}</strong>"</p>`;
+                    } else {
+                        res.innerHTML = data.results.map(item => `
+                            <a href="/product/${item.id}/" style="display:flex;align-items:center;gap:12px;padding:12px 8px;border-bottom:1px solid #f0ede8;text-decoration:none;"
+                               onmouseover="this.style.background='#f9f9f9'" onmouseout="this.style.background='transparent'">
+                                <img src="${item.image}" style="width:48px;height:48px;object-fit:cover;border-radius:4px;background:#f0f0f0;flex-shrink:0;"/>
+                                <div style="flex:1;min-width:0;">
+                                    <p style="font-size:14px;color:#1c1c1c;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${item.name}</p>
+                                    <p style="font-size:12px;color:#888;">${item.category}</p>
+                                </div>
+                                <p style="font-size:13px;font-weight:500;color:var(--emerald);flex-shrink:0;">₹${Number(item.price).toLocaleString('en-IN')}</p>
+                            </a>`).join('');
+                    }
+                });
+        }, 300);
+    }
+
+    function closeSearch() {
+        document.getElementById('searchOverlay').style.display = 'none';
+        document.getElementById('searchInput').value = '';
+        document.getElementById('searchDefault').style.display = 'block';
+        document.getElementById('searchResults').style.display = 'none';
+    }
+
+    document.getElementById('searchOverlay').addEventListener('click', function(e) {
+        if (e.target === this) closeSearch();
+    });
+</script>
+
+</body>
+</html>

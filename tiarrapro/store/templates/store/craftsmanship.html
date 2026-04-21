@@ -1,0 +1,397 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Craftsmanship – Tiarra</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+  <style>
+    body {
+      margin:0;
+      font-family:'DM Sans', sans-serif;
+      background:#ffffff;
+      color:#1a1a1a;
+    }
+
+    header {
+      background:#fff;
+      padding:20px;
+      text-align:center;
+      border-bottom:1px solid #eee;
+      position:sticky;
+      top:0;
+      z-index:999;
+      box-shadow:0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .logo {
+      height:40px;
+    }
+
+    .hero {
+      background:#1c3a2b;
+      color:white;
+      text-align:center;
+      padding:100px 20px;
+    }
+
+    .hero h1 {
+      font-family:'Playfair Display', serif;
+      font-size:3rem;
+      font-weight:300;
+    }
+
+    .hero p {
+      color:#e2c07a;
+      letter-spacing:2px;
+      font-size:0.9rem;
+    }
+
+    section {
+      padding:80px 20px;
+      max-width:1100px;
+      margin:auto;
+    }
+
+    .grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:50px;
+      align-items:center;
+    }
+
+    .grid img {
+      width:100%;
+      border-radius:6px;
+    }
+
+    h2 {
+      font-family:'Playfair Display', serif;
+      font-size:2.5rem;
+      margin-bottom:15px;
+      color:#1c3a2b;
+    }
+
+    p {
+      line-height:1.8;
+      color:#555;
+      font-size:0.95rem;
+    }
+
+    .highlight {
+      color:#c9a84c;
+    }
+
+    .steps {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:30px;
+      margin-top:40px;
+    }
+
+    .step {
+      background:white;
+      padding:30px;
+      border:1px solid #eee;
+      text-align:center;
+    }
+
+    .step h3 {
+      font-family:'Playfair Display', serif;
+      color:#1c3a2b;
+    }
+
+    .cta {
+      background:#1c3a2b;
+      color:white;
+      text-align:center;
+      padding:80px 20px;
+    }
+
+    .cta a {
+      display:inline-block;
+      margin-top:20px;
+      padding:12px 30px;
+      background:#c9a84c;
+      color:#1c3a2b;
+      text-decoration:none;
+      letter-spacing:2px;
+      font-size:0.8rem;
+    }
+
+    footer {
+      background:#111;
+      color:#aaa;
+      text-align:center;
+      padding:30px;
+      font-size:0.8rem;
+    }
+
+    /* FIX: footer link hover via CSS — works on touch devices */
+    footer a:hover { color: #e2c07a !important; }
+
+    @media(max-width:768px){
+      .grid { grid-template-columns:1fr; }
+      .steps { grid-template-columns:1fr; }
+
+      /* FIX: footer to 2 columns on tablet */
+      .footer-grid {
+        grid-template-columns: 1.5fr 1fr 1fr 1fr !important;
+        gap: 16px !important;
+      }
+      .footer-grid > div:first-child {
+        grid-column: 1 / -1;
+      }
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 600px) {
+      header {
+        padding: 14px 16px;
+      }
+
+      .logo {
+        height: 32px;
+      }
+
+      .hero {
+        padding: 56px 16px;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 0.75rem;
+        letter-spacing: 1.5px;
+      }
+
+      section {
+        padding: 48px 16px;
+      }
+
+      h2 {
+        font-size: 1.7rem;
+      }
+
+      .grid {
+        gap: 24px;
+      }
+
+      .steps {
+        gap: 16px;
+        margin-top: 28px;
+      }
+
+      .step {
+        padding: 22px 18px;
+      }
+
+      .cta {
+        padding: 56px 16px;
+      }
+
+      .cta h2 {
+        font-size: 1.7rem;
+      }
+
+      /* FIX: CTA button minimum tap target */
+      .cta a {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 30px;
+      }
+
+      footer {
+        padding: 20px 16px;
+      }
+
+      /* FIX: footer grid to 1 column on mobile */
+      .footer-grid {
+        grid-template-columns: 1fr 1fr 1fr 1fr !important;
+        gap: 12px !important;
+      }
+      .footer-grid > div:first-child {
+        grid-column: 1 / -1;
+      }
+      .footer-grid a {
+        font-size: .68rem !important;
+        padding: 4px 0 !important;
+      }
+      .footer-grid h5 {
+        font-size: .52rem !important;
+        letter-spacing: .12em !important;
+      }
+
+      /* FIX: footer bottom bar stacks on mobile */
+      .footer-bottom {
+        flex-direction: column !important;
+        gap: 8px !important;
+        text-align: center !important;
+      }
+
+      /* FIX: larger tap targets for footer links */
+      .footer-grid a:not(.social-icon) {
+        padding: 4px 0 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="/">
+    <img src="{% static 'images/TIARRA_Logo_English_2.png' %}" class="logo">
+  </a>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <p>OUR HERITAGE</p>
+  <h1>Crafted by <span class="highlight">Tradition</span></h1>
+</div>
+
+<!-- SECTION 1 -->
+<section>
+  <div class="grid">
+    <div>
+      <h2>Where Art Meets Legacy</h2>
+      <p>
+        At Tiarra, every piece tells a story of heritage and artistry. Our jewellery
+        and silk sarees are crafted by master artisans from Tamil Nadu, carrying
+        forward traditions that span generations.
+      </p>
+      <p>
+        From intricate temple jewellery to handwoven Kanjivaram silks, each creation
+        reflects patience, precision, and passion.
+      </p>
+    </div>
+    <img src="{% static 'images/craft1.png' %}">
+  </div>
+</section>
+
+<!-- SECTION 2 -->
+<section>
+  <div class="grid">
+    <img src="{% static 'images/craft2.png' %}">
+    <div>
+      <h2>Handcrafted Excellence</h2>
+      <p>
+        Our artisans use time-honoured techniques — hand weaving, gold carving,
+        stone setting — ensuring each product is unique.
+      </p>
+      <p>
+        We believe luxury is not mass-produced. It is carefully created, one piece
+        at a time.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section>
+  <h2 style="text-align:center;">Our Process</h2>
+  <div class="steps">
+    <div class="step">
+      <h3>Design</h3>
+      <p>Inspired by heritage motifs and modern elegance.</p>
+    </div>
+    <div class="step">
+      <h3>Crafting</h3>
+      <p>Handcrafted by skilled artisans with precision.</p>
+    </div>
+    <div class="step">
+      <h3>Finishing</h3>
+      <p>Quality checked and perfected for timeless beauty.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta">
+  <h2>Experience the Craft</h2>
+  <p>Explore our collections crafted with passion and heritage.</p>
+  <a href="{% url 'products' %}">Explore Collections</a>
+</div>
+
+<!-- FOOTER -->
+<!-- FIX: added footer-grid and footer-bottom classes so CSS media rules can target them -->
+<footer style="background:#1a1a1a; color:rgba(255,255,255,.55); padding:60px 32px 32px; font-family:'DM Sans', sans-serif;">
+  <div class="footer-grid" style="max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:40px; padding-bottom:40px; border-bottom:1px solid rgba(255,255,255,.08);">
+    
+    <div>
+      <div style="font-family:'Playfair Display', serif; font-size:1.8rem; color:#c9a84c; letter-spacing:.1em; margin-bottom:12px;">TIARRA</div>
+      <p style="font-size:.8rem; line-height:1.7; margin-bottom:18px; color:rgba(255,255,255,.55);">Bridal Jewellery &amp; Silk Sarees since 2010. Serving brides and families across Nagercoil and Kanyakumari with love and heritage.</p>
+      <!-- FIX: removed onmouseover/onmouseout — handled by CSS footer a:hover -->
+      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <a href="https://www.instagram.com/tiarra.co.in" target="_blank" aria-label="Instagram" style="width:34px; height:34px; flex-shrink:0; border:1px solid rgba(255,255,255,.15); border-radius:50%; display:flex; align-items:center; justify-content:center;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://www.facebook.com/TiarraJewelsandSilks/" target="_blank" aria-label="Facebook" style="width:34px; height:34px; flex-shrink:0; border:1px solid rgba(255,255,255,.15); border-radius:50%; display:flex; align-items:center; justify-content:center;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@Tiarrajewelsandsilks" target="_blank" aria-label="YouTube" style="width:34px; height:34px; flex-shrink:0; border:1px solid rgba(255,255,255,.15); border-radius:50%; display:flex; align-items:center; justify-content:center;">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="3"/>
+            <polygon points="10 8.5 16 12 10 15.5" fill="rgba(255,255,255,0.5)" stroke="none"/>
+          </svg>
+        </a>
+
+        <a href="https://wa.me/919150709155" target="_blank" aria-label="WhatsApp" style="width:34px; height:34px; border:1px solid rgba(255,255,255,.15); border-radius:50%; display:flex; align-items:center; justify-content:center;">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 21l1.65-4.85A8.5 8.5 0 1 1 7.5 19.5z"/>
+            <path d="M9 10.5c-.3-.7 0-1.5.5-1.5h.5c.3 0 .5.2.7.5l.5 1c.1.3 0 .6-.2.8l-.3.3c.4.7 1 1.3 1.7 1.7l.3-.3c.2-.2.5-.3.8-.2l1 .5c.3.2.5.4.5.7v.5c0 .5-.8.8-1.5.5"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <h5 style="font-size:.65rem; letter-spacing:.22em; text-transform:uppercase; color:#c9a84c; margin-bottom:16px; font-weight:500;">Shop</h5>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <a href="{% url 'products' %}?category=Ring" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;">Rings</a>
+        <a href="{% url 'products' %}?category=Necklace" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;">Necklace</a>
+        <a href="{% url 'products' %}?category=Earrings" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;">Earrings</a>
+        <a href="{% url 'products' %}?category=Bracelets" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;">Bracelets</a>
+        <a href="{% url 'products' %}?category=Silk+Sarees" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;">Silk Sarees</a>
+        <a href="{% url 'products' %}?category=Bridal+Sarees" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;">Bridal Sarees</a>
+      </div>
+    </div>
+
+    <div>
+      <h5 style="font-size:.65rem; letter-spacing:.22em; text-transform:uppercase; color:#c9a84c; margin-bottom:16px; font-weight:500;">Company</h5>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <a href="/about" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;">About Us</a>
+        <a href="{% url 'craftsmanship' %}" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;">Our Craft</a>
+        <a href="{% url 'blog' %}" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;">Journal</a>
+        <a href="/contact" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;">Contact</a>
+      </div>
+    </div>
+
+    <div>
+      <h5 style="font-size:.65rem; letter-spacing:.22em; text-transform:uppercase; color:#c9a84c; margin-bottom:16px; font-weight:500;">Help</h5>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <a href="{% url 'faq' %}" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;">FAQ</a>
+        <a href="{% url 'shipping' %}" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;">Shipping</a>
+        
+        <a href="{% url 'size_guide' %}" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;">Size Guide</a>
+        <a href="/care" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;">Jewellery Care</a>
+        <a href="/privacy" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;">Privacy Policy</a>
+      </div>
+    </div>
+
+  </div>
+  <div class="footer-bottom" style="max-width:1200px; margin:24px auto 0; display:flex; justify-content:space-between; align-items:center; font-size:.72rem; flex-wrap:wrap; gap:8px;">
+    <span>© 2026 Tiarra Bridal Jewellery &amp; Silk Sarees, Nagercoil. All rights reserved.</span>
+    <span>Made with love in Tamil Nadu 🤍</span>
+  </div>
+</footer>
+
+</body>
+</html>

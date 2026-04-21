@@ -1,0 +1,927 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Privacy Policy – Tiarra | Bridal Jewellery & Silk Sarees</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-deep: #1c3a2b;
+      --green-mid: #2a5240;
+      --gold: #c9a84c;
+      --gold-light: #e2c07a;
+      --cream: #faf6ef;
+      --text-dark: #1a1a1a;
+      --text-mid: #4a4a4a;
+      --text-light: #8a8a8a;
+      --white: #ffffff;
+      --border: #e8e0d4;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      /* Prevent horizontal overflow on all screens */
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--green-deep);
+      padding: 80px 32px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,.06) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+    .hero-tag {
+      font-size: .65rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+      position: relative;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .hero h1 em { font-style: italic; color: var(--gold-light); }
+    .hero-divider { width: 50px; height: 1px; background: var(--gold); margin: 0 auto 16px; position: relative; }
+    .hero p {
+      font-size: .88rem;
+      color: rgba(255,255,255,.6);
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.7;
+      position: relative;
+    }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .72rem;
+      letter-spacing: .1em;
+      color: var(--text-light);
+    }
+    .breadcrumb a { color: var(--text-light); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--gold); }
+
+    /* ── LAYOUT ── */
+    .layout {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 56px 32px 80px;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      position: sticky;
+      top: 24px;
+    }
+    .sidebar-title {
+      font-size: .62rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .sidebar-nav { list-style: none; }
+    .sidebar-nav li { border-bottom: 1px solid var(--border); }
+    .sidebar-nav a {
+      display: block;
+      padding: 12px 0 12px 14px;
+      font-size: .82rem;
+      color: var(--text-mid);
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      transition: color .2s, border-color .2s;
+    }
+    .sidebar-nav a:hover {
+      color: var(--green-deep);
+      border-left-color: var(--gold);
+    }
+    .sidebar-date {
+      margin-top: 28px;
+      padding: 16px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      font-size: .78rem;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+    .sidebar-date strong { display: block; color: var(--text-dark); margin-bottom: 4px; font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; }
+
+    /* ── CONTENT ── */
+    .content section {
+      margin-bottom: 52px;
+      scroll-margin-top: 24px;
+    }
+    .sec-tag {
+      font-size: .6rem;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .sec-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--green-deep);
+      margin-bottom: 10px;
+    }
+    .gold-rule { width: 36px; height: 2px; background: var(--gold); margin-bottom: 18px; }
+    .content p {
+      font-size: .88rem;
+      color: var(--text-mid);
+      line-height: 1.85;
+      margin-bottom: 14px;
+    }
+    .content ul {
+      list-style: none;
+      margin-bottom: 14px;
+    }
+    .content ul li {
+      font-size: .86rem;
+      color: var(--text-mid);
+      padding: 7px 0 7px 20px;
+      border-bottom: 1px solid #f0ede8;
+      position: relative;
+      line-height: 1.6;
+    }
+    .content ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-size: .75rem;
+    }
+    .content ul li:last-child { border-bottom: none; }
+
+    /* ── HIGHLIGHT BOX ── */
+    .highlight {
+      background: var(--green-deep);
+      color: rgba(255,255,255,.8);
+      padding: 20px 24px;
+      border-left: 3px solid var(--gold);
+      margin: 20px 0;
+      font-size: .84rem;
+      line-height: 1.75;
+    }
+    .highlight strong {
+      display: block;
+      color: var(--gold-light);
+      font-size: .68rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    /* ── INFO CARDS ── */
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 20px;
+      position: relative;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gold);
+    }
+    .card-icon {
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+    }
+    .card h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: .95rem;
+      color: var(--green-deep);
+      margin-bottom: 8px;
+    }
+    .card p { font-size: .8rem; color: var(--text-mid); line-height: 1.7; margin: 0; }
+
+    /* ── CONTACT BOX ── */
+    .contact-box {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 28px;
+      margin-top: 20px;
+    }
+    .contact-box h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--green-deep);
+      margin-bottom: 16px;
+    }
+    .contact-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 14px;
+      font-size: .84rem;
+      color: var(--text-mid);
+    }
+    .contact-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--green-deep);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-icon svg { width: 14px; height: 14px; stroke: var(--gold); fill: none; stroke-width: 1.8; }
+
+    /* ── FOOTER CTA ── */
+    .footer-note {
+      background: var(--green-deep);
+      padding: 40px 32px;
+      text-align: center;
+      margin-top: 0;
+    }
+    .footer-note h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .footer-note p { font-size: .84rem; color: rgba(255,255,255,.6); margin-bottom: 20px; }
+    .footer-note a {
+      display: inline-block;
+      padding: 12px 32px;
+      background: var(--gold);
+      color: var(--green-deep);
+      font-size: .72rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background .2s;
+    }
+    .footer-note a:hover { background: var(--gold-light); }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      background: #1a1a1a;
+      color: rgba(255,255,255,.55);
+      padding: 60px 32px 32px;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .footer-brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: #c9a84c;
+      letter-spacing: .1em;
+      margin-bottom: 12px;
+    }
+    .footer-brand-desc {
+      font-size: .8rem;
+      line-height: 1.7;
+      margin-bottom: 18px;
+      color: rgba(255,255,255,.55);
+    }
+    .footer-socials {
+      display: flex;
+      gap: 12px;
+    }
+    .footer-social-link {
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color .2s;
+      flex-shrink: 0;
+    }
+    .footer-social-link:hover { border-color: #c9a84c; }
+    .footer-col-title {
+      font-size: .65rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: #c9a84c;
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .footer-links a {
+      font-size: .8rem;
+      color: rgba(255,255,255,.5);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .footer-links a:hover { color: #e2c07a; }
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 24px auto 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: .72rem;
+      gap: 12px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .layout { grid-template-columns: 1fr; gap: 32px; }
+      .sidebar { position: static; }
+      .cards { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding: 52px 20px 40px; }
+      .hero h1 { font-size: 1.9rem; }
+      .hero p { font-size: .82rem; }
+
+      .breadcrumb { padding: 12px 20px; font-size: .68rem; }
+
+      .layout { padding: 36px 20px 56px; gap: 28px; }
+
+      .sec-title { font-size: 1.25rem; }
+
+      .content p,
+      .content ul li { font-size: .84rem; }
+
+      .highlight { padding: 16px 18px; font-size: .82rem; }
+
+      .card { padding: 16px; }
+      .card h4 { font-size: .9rem; }
+      .card p { font-size: .78rem; }
+
+      .contact-box { padding: 20px 16px; }
+      .contact-row { gap: 10px; font-size: .82rem; flex-wrap: wrap; }
+      .contact-icon { width: 28px; height: 28px; flex-shrink: 0; }
+      .contact-icon svg { width: 12px; height: 12px; }
+
+      .footer-note { padding: 32px 20px; }
+      .footer-note h3 { font-size: 1.2rem; }
+      .footer-note p { font-size: .8rem; }
+      .footer-note a { padding: 11px 24px; font-size: .68rem; }
+
+      .sidebar-nav a { font-size: .8rem; padding: 11px 0 11px 12px; }
+      .sidebar-date { font-size: .75rem; }
+
+      .site-footer { padding: 40px 20px 24px; }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 28px 20px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .hero { padding: 40px 16px 32px; }
+      .hero h1 { font-size: 1.6rem; }
+      .layout { padding: 28px 16px 44px; }
+      .breadcrumb { padding: 10px 16px; }
+    }
+
+
+
+
+    /* ── MID-RANGE SAFETY: 481px – 599px ── */
+    @media (min-width: 481px) and (max-width: 599px) {
+      .layout {
+          padding: 36px 24px 56px;
+          gap: 28px;
+      }
+      .hero {
+        padding: 56px 24px 44px;
+      }
+      .breadcrumb {
+        padding: 12px 24px;
+      }
+      .footer-note {
+        padding: 32px 24px;
+      }
+      .site-footer {
+        padding: 40px 24px 24px;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+      }
+    }
+
+/* ── GLOBAL MOBILE SAFETY: all screens ≤ 768px ── */
+    @media (max-width: 768px) {
+    /* Sidebar TOC: cap height and scroll so it doesn't bury content */
+      .sidebar-nav {
+          max-height: 260px;
+          overflow-y: auto;
+          -webkit-overflow-scrolling: touch;
+      }
+
+    /* Cards grid: never go below ~140px per card */
+      .cards {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      }
+
+    /* Contact address: let text wrap under icon cleanly */
+      .contact-row > div:last-child {
+        min-width: 0;
+        word-break: break-word;
+      }
+
+    /* Breadcrumb: wrap long paths */
+      .breadcrumb {
+        flex-wrap: wrap;
+        line-height: 1.8;
+      }
+
+    /* Footer grid between 601–900px: ensure columns don't crush */
+      .footer-grid {
+        gap: 20px;
+      }
+
+    /* Footer links: slightly larger tap targets on touch */
+      .footer-links a {
+        padding: 3px 0;
+        display: inline-block;
+      }
+
+    /* Hero grid text: prevent long words overflowing */
+      .hero h1,
+      .hero p {
+        word-break: break-word;
+      }
+
+    /* Highlight box: prevent text overflow on narrow screens */
+      .highlight {
+        word-break: break-word;
+      }
+
+    /* Section titles: prevent overflow */
+      .sec-title {
+        word-break: break-word;
+      }
+  }
+
+/* ── VERY NARROW: 320px devices ── */
+  @media (max-width: 340px) {
+    .hero {
+        padding: 36px 14px 28px;
+    }
+    .hero h1 {
+        font-size: 1.45rem;
+    }
+    .layout {
+        padding: 24px 14px 40px;
+    }
+    .breadcrumb {
+        padding: 10px 14px;
+    }
+    .cards {
+        grid-template-columns: 1fr;
+    }
+    .contact-box {
+        padding: 16px 12px;
+    }
+    .footer-brand-name {
+        font-size: 1.5rem;
+    }
+  }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-tag">Tiarra | Bridal Jewellery & Silk Sarees</p>
+  <h1>Your Privacy <em>Matters to Us</em></h1>
+  <div class="hero-divider"></div>
+  <p>We are committed to protecting your personal information and being transparent about how it is used.</p>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="/">Home</a>
+  <span>›</span>
+  <span>Privacy Policy</span>
+</div>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <p class="sidebar-title">Contents</p>
+    <ul class="sidebar-nav">
+      <li><a href="#collect">Information We Collect</a></li>
+      <li><a href="#use">How We Use Your Data</a></li>
+      <li><a href="#sharing">Data Sharing</a></li>
+      <li><a href="#protection">Data Protection</a></li>
+      <li><a href="#cookies">Cookies Policy</a></li>
+      <li><a href="#payments">Payment Security</a></li>
+      <li><a href="#rights">Your Rights</a></li>
+      <li><a href="#retention">Data Retention</a></li>
+      <li><a href="#children">Children's Privacy</a></li>
+      <li><a href="#changes">Policy Changes</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+    </ul>
+    <div class="sidebar-date">
+      <strong>Last Updated</strong>
+      March 2026<br>
+      Effective: March 1, 2026
+    </div>
+  </aside>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <div class="highlight" style="margin-bottom:40px;">
+      <strong>Our Commitment</strong>
+      At Tiarra, we treat your personal information with the same care and respect we bring to every piece of jewellery we craft. This policy explains clearly what we collect, why we collect it, and how we protect it.
+    </div>
+
+    <!-- 1. COLLECT -->
+    <section id="collect">
+      <p class="sec-tag">Section 01</p>
+      <h2 class="sec-title">Information We Collect</h2>
+      <div class="gold-rule"></div>
+      <p>When you shop with Tiarra — online or in-store — we may collect the following types of information to process your orders and provide you with the best experience:</p>
+
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">👤</div>
+          <h4>Personal Details</h4>
+          <p>Full name, email address, phone number, and date of birth (for special offers).</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">📦</div>
+          <h4>Order & Delivery</h4>
+          <p>Shipping address, billing address, order history, and product preferences.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">💳</div>
+          <h4>Payment Details</h4>
+          <p>Payment method type. Card numbers are never stored — all transactions are handled by Razorpay's secure gateway.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🌐</div>
+          <h4>Technical Data</h4>
+          <p>IP address, browser type, device information, pages visited, and session duration.</p>
+        </div>
+      </div>
+
+      <p>We only collect what is necessary and proportionate to the service we are providing.</p>
+    </section>
+
+    <!-- 2. USE -->
+    <section id="use">
+      <p class="sec-tag">Section 02</p>
+      <h2 class="sec-title">How We Use Your Data</h2>
+      <div class="gold-rule"></div>
+      <p>Your information helps us deliver a seamless, personalised shopping experience. Specifically, we use your data to:</p>
+      <ul>
+        <li>Process and fulfil your orders, including delivery and returns</li>
+        <li>Send order confirmations, shipping updates, and receipts via email or SMS</li>
+        <li>Respond to customer service queries and complaints</li>
+        <li>Personalise your shopping experience and product recommendations</li>
+        <li>Send promotional emails and special offers (only if you have opted in)</li>
+        <li>Improve our website, products, and services based on usage data</li>
+        <li>Prevent fraud and ensure the security of your account</li>
+        <li>Comply with legal obligations such as tax records and accounting</li>
+      </ul>
+      <div class="highlight">
+        <strong>Marketing Emails</strong>
+        You will only receive promotional emails from Tiarra if you have explicitly opted in during checkout or account registration. You can unsubscribe at any time by clicking the "Unsubscribe" link in any email, or by contacting us directly.
+      </div>
+    </section>
+
+    <!-- 3. SHARING -->
+    <section id="sharing">
+      <p class="sec-tag">Section 03</p>
+      <h2 class="sec-title">Data Sharing</h2>
+      <div class="gold-rule"></div>
+      <p>We do not sell, rent, or trade your personal data to third parties. We may share limited data only in the following circumstances:</p>
+      <ul>
+        <li><strong>Delivery Partners:</strong> Your name and address are shared with our courier partners solely to fulfil your order.</li>
+        <li><strong>Payment Processors:</strong> Razorpay processes payments securely. We do not store your card details.</li>
+        <li><strong>Email Services:</strong> We use a third-party email service (Gmail SMTP) to send transactional emails.</li>
+        <li><strong>Legal Requirements:</strong> We may disclose data if required by law, court order, or government authority.</li>
+        <li><strong>Business Transfer:</strong> If Tiarra is acquired or merges, your data may be transferred as part of that transaction, subject to equivalent privacy protections.</li>
+      </ul>
+      <p>All third-party service providers we work with are contractually required to handle your data securely and in accordance with applicable data protection laws.</p>
+    </section>
+
+    <!-- 4. PROTECTION -->
+    <section id="protection">
+      <p class="sec-tag">Section 04</p>
+      <h2 class="sec-title">Data Protection</h2>
+      <div class="gold-rule"></div>
+      <p>We take the security of your personal information seriously and implement a range of technical and organisational measures to protect it:</p>
+      <ul>
+        <li>All data is transmitted over HTTPS encrypted connections</li>
+        <li>Passwords are hashed using industry-standard algorithms — never stored in plain text</li>
+        <li>Payment transactions are processed through Razorpay's PCI-DSS compliant infrastructure</li>
+        <li>Access to customer data is restricted to authorised team members only</li>
+        <li>Our database is protected with secure credentials and access controls</li>
+        <li>We regularly review and update our security practices</li>
+      </ul>
+      <div class="highlight">
+        <strong>Important Notice</strong>
+        While we take all reasonable steps to protect your data, no method of internet transmission or electronic storage is 100% secure. If you suspect unauthorised access to your account, please contact us immediately at tiarra.co.in@gmail.com.
+      </div>
+    </section>
+
+    <!-- 5. COOKIES -->
+    <section id="cookies">
+      <p class="sec-tag">Section 05</p>
+      <h2 class="sec-title">Cookies Policy</h2>
+      <div class="gold-rule"></div>
+      <p>We use cookies — small text files stored on your device — to enhance your experience on our website. Here is how we use them:</p>
+
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">🔒</div>
+          <h4>Essential Cookies</h4>
+          <p>Required for the website to function. Includes your session, cart contents, and login state. Cannot be disabled.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">📊</div>
+          <h4>Analytics Cookies</h4>
+          <p>Help us understand how visitors use the site — which pages are popular and where users drop off. Used to improve our website.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🎯</div>
+          <h4>Preference Cookies</h4>
+          <p>Remember your preferences such as language, currency, and recently viewed products.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">📢</div>
+          <h4>Marketing Cookies</h4>
+          <p>Used to show you relevant ads on other platforms. Only set if you have consented to marketing communications.</p>
+        </div>
+      </div>
+
+      <p>You can manage cookie settings in your browser at any time. Note that disabling certain cookies may affect website functionality.</p>
+    </section>
+
+    <!-- 6. PAYMENTS -->
+    <section id="payments">
+      <p class="sec-tag">Section 06</p>
+      <h2 class="sec-title">Payment Security</h2>
+      <div class="gold-rule"></div>
+      <p>All online payments on the Tiarra website are processed through <strong>Razorpay</strong>, a leading payment gateway in India. Here's what you should know:</p>
+      <ul>
+        <li>Tiarra does not store, access, or log your full card number, CVV, or net banking credentials</li>
+        <li>Razorpay is PCI-DSS Level 1 certified — the highest level of payment security</li>
+        <li>All transactions are encrypted with 256-bit SSL encryption</li>
+        <li>We support UPI, credit/debit cards, net banking, and wallets via Razorpay</li>
+        <li>Cash on Delivery (COD) orders are also available for eligible pincodes</li>
+      </ul>
+      <p>If you notice any suspicious or unauthorised transaction, contact Razorpay support and our team immediately.</p>
+    </section>
+
+    <!-- 7. RIGHTS -->
+    <section id="rights">
+      <p class="sec-tag">Section 07</p>
+      <h2 class="sec-title">Your Rights</h2>
+      <div class="gold-rule"></div>
+      <p>You have the following rights with respect to your personal data held by Tiarra:</p>
+      <ul>
+        <li><strong>Access:</strong> Request a copy of the personal data we hold about you.</li>
+        <li><strong>Correction:</strong> Ask us to correct inaccurate or incomplete data.</li>
+        <li><strong>Deletion:</strong> Request that we delete your personal data, subject to legal obligations.</li>
+        <li><strong>Opt-Out:</strong> Unsubscribe from marketing communications at any time.</li>
+        <li><strong>Data Portability:</strong> Request your data in a structured, machine-readable format.</li>
+        <li><strong>Withdraw Consent:</strong> Where we rely on consent to process your data, you can withdraw it at any time.</li>
+      </ul>
+      <p>To exercise any of these rights, please contact us at <strong>tiarra.co.in@gmail.com</strong>. We will respond within 30 days.</p>
+    </section>
+
+    <!-- 8. RETENTION -->
+    <section id="retention">
+      <p class="sec-tag">Section 08</p>
+      <h2 class="sec-title">Data Retention</h2>
+      <div class="gold-rule"></div>
+      <p>We retain your personal data only for as long as is necessary for the purposes outlined in this policy:</p>
+      <ul>
+        <li>Order and transaction data is retained for 7 years for tax and accounting compliance</li>
+        <li>Account information is retained for the duration of your account and 2 years after closure</li>
+        <li>Marketing preferences and opt-in records are retained until you opt out</li>
+        <li>Website analytics data (anonymised) may be retained indefinitely</li>
+        <li>Customer service correspondence is retained for 3 years</li>
+      </ul>
+      <p>After the retention period, data is securely deleted or anonymised.</p>
+    </section>
+
+    <!-- 9. CHILDREN -->
+    <section id="children">
+      <p class="sec-tag">Section 09</p>
+      <h2 class="sec-title">Children's Privacy</h2>
+      <div class="gold-rule"></div>
+      <p>Tiarra's website and services are not directed at children under the age of 18. We do not knowingly collect personal data from anyone under 18 years of age.</p>
+      <p>If you believe that a child has provided us with personal information, please contact us immediately at tiarra.co.in@gmail.com and we will promptly delete such information from our records.</p>
+    </section>
+
+    <!-- 10. CHANGES -->
+    <section id="changes">
+      <p class="sec-tag">Section 10</p>
+      <h2 class="sec-title">Policy Changes</h2>
+      <div class="gold-rule"></div>
+      <p>We may update this Privacy Policy from time to time to reflect changes in our practices, technology, or legal requirements. When we make significant changes:</p>
+      <ul>
+        <li>The "Last Updated" date at the top of this page will be revised</li>
+        <li>We will notify registered users by email if the changes are material</li>
+        <li>Your continued use of our website after changes constitutes acceptance of the updated policy</li>
+      </ul>
+      <p>We encourage you to review this policy periodically. The current version will always be available at tiarra.co.in/privacy.</p>
+    </section>
+
+    <!-- 11. CONTACT -->
+    <section id="contact">
+      <p class="sec-tag">Section 11</p>
+      <h2 class="sec-title">Contact Us</h2>
+      <div class="gold-rule"></div>
+      <p>If you have any questions, concerns, or requests related to this Privacy Policy or the handling of your personal data, please reach out to us:</p>
+
+      <div class="contact-box">
+        <h4>Tiarra Data Privacy</h4>
+        <div class="contact-row">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </div>
+          <div>
+            <strong style="font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:#1a1a1a;">Email</strong>
+            tiarra.co.in@gmail.com
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 13.7 19.79 19.79 0 0 1 1 5.08 2 2 0 0 1 2.96 3h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 10.8a16 16 0 0 0 6.11 6.11l1.16-1.16a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 18z"/></svg>
+          </div>
+          <div>
+            <strong style="font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:#1a1a1a;">Phone</strong>
+            +91 98765 43210
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <strong style="font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:#1a1a1a;">Address</strong>
+            Tiarra Bridal Jewellery & Silk Sarees<br>
+            Main Road, Nagercoil – 629 001<br>
+            Kanyakumari District, Tamil Nadu
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<!-- FOOTER CTA -->
+<div class="footer-note">
+  <h3>Questions About Your Privacy?</h3>
+  <p>We're happy to answer any questions about how we handle your data.</p>
+  <a href="/contact/">Contact Us</a>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+
+      <div>
+        <div class="footer-brand-name">TIARRA</div>
+        <p class="footer-brand-desc">Bridal Jewellery &amp; Silk Sarees since 2010. Serving brides and families across Nagercoil and Kanyakumari with love and heritage.</p>
+        <div class="footer-socials">
+          <a href="https://www.instagram.com/tiarra.co.in" target="_blank" aria-label="Instagram" class="footer-social-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://www.facebook.com/TiarraJewelsandSilks/" target="_blank" aria-label="Facebook" class="footer-social-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="https://www.youtube.com/@Tiarrajewelsandsilks" target="_blank" aria-label="YouTube" style="width:34px; height:34px; border:1px solid rgba(255,255,255,.15); border-radius:50%; display:flex; align-items:center; justify-content:center; transition:border-color .2s;" onmouseover="this.style.borderColor='#c9a84c'" onmouseout="this.style.borderColor='rgba(255,255,255,.15)'">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="3"/>
+            <polygon points="10 8.5 16 12 10 15.5" fill="rgba(255,255,255,0.5)" stroke="none"/>
+          </svg>
+          </a>
+          <a href="https://wa.me/919150709155" target="_blank" aria-label="WhatsApp" class="footer-social-link">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 21l1.65-4.85A8.5 8.5 0 1 1 7.5 19.5z"/>
+              <path d="M9 10.5c-.3-.7 0-1.5.5-1.5h.5c.3 0 .5.2.7.5l.5 1c.1.3 0 .6-.2.8l-.3.3c.4.7 1 1.3 1.7 1.7l.3-.3c.2-.2.5-.3.8-.2l1 .5c.3.2.5.4.5.7v.5c0 .5-.8.8-1.5.5"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <h5 class="footer-col-title">Shop</h5>
+        <div class="footer-links">
+          <a href="{% url 'products' %}?category=Ring">Rings</a>
+          <a href="{% url 'products' %}?category=Necklace">Necklace</a>
+          <a href="{% url 'products' %}?category=Earrings">Earrings</a>
+          <a href="{% url 'products' %}?category=Bracelets">Bracelets</a>
+          <a href="{% url 'products' %}?category=Silk+Sarees">Silk Sarees</a>
+          <a href="{% url 'products' %}?category=Bridal+Sarees">Bridal Sarees</a>
+        </div>
+      </div>
+
+      <div>
+        <h5 class="footer-col-title">Company</h5>
+        <div class="footer-links">
+          <a href="/about">About Us</a>
+          <a href="{% url 'craftsmanship' %}">Our Craft</a>
+          <a href="{% url 'blog' %}">Journal</a>
+          <a href="/contact">Contact</a>
+        </div>
+      </div>
+
+      <div>
+        <h5 class="footer-col-title">Help</h5>
+        <div class="footer-links">
+          <a href="{% url 'faq' %}">FAQ</a>
+          <a href="{% url 'shipping' %}">Shipping</a>
+          
+          <a href="{% url 'size_guide' %}">Size Guide</a>
+          <a href="/care">Jewellery Care</a>
+          <a href="/privacy">Privacy Policy</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Tiarra Bridal Jewellery &amp; Silk Sarees, Nagercoil. All rights reserved.</span>
+      <span>Made with love in Tamil Nadu 🤍</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

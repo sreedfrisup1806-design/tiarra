@@ -1,0 +1,872 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Size Guide – Tiarra | Bridal Jewellery & Silk Sarees</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-deep: #1c3a2b;
+      --green-mid: #2a5240;
+      --gold: #c9a84c;
+      --gold-light: #e2c07a;
+      --cream: #faf6ef;
+      --text-dark: #1a1a1a;
+      --text-mid: #4a4a4a;
+      --text-light: #8a8a8a;
+      --white: #ffffff;
+      --border: #e8e0d4;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text-dark);
+    }
+
+    /* ── HEADER ── */
+    .hero {
+      background: var(--green-deep);
+      padding: 80px 32px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,.06) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+    .hero-tag {
+      font-size: .65rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+      position: relative;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .hero h1 em { font-style: italic; color: var(--gold-light); }
+    .hero-divider {
+      width: 50px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 auto 16px;
+      position: relative;
+    }
+    .hero p {
+      font-size: .9rem;
+      color: rgba(255,255,255,.65);
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.7;
+      position: relative;
+    }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .72rem;
+      letter-spacing: .1em;
+      color: var(--text-light);
+    }
+    .breadcrumb a { color: var(--text-light); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--gold); }
+
+    /* ── NAV TABS ── */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      border-bottom: 2px solid var(--border);
+      background: var(--white);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .tab-btn {
+      padding: 16px 28px;
+      font-size: .72rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-weight: 400;
+      font-family: 'DM Sans', sans-serif;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-light);
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: color .2s, border-color .2s;
+    }
+    .tab-btn:hover { color: var(--green-deep); }
+    .tab-btn.active { color: var(--green-deep); border-bottom-color: var(--gold); font-weight: 500; }
+
+    /* ── MAIN CONTENT ── */
+    .main { max-width: 1100px; margin: 0 auto; padding: 56px 32px 80px; }
+
+    .section { display: none; }
+    .section.active { display: block; }
+
+    /* ── SECTION HEADER ── */
+    .sec-tag {
+      font-size: .62rem;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .sec-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 400;
+      color: var(--green-deep);
+      margin-bottom: 12px;
+    }
+    .sec-title em { font-style: italic; }
+    .gold-rule { width: 40px; height: 2px; background: var(--gold); margin-bottom: 20px; }
+    .sec-desc { font-size: .88rem; color: var(--text-mid); line-height: 1.8; max-width: 620px; margin-bottom: 36px; }
+
+    /* ── TIPS BOX ── */
+    .tip-box {
+      background: var(--green-deep);
+      color: rgba(255,255,255,.8);
+      padding: 20px 24px;
+      border-left: 3px solid var(--gold);
+      margin-bottom: 36px;
+      font-size: .84rem;
+      line-height: 1.7;
+    }
+    .tip-box strong { color: var(--gold-light); display: block; margin-bottom: 4px; font-size: .72rem; letter-spacing: .15em; text-transform: uppercase; }
+
+    /* ── TABLE ── */
+    .table-wrap { overflow-x: auto; margin-bottom: 48px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; border-collapse: collapse; }
+    thead th {
+      background: var(--green-deep);
+      color: var(--white);
+      padding: 14px 18px;
+      font-size: .68rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      font-weight: 400;
+      text-align: left;
+    }
+    thead th:first-child { border-radius: 0; }
+    tbody tr { border-bottom: 1px solid var(--border); transition: background .15s; }
+    tbody tr:hover { background: rgba(201,168,76,.06); }
+    tbody td {
+      padding: 14px 18px;
+      font-size: .85rem;
+      color: var(--text-mid);
+      text-align: left;
+    }
+    tbody td:first-child { font-weight: 500; color: var(--text-dark); }
+    .tag-popular {
+      display: inline-block;
+      font-size: .58rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      background: var(--gold);
+      color: var(--green-deep);
+      padding: 2px 8px;
+      margin-left: 8px;
+      font-weight: 500;
+    }
+
+    /* ── HOW TO MEASURE ── */
+    .measure-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+    .measure-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 28px 24px;
+      position: relative;
+    }
+    .measure-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gold);
+    }
+    .measure-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 12px;
+      opacity: .4;
+    }
+    .measure-card h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--green-deep);
+      margin-bottom: 10px;
+    }
+    .measure-card p { font-size: .82rem; color: var(--text-mid); line-height: 1.7; }
+
+    /* ── IMAGE BANNER ── */
+    .img-banner {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      margin-bottom: 48px;
+      filter: brightness(.85);
+    }
+
+    /* ── SAREE GRID ── */
+    .saree-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-bottom: 48px;
+    }
+    .saree-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .saree-card-head {
+      background: var(--green-deep);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .saree-card-head h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--white);
+      font-weight: 400;
+    }
+    .saree-card-head span {
+      font-size: .62rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .saree-card-body { padding: 20px; }
+    .saree-card-body p { font-size: .83rem; color: var(--text-mid); line-height: 1.75; margin-bottom: 12px; }
+    .saree-card-body ul { list-style: none; }
+    .saree-card-body li {
+      font-size: .82rem;
+      color: var(--text-mid);
+      padding: 6px 0;
+      border-bottom: 1px solid #f0ede8;
+      display: flex;
+      justify-content: space-between;
+    }
+    .saree-card-body li:last-child { border-bottom: none; }
+    .saree-card-body li span { font-weight: 500; color: var(--text-dark); }
+
+    /* ── BANGLE TABLE ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 48px; }
+
+    /* ── FAQ ── */
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 20px 0;
+    }
+    .faq-q {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--green-deep);
+      margin-bottom: 8px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .faq-q::after { content: '+'; font-size: 1.2rem; color: var(--gold); font-family: sans-serif; }
+    .faq-a { font-size: .84rem; color: var(--text-mid); line-height: 1.75; }
+
+    /* ── FOOTER NOTE ── */
+    .footer-note {
+      background: var(--green-deep);
+      padding: 40px 32px;
+      text-align: center;
+      margin-top: 60px;
+    }
+    .footer-note h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .footer-note p { font-size: .84rem; color: rgba(255,255,255,.6); margin-bottom: 20px; }
+    .footer-note a {
+      display: inline-block;
+      padding: 12px 32px;
+      background: var(--gold);
+      color: var(--green-deep);
+      font-size: .72rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background .2s;
+    }
+    .footer-note a:hover { background: var(--gold-light); }
+
+    /* ── FOOTER ── */
+    .footer-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 24px auto 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: .72rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .measure-grid, .saree-grid, .two-col { grid-template-columns: 1fr; }
+
+      .tabs { overflow-x: auto; justify-content: flex-start; }
+      .tab-btn { white-space: nowrap; padding: 14px 16px; font-size: .68rem; letter-spacing: .12em; }
+
+      .hero { padding: 52px 20px 40px; }
+      .hero p { font-size: .84rem; }
+
+      .breadcrumb { padding: 12px 20px; }
+
+      .main { padding: 36px 20px 60px; }
+
+      .sec-desc { margin-bottom: 24px; }
+
+      .table-wrap { margin-bottom: 32px; }
+      table { min-width: 460px; }
+      thead th { padding: 12px 14px; font-size: .64rem; }
+      tbody td { padding: 12px 14px; font-size: .81rem; }
+
+      .measure-grid { gap: 16px; margin-bottom: 32px; }
+      .measure-card { padding: 22px 18px; }
+
+      .saree-grid { gap: 20px; margin-bottom: 32px; }
+      .saree-card-body { padding: 16px; }
+
+      .two-col { gap: 20px; }
+
+      .tip-box { padding: 16px 18px; font-size: .81rem; }
+
+      .footer-note { padding: 32px 20px; margin-top: 40px; }
+      .footer-note h3 { font-size: 1.2rem; }
+
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero { padding: 40px 16px 32px; }
+      .hero-tag { font-size: .58rem; letter-spacing: .2em; }
+      .hero p { font-size: .8rem; }
+
+      .tabs { scroll-snap-type: x mandatory; }
+      .tab-btn { padding: 12px 14px; font-size: .62rem; letter-spacing: .1em; scroll-snap-align: start; }
+
+      .breadcrumb { padding: 10px 16px; font-size: .68rem; }
+
+      .main { padding: 28px 16px 48px; }
+
+      .sec-tag { font-size: .58rem; }
+      .sec-desc { font-size: .82rem; margin-bottom: 20px; }
+
+      table { min-width: 400px; }
+      thead th { padding: 10px 10px; font-size: .6rem; letter-spacing: .1em; }
+      tbody td { padding: 10px 10px; font-size: .78rem; }
+      .tag-popular { display: none; }
+
+      .measure-card { padding: 18px 16px; }
+      .measure-num { font-size: 1.8rem; margin-bottom: 8px; }
+      .measure-card h4 { font-size: .95rem; margin-bottom: 8px; }
+      .measure-card p { font-size: .78rem; }
+
+      .saree-card-head { padding: 12px 14px; }
+      .saree-card-head h4 { font-size: .92rem; }
+      .saree-card-head span { display: none; }
+      .saree-card-body { padding: 14px; }
+      .saree-card-body p { font-size: .78rem; }
+      .saree-card-body li { font-size: .77rem; }
+
+      .tip-box { padding: 14px 16px; font-size: .78rem; }
+      .tip-box strong { font-size: .65rem; }
+
+      .faq-item { padding: 16px 0; }
+      .faq-q { font-size: .92rem; gap: 12px; }
+      .faq-a { font-size: .79rem; }
+
+      .footer-note { padding: 28px 16px; }
+      .footer-note h3 { font-size: 1.1rem; }
+      .footer-note p { font-size: .79rem; }
+      .footer-note a { padding: 11px 24px; font-size: .68rem; }
+
+      footer { padding: 36px 16px 24px !important; }
+    }
+
+   @media (max-width: 600px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr !important;
+      gap: 28px 20px !important;
+    }
+    .footer-bottom {
+      flex-direction: column !important;
+      gap: 8px !important;
+      text-align: center !important;
+    }
+  }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-tag">Tiarra | Bridal Jewellery & Silk Sarees</p>
+  <h1>Find Your <em>Perfect Fit</em></h1>
+  <div class="hero-divider"></div>
+  <p>Our complete size guide for rings, necklaces, bangles, and silk sarees — because every piece should feel like it was made just for you.</p>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="/">Home</a>
+  <span>›</span>
+  <span>Size Guide</span>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab('rings')">Rings</button>
+  <button class="tab-btn" onclick="showTab('necklace')">Necklace & Chain</button>
+  <button class="tab-btn" onclick="showTab('bangles')">Bangles & Bracelets</button>
+  <button class="tab-btn" onclick="showTab('saree')">Silk Sarees</button>
+  <button class="tab-btn" onclick="showTab('tips')">Fitting Tips</button>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- ── RINGS ── -->
+  <div id="rings" class="section active">
+    <p class="sec-tag">Jewellery Sizing</p>
+    <h2 class="sec-title">Ring <em>Size Guide</em></h2>
+    <div class="gold-rule"></div>
+    <p class="sec-desc">Finding the right ring size ensures comfort and elegance. Use our chart below or visit our store where our experts will measure your finger precisely.</p>
+
+    <div class="tip-box">
+      <strong>Pro Tip</strong>
+      Fingers change size throughout the day — they're slightly larger in the evening and during warm weather. Measure in the evening for the most accurate fit, and always measure the finger you intend to wear the ring on.
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Ring Size (India)</th>
+            <th>Inner Diameter (mm)</th>
+            <th>Inner Circumference (mm)</th>
+            <th>US Size</th>
+            <th>UK Size</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>4</td><td>14.8</td><td>46.5</td><td>4</td><td>H</td></tr>
+          <tr><td>5</td><td>15.7</td><td>49.3</td><td>5</td><td>J½</td></tr>
+          <tr><td>6</td><td>16.5</td><td>51.9</td><td>6</td><td>L½</td></tr>
+          <tr><td>7 <span class="tag-popular">Popular</span></td><td>17.3</td><td>54.4</td><td>7</td><td>N</td></tr>
+          <tr><td>8 <span class="tag-popular">Popular</span></td><td>18.1</td><td>56.9</td><td>8</td><td>P</td></tr>
+          <tr><td>9</td><td>19.0</td><td>59.7</td><td>9</td><td>R</td></tr>
+          <tr><td>10</td><td>19.8</td><td>62.2</td><td>10</td><td>T</td></tr>
+          <tr><td>11</td><td>20.6</td><td>64.7</td><td>11</td><td>V</td></tr>
+          <tr><td>12</td><td>21.4</td><td>67.2</td><td>12</td><td>X</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="measure-grid">
+      <div class="measure-card">
+        <div class="measure-num">01</div>
+        <h4>String Method</h4>
+        <p>Wrap a thin strip of paper or string around your finger. Mark where it overlaps, then measure the length with a ruler. Compare to our chart.</p>
+      </div>
+      <div class="measure-card">
+        <div class="measure-num">02</div>
+        <h4>Existing Ring Method</h4>
+        <p>Place a ring that fits perfectly on a ruler and measure the inner diameter in millimetres. Match to our diameter column above.</p>
+      </div>
+      <div class="measure-card">
+        <div class="measure-num">03</div>
+        <h4>Visit Our Store</h4>
+        <p>For the most accurate measurement, visit Tiarra in Nagercoil. Our jewellery experts will size your finger and help you choose the perfect ring.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── NECKLACE ── -->
+  <div id="necklace" class="section">
+    <p class="sec-tag">Jewellery Sizing</p>
+    <h2 class="sec-title">Necklace & Chain <em>Length Guide</em></h2>
+    <div class="gold-rule"></div>
+    <p class="sec-desc">The right necklace length depends on your neckline, body type, and personal style. Use our guide to choose the most flattering fit.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Length (inches)</th>
+            <th>Length (cm)</th>
+            <th>Style Name</th>
+            <th>How It Falls</th>
+            <th>Best For</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>14"</td><td>35 cm</td><td>Collar</td><td>Sits snug on neck</td><td>High necklines, choker look</td></tr>
+          <tr><td>16" <span class="tag-popular">Popular</span></td><td>40 cm</td><td>Choker</td><td>Just below collarbone</td><td>Round & V-necklines</td></tr>
+          <tr><td>18" <span class="tag-popular">Popular</span></td><td>45 cm</td><td>Princess</td><td>At or below collarbone</td><td>Most necklines, everyday wear</td></tr>
+          <tr><td>20"</td><td>50 cm</td><td>Matinee</td><td>Above bust line</td><td>Business wear, high necklines</td></tr>
+          <tr><td>24"</td><td>60 cm</td><td>Opera</td><td>At bust or below</td><td>Evening wear, sarees</td></tr>
+          <tr><td>30–36"</td><td>75–90 cm</td><td>Rope / Lariat</td><td>Below bust</td><td>Bridal, layering</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tip-box">
+      <strong>Bridal Recommendation</strong>
+      For bridal sets worn with a saree, a princess length (18") necklace paired with a matinee length (20") second layer creates the most elegant traditional look. Our stylists at Tiarra can help you layer necklaces beautifully.
+    </div>
+
+    <div class="measure-grid">
+      <div class="measure-card">
+        <div class="measure-num">01</div>
+        <h4>Measure Yourself</h4>
+        <p>Use a soft measuring tape and hold it loosely around your neck where you want the necklace to fall. Note the measurement in inches or cm.</p>
+      </div>
+      <div class="measure-card">
+        <div class="measure-num">02</div>
+        <h4>Pendant Chains</h4>
+        <p>For pendant necklaces, the pendant itself adds visual length. A shorter chain (16") with a long pendant can equal the effect of an 18–20" plain chain.</p>
+      </div>
+      <div class="measure-card">
+        <div class="measure-num">03</div>
+        <h4>Mangalsutra Length</h4>
+        <p>Traditional mangalsutras typically range from 18–24 inches. Longer lengths (24"+) are preferred for saree wear; shorter for daily use with salwar kameez.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BANGLES ── -->
+  <div id="bangles" class="section">
+    <p class="sec-tag">Jewellery Sizing</p>
+    <h2 class="sec-title">Bangle & Bracelet <em>Size Guide</em></h2>
+    <div class="gold-rule"></div>
+    <p class="sec-desc">Bangles must slide over the widest part of your hand. Measure your hand diameter to find the right size.</p>
+
+    <div class="two-col">
+      <div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Size (India)</th>
+                <th>Inner Dia. (mm)</th>
+                <th>Inner Dia. (inches)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>2/2</td><td>52</td><td>2.04"</td></tr>
+              <tr><td>2/4</td><td>55</td><td>2.16"</td></tr>
+              <tr><td>2/6 <span class="tag-popular">Popular</span></td><td>58</td><td>2.28"</td></tr>
+              <tr><td>2/8 <span class="tag-popular">Popular</span></td><td>60</td><td>2.36"</td></tr>
+              <tr><td>2/10</td><td>63</td><td>2.48"</td></tr>
+              <tr><td>2/12</td><td>65</td><td>2.56"</td></tr>
+              <tr><td>2/14</td><td>68</td><td>2.67"</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="measure-card" style="height:100%; min-height:200px;">
+          <div class="measure-num">📏</div>
+          <h4>How to Measure Your Bangle Size</h4>
+          <p style="margin-bottom:12px;">Hold your four fingers together and tuck your thumb underneath to form the tightest possible fist. Use a measuring tape to measure the width across the widest knuckle.</p>
+          <p>Convert the measurement to millimetres and match it to the inner diameter column. When between sizes, always go one size up for comfort.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <strong>Bracelet vs Bangle</strong>
+      Bangles are rigid and sized by inner diameter. Bracelets are flexible and sized by wrist circumference — add 1.5–2 cm to your wrist measurement for a comfortable bracelet fit.
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Wrist Size</th>
+            <th>Wrist Circumference</th>
+            <th>Bracelet Length (with clasp)</th>
+            <th>Fit Style</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Small</td><td>14–15 cm</td><td>16–17 cm</td><td>Snug</td></tr>
+          <tr><td>Medium <span class="tag-popular">Popular</span></td><td>15–17 cm</td><td>17–18.5 cm</td><td>Standard</td></tr>
+          <tr><td>Large</td><td>17–19 cm</td><td>19–21 cm</td><td>Comfortable</td></tr>
+          <tr><td>X-Large</td><td>19+ cm</td><td>21+ cm</td><td>Relaxed</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── SAREE ── -->
+  <div id="saree" class="section">
+    <p class="sec-tag">Saree Sizing</p>
+    <h2 class="sec-title">Silk Saree <em>Length Guide</em></h2>
+    <div class="gold-rule"></div>
+    <p class="sec-desc">Saree sizing involves total length, blouse fabric, and draping style. Our guide covers everything you need to choose the right saree for your height and occasion.</p>
+
+    <div class="saree-grid">
+      <div class="saree-card">
+        <div class="saree-card-head">
+          <h4>Standard Saree Lengths</h4>
+          <span>By Occasion</span>
+        </div>
+        <div class="saree-card-body">
+          <p>Most sarees come in 5.5m or 6m lengths. The right length depends on your height and how you drape it.</p>
+          <ul>
+            <li>Daily Wear <span>5.5 metres</span></li>
+            <li>Casual / Festive <span>5.5 – 6 metres</span></li>
+            <li>Bridal Saree <span>6 – 6.5 metres</span></li>
+            <li>With Blouse Piece <span>+0.8 metres</span></li>
+            <li>Petticoat Fabric <span>1 metre (separate)</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="saree-card">
+        <div class="saree-card-head">
+          <h4>Saree by Height</h4>
+          <span>Recommendations</span>
+        </div>
+        <div class="saree-card-body">
+          <p>Your height determines how much saree length you need to drape comfortably with the right pleats and pallu.</p>
+          <ul>
+            <li>Below 5'0" <span>5 – 5.5 metres</span></li>
+            <li>5'0" – 5'4" <span>5.5 metres</span></li>
+            <li>5'4" – 5'7" <span>5.5 – 6 metres</span></li>
+            <li>Above 5'7" <span>6 – 6.5 metres</span></li>
+            <li>Lehenga Saree Style <span>6.5 – 7 metres</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="saree-card">
+        <div class="saree-card-head">
+          <h4>Blouse Size Guide</h4>
+          <span>Standard Measurements</span>
+        </div>
+        <div class="saree-card-body">
+          <p>Blouse pieces are usually 0.8–1 metre. For a custom-fitted blouse, share these measurements with your tailor:</p>
+          <ul>
+            <li>Bust (around fullest point) <span>measure in inches</span></li>
+            <li>Waist <span>measure in inches</span></li>
+            <li>Shoulder Width <span>measure in inches</span></li>
+            <li>Sleeve Length <span>elbow or full</span></li>
+            <li>Back Length <span>neck to waist</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="saree-card">
+        <div class="saree-card-head">
+          <h4>Kanjivaram Drape Guide</h4>
+          <span>Traditional Style</span>
+        </div>
+        <div class="saree-card-body">
+          <p>Kanjivaram sarees are heavier than chiffon or georgette. Draping tips for the traditional Tamil style:</p>
+          <ul>
+            <li>Pleats <span>5 – 7 pleats, tucked at navel</span></li>
+            <li>Pallu Length <span>2 – 2.5 feet over shoulder</span></li>
+            <li>Petticoat <span>match saree border colour</span></li>
+            <li>Saree Pin <span>use at shoulder & pleats</span></li>
+            <li>Hem <span>ankle length to floor</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <strong>Our Recommendation</strong>
+      For bridal Kanjivaram sarees, we recommend a minimum of 6.5 metres with a separate blouse piece. This allows for generous pleats, a full pallu display, and comfortable movement throughout the wedding ceremony. Visit our store in Nagercoil for a complete bridal draping consultation.
+    </div>
+  </div>
+
+  <!-- ── TIPS ── -->
+  <div id="tips" class="section">
+    <p class="sec-tag">Expert Advice</p>
+    <h2 class="sec-title">Fitting <em>Tips & FAQ</em></h2>
+    <div class="gold-rule"></div>
+    <p class="sec-desc">Common questions about sizing, fit, and alterations — answered by our jewellery and saree experts at Tiarra.</p>
+
+    <div class="faq-item">
+      <div class="faq-q">What if I'm between two ring sizes?</div>
+      <div class="faq-a">Always choose the larger size. A ring that is slightly loose is easier to resize or use a ring adjuster, while a ring that is too tight is uncomfortable and difficult to remove. For wide-band rings (above 6mm), go a half size up as they fit tighter.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Can Tiarra resize my ring after purchase?</div>
+      <div class="faq-a">Yes. We offer ring resizing services at our Nagercoil store for most ring styles. Gold and silver rings can typically be resized 1–2 sizes up or down. Please note that heavily engraved or eternity rings may have limited resizing options.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">My fingers are different sizes — which hand should I measure?</div>
+      <div class="faq-a">Always measure the specific finger on the specific hand you intend to wear the ring on. The dominant hand is typically slightly larger. If you're buying an engagement ring, measure the left ring finger.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How do I know if a bangle will fit over my hand?</div>
+      <div class="faq-a">Cup your hand by touching your thumb and little finger together and folding your knuckles slightly — this is the minimum opening your bangle must pass through. Measure across this cupped hand in millimetres. Choose a bangle inner diameter equal to or slightly larger than this measurement.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What length saree should I buy for a bridal look?</div>
+      <div class="faq-a">For a full bridal Kanjivaram look with generous pleats and a flowing pallu, we recommend at minimum 6 metres. If you plan to use the Lehenga or seedha pallu draping style, 6.5–7 metres is ideal. Always add a separate blouse piece of 0.8–1 metre.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">I purchased online and the size is slightly off — what should I do?</div>
+      <div class="faq-a">Contact us at tiarra.co.in@gmail.com or WhatsApp +91 98765 43210 within 48 hours of receiving your order. Our team will guide you on exchange options. For rings, we offer one complimentary resize within 30 days of purchase.</div>
+    </div>
+
+    <div style="margin-top:48px;">
+      <div class="tip-box">
+        <strong>Still Not Sure?</strong>
+        Visit us in person at our Nagercoil store — we'll measure you precisely and help you find the perfect fit for every piece. No appointment needed, Monday to Saturday 10AM–8:30PM.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER CTA -->
+<div class="footer-note">
+  <h3>Need Personal Assistance?</h3>
+  <p>Our experts are happy to help you find your perfect size in-store or over WhatsApp.</p>
+  <a href="/contact/">Contact Us</a>
+</div>
+
+<!-- FOOTER -->
+<footer style="background:#1a1a1a; color:rgba(255,255,255,.55); padding:60px 32px 32px; font-family:'DM Sans', sans-serif;">
+  <div class="footer-grid">
+
+    <div>
+      <div style="font-family:'Playfair Display', serif; font-size:1.8rem; color:#c9a84c; letter-spacing:.1em; margin-bottom:12px;">TIARRA</div>
+      <p style="font-size:.8rem; line-height:1.7; margin-bottom:18px; color:rgba(255,255,255,.55);">Bridal Jewellery &amp; Silk Sarees since 2010. Serving brides and families across Nagercoil and Kanyakumari with love and heritage.</p>
+      <div style="display:flex; gap:12px;">
+        <a href="https://www.instagram.com/tiarra.co.in" target="_blank" aria-label="Instagram" style="width:34px; height:34px; border:1px solid rgba(255,255,255,.15); border-radius:50%; display:flex; align-items:center; justify-content:center;" onmouseover="this.style.borderColor='#c9a84c'" onmouseout="this.style.borderColor='rgba(255,255,255,.15)'">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://www.facebook.com/TiarraJewelsandSilks/" target="_blank" aria-label="Facebook" style="width:34px; height:34px; border:1px solid rgba(255,255,255,.15); border-radius:50%; display:flex; align-items:center; justify-content:center;" onmouseover="this.style.borderColor='#c9a84c'" onmouseout="this.style.borderColor='rgba(255,255,255,.15)'">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@Tiarrajewelsandsilks" target="_blank" aria-label="YouTube" style="width:34px; height:34px; border:1px solid rgba(255,255,255,.15); border-radius:50%; display:flex; align-items:center; justify-content:center; transition:border-color .2s;" onmouseover="this.style.borderColor='#c9a84c'" onmouseout="this.style.borderColor='rgba(255,255,255,.15)'">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="3"/>
+            <polygon points="10 8.5 16 12 10 15.5" fill="rgba(255,255,255,0.5)" stroke="none"/>
+          </svg>
+        </a>
+        <a href="https://wa.me/919150709155" target="_blank" aria-label="WhatsApp" style="width:34px; height:34px; border:1px solid rgba(255,255,255,.15); border-radius:50%; display:flex; align-items:center; justify-content:center; transition:border-color .2s;" onmouseover="this.style.borderColor='#c9a84c'" onmouseout="this.style.borderColor='rgba(255,255,255,.15)'">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 21l1.65-4.85A8.5 8.5 0 1 1 7.5 19.5z"/>
+            <path d="M9 10.5c-.3-.7 0-1.5.5-1.5h.5c.3 0 .5.2.7.5l.5 1c.1.3 0 .6-.2.8l-.3.3c.4.7 1 1.3 1.7 1.7l.3-.3c.2-.2.5-.3.8-.2l1 .5c.3.2.5.4.5.7v.5c0 .5-.8.8-1.5.5"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <h5 style="font-size:.65rem; letter-spacing:.22em; text-transform:uppercase; color:#c9a84c; margin-bottom:16px; font-weight:500;">Shop</h5>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <a href="{% url 'products' %}?category=Ring" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;" onmouseover="this.style.color='#e2c07a'" onmouseout="this.style.color='rgba(255,255,255,.5)'">Rings</a>
+        <a href="{% url 'products' %}?category=Necklace" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;" onmouseover="this.style.color='#e2c07a'" onmouseout="this.style.color='rgba(255,255,255,.5)'">Necklace</a>
+        <a href="{% url 'products' %}?category=Earrings" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;" onmouseover="this.style.color='#e2c07a'" onmouseout="this.style.color='rgba(255,255,255,.5)'">Earrings</a>
+        <a href="{% url 'products' %}?category=Bracelets" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;" onmouseover="this.style.color='#e2c07a'" onmouseout="this.style.color='rgba(255,255,255,.5)'">Bracelets</a>
+        <a href="{% url 'products' %}?category=Silk+Sarees" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;" onmouseover="this.style.color='#e2c07a'" onmouseout="this.style.color='rgba(255,255,255,.5)'">Silk Sarees</a>
+        <a href="{% url 'products' %}?category=Bridal+Sarees" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;" onmouseover="this.style.color='#e2c07a'" onmouseout="this.style.color='rgba(255,255,255,.5)'">Bridal Sarees</a>
+      </div>
+    </div>
+
+    <div>
+      <h5 style="font-size:.65rem; letter-spacing:.22em; text-transform:uppercase; color:#c9a84c; margin-bottom:16px; font-weight:500;">Company</h5>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <a href="/about" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;" onmouseover="this.style.color='#e2c07a'" onmouseout="this.style.color='rgba(255,255,255,.5)'">About Us</a>
+        <a href="{% url 'craftsmanship' %}" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;" onmouseover="this.style.color='#e2c07a'" onmouseout="this.style.color='rgba(255,255,255,.5)'">Our Craft</a>
+        <a href="{% url 'blog' %}" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;" onmouseover="this.style.color='#e2c07a'" onmouseout="this.style.color='rgba(255,255,255,.5)'">Journal</a>
+        <a href="/contact" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;" onmouseover="this.style.color='#e2c07a'" onmouseout="this.style.color='rgba(255,255,255,.5)'">Contact</a>
+      </div>
+    </div>
+
+    <div>
+      <h5 style="font-size:.65rem; letter-spacing:.22em; text-transform:uppercase; color:#c9a84c; margin-bottom:16px; font-weight:500;">Help</h5>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <a href="{% url 'faq' %}" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;" onmouseover="this.style.color='#e2c07a'" onmouseout="this.style.color='rgba(255,255,255,.5)'">FAQ</a>
+        <a href="{% url 'shipping' %}" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;" onmouseover="this.style.color='#e2c07a'" onmouseout="this.style.color='rgba(255,255,255,.5)'">Shipping</a>
+        <a href="{% url 'size_guide' %}" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;" onmouseover="this.style.color='#e2c07a'" onmouseout="this.style.color='rgba(255,255,255,.5)'">Size Guide</a>
+        <a href="/care" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;" onmouseover="this.style.color='#e2c07a'" onmouseout="this.style.color='rgba(255,255,255,.5)'">Jewellery Care</a>
+        <a href="/privacy" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;" onmouseover="this.style.color='#e2c07a'" onmouseout="this.style.color='rgba(255,255,255,.5)'">Privacy Policy</a>
+      </div>
+    </div>
+
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Tiarra Bridal Jewellery &amp; Silk Sarees, Nagercoil. All rights reserved.</span>
+    <span>Made with love in Tamil Nadu 🤍</span>
+  </div>
+</footer>
+
+<script>
+  function showTab(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+    window.scrollTo({ top: document.querySelector('.tabs').offsetTop - 10, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>

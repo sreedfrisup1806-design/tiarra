@@ -1,0 +1,828 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us | Tiarra</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+  <style>                                                                                                 
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #fff;
+      color: #1c1c1c;
+    }
+
+    /* ── ANNOUNCEMENT BAR ── */
+    .announcement {
+      background: #0f2e28;
+      color: #fff;
+      text-align: center;
+      font-size: 13px;
+      letter-spacing: .06em;
+      padding: 11px 16px;
+      font-weight: 300;
+    }
+
+    /* ── TOP NAV ── */
+    .topnav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 72px;
+      border-bottom: 1px solid #e8e4de;
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .topnav-left {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-size: 13px;
+      color: #444;
+      font-weight: 300;
+      letter-spacing: .02em;
+      min-width: 260px;
+    }
+    .topnav-left a {
+      text-decoration: none;
+      color: #444;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color .2s;
+    }
+    .topnav-left a:hover { color: #1a4a42; }
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: #1c1c1c;
+      flex: 1;
+      justify-content: center;
+    }
+    .logo-img { height: 28px; width: auto; mix-blend-mode: multiply; }
+    .logo-divider { color: #999; font-weight: 300; font-size: 20px; line-height: 1; }
+    .logo-tagline {
+      font-family: 'Playfair Display', serif;
+      font-size: 19px;
+      font-weight: 300;
+      font-style: italic;
+      letter-spacing: .06em;
+    }
+    .topnav-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      min-width: 260px;
+      justify-content: flex-end;
+    }
+    .icon-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      color: #333;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color .2s;
+      text-decoration: none;
+    }
+    .icon-btn:hover { color: #1a4a42; }
+
+    /* ── MAIN NAV ── */
+    .mainnav {
+      background: #fff;
+      border-bottom: 1px solid #e8e4de;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 100;
+    }
+    .nav-item { position: relative; }
+    .nav-item > a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 15px 18px;
+      font-size: 11.5px;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #1c1c1c;
+      font-weight: 400;
+      position: relative;
+      transition: color .2s;
+      white-space: nowrap;
+    }
+    .nav-item > a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 18px; right: 18px;
+      height: 2px;
+      background: #1a4a42;
+      transform: scaleX(0);
+      transition: transform .25s ease;
+    }
+    .nav-item:hover > a { color: #1a4a42; }
+    .nav-item:hover > a::after { transform: scaleX(1); }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      padding: 16px 40px;
+      font-size: 12px;
+      color: #999;
+      font-weight: 300;
+      letter-spacing: .04em;
+      border-bottom: 1px solid #f0ede8;
+    }
+    .breadcrumb a { color: #999; text-decoration: none; transition: color .2s; }
+    .breadcrumb a:hover { color: #1a4a42; }
+    .breadcrumb span { color: #1c1c1c; }
+
+    /* ── CONTACT HERO ── */
+    .contact-hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 72px 40px 64px;
+      gap: 40px;
+      border-bottom: 1px solid #e8e4de;
+    }
+    .contact-hero-left h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 72px;
+      font-weight: 300;
+      color: #1c1c1c;
+      letter-spacing: .02em;
+      line-height: 1.05;
+      margin-bottom: 24px;
+    }
+    .contact-hero-left p {
+      font-size: 14px;
+      font-weight: 300;
+      color: #777;
+      line-height: 1.8;
+      max-width: 380px;
+    }
+    .contact-hero-right {
+      display: flex;
+      justify-content: flex-end;
+    }
+    .contact-hero-right img {
+      width: 100%;
+      max-width: 460px;
+      height: 320px;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    /* ── INFO CARDS ── */
+    .info-section {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-bottom: 1px solid #e8e4de;
+    }
+    .info-card {
+      padding: 48px 40px;
+      border-right: 1px solid #e8e4de;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      transition: background .2s;
+    }
+    .info-card:last-child { border-right: none; }
+    .info-card:hover { background: #faf9f7; }
+    .info-icon {
+      width: 48px;
+      height: 48px;
+      background: #0f2e28;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .info-card-label {
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: #1a4a42;
+    }
+    .info-card-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: #1c1c1c;
+      line-height: 1.4;
+    }
+    .info-card-sub {
+      font-size: 13px;
+      font-weight: 300;
+      color: #888;
+      line-height: 1.6;
+    }
+
+    /* ── CONTACT FORM SECTION ── */
+    .form-section {
+      display: grid;
+      grid-template-columns: 1fr;
+      min-height: 600px;
+    }
+    .form-left {
+      padding: 72px 56px 72px 40px;
+      max-width: 760px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .form-left h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 38px;
+      font-weight: 400;
+      color: #1c1c1c;
+      margin-bottom: 8px;
+    }
+    .form-left .form-sub {
+      font-size: 13.5px;
+      font-weight: 300;
+      color: #888;
+      margin-bottom: 40px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 24px;
+    }
+    .form-group label {
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: #888;
+    }
+    .form-group input,
+    .form-group textarea {
+      border: none;
+      border-bottom: 1px solid #d8d4ce;
+      padding: 12px 0;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: #1c1c1c;
+      background: transparent;
+      outline: none;
+      transition: border-color .2s;
+      width: 100%;
+      resize: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus { border-bottom-color: #1a4a42; }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: #bbb; font-weight: 300; }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .form-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+    .form-checkbox input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: #1a4a42;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .form-checkbox label {
+      font-size: 13px;
+      font-weight: 300;
+      color: #666;
+      cursor: pointer;
+    }
+    .form-checkbox label a { color: #1a4a42; text-decoration: underline; }
+    .send-btn {
+      width: 100%;
+      padding: 16px;
+      background: #0f2e28;
+      color: #fff;
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background .25s, transform .15s;
+    }
+    .send-btn:hover { background: #1a4a42; }
+    .send-btn:active { transform: scale(0.99); }
+    .success-msg {
+      display: none;
+      background: #f0f7f4;
+      border: 1px solid #c5ddd5;
+      border-radius: 4px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      font-size: 13.5px;
+      font-weight: 300;
+      color: #1a4a42;
+    }
+
+    /* ── MAP RIGHT ── */
+    .form-right {
+      position: relative;
+      background: #f5f4f2;
+      display: flex;
+      flex-direction: column;
+    }
+    .form-right iframe {
+      width: 100%;
+      flex: 1;
+      border: none;
+      filter: grayscale(20%) contrast(1.05);
+    }
+    .map-overlay {
+      position: absolute;
+      top: 40px;
+      left: 40px;
+      background: #fff;
+      padding: 24px 28px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+      max-width: 260px;
+    }
+    .map-overlay h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: #1c1c1c;
+      margin-bottom: 8px;
+    }
+    .map-overlay p {
+      font-size: 13px;
+      font-weight: 300;
+      color: #666;
+      line-height: 1.7;
+    }
+    .map-overlay .hours {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid #e8e4de;
+    }
+    .map-overlay .hours span {
+      display: block;
+      font-size: 11px;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      color: #1a4a42;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    /* ── FOOTER LINK HOVER via CSS (works on touch devices) ── */
+    footer a:hover { color: #e2c07a !important; }
+
+    /* ── TABLET (768px) ── */
+    @media (max-width: 768px) {
+      .contact-hero {
+        grid-template-columns: 1fr;
+        padding: 48px 24px 40px;
+        gap: 28px;
+      }
+      .contact-hero-left h1 { font-size: 54px; }
+      .contact-hero-right { justify-content: center; }
+      .contact-hero-right img { height: 260px; max-width: 100%; }
+
+      .info-section { grid-template-columns: 1fr 1fr; }
+      .info-card:nth-child(2) { border-right: none; }
+      .info-card:nth-child(3) {
+        grid-column: 1 / -1;
+        border-right: none;
+        border-top: 1px solid #e8e4de;
+      }
+
+      /* FIX: footer grid to 2 columns on tablet */
+      .footer-grid {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 32px !important;
+      }
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 600px) {
+      .announcement {
+        font-size: 11px;
+        padding: 9px 12px;
+        letter-spacing: .03em;
+      }
+
+      .topnav {
+        padding: 0 16px;
+        height: 58px;
+      }
+
+      /* FIX: hide left nav links — they overflow on mobile */
+      .topnav-left { display: none; }
+
+      .logo-img { height: 22px; }
+      .logo-divider { display: none; }
+      .logo-tagline { font-size: 13px; }
+
+      .topnav-right {
+        min-width: unset;
+        gap: 12px;
+      }
+
+      .breadcrumb {
+        padding: 12px 16px;
+        font-size: 11px;
+      }
+
+      .contact-hero {
+        grid-template-columns: 1fr;
+        padding: 36px 16px 32px;
+        gap: 24px;
+      }
+
+      .contact-hero-left h1 {
+        font-size: 42px;
+      }
+
+      .contact-hero-left p {
+        font-size: 13px;
+        max-width: 100%;
+      }
+
+      .contact-hero-right {
+        justify-content: center;
+      }
+
+      .contact-hero-right img {
+        height: 220px;
+        max-width: 100%;
+      }
+
+      .info-section {
+        grid-template-columns: 1fr;
+      }
+
+      .info-card {
+        padding: 28px 16px;
+        border-right: none;
+        border-bottom: 1px solid #e8e4de;
+        gap: 10px;
+      }
+
+      .info-card:last-child { border-bottom: none; }
+      /* FIX: reset tablet override for 3rd card */
+      .info-card:nth-child(3) {
+        grid-column: auto;
+        border-top: none;
+      }
+
+      .info-card-value { font-size: 17px; }
+      .info-card-sub   { font-size: 12px; }
+
+      /* FIX: remove min-height on form section — causes excess whitespace */
+      .form-section { min-height: unset; }
+
+      .form-left {
+        padding: 36px 16px;
+      }
+
+      .form-left h2 { font-size: 26px; }
+      .form-left .form-sub { font-size: 12.5px; margin-bottom: 28px; }
+
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      /* FIX: minimum tap height for all inputs and textarea on mobile */
+      .form-group input,
+      .form-group textarea {
+        min-height: 44px;
+      }
+
+      /* FIX: ensure send button meets tap target */
+      .send-btn {
+        min-height: 48px;
+      }
+
+      .footer-strip {
+        font-size: 11.5px;
+        padding: 16px 12px;
+      }
+
+      /* FIX: footer grid to 1 column on mobile */
+      /* FIX: footer grid to 2 columns on mobile */
+      .footer-grid {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 24px !important;
+      }
+
+      .footer-bottom {
+        flex-direction: column !important;
+        gap: 8px !important;
+        text-align: center !important;
+      }
+
+      /* FIX: larger tap targets for footer links */
+      /* FIX: larger tap targets for footer links */
+      footer a:not([aria-label]) {
+        padding: 8px 0 !important;
+        display: inline-block !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announcement">
+  Tiarra offers exquisite bridal jewellery and luxurious silk sarees in Nagercoil. Discover elegant wedding collections, traditional designs, and timeless styles perfect for every special occasion.
+</div>
+
+<!-- TOP NAV -->
+<header class="topnav">
+  <a href="/" class="logo-wrap">
+    <img src="{% static 'images/TIARRA_Logo_English_2.png' %}" alt="Tiarra" class="logo-img"/>
+    <span class="logo-divider">|</span>
+    <span class="logo-tagline">Bridal Jewellery & Silks Sarees</span>
+  </a>
+  <div class="topnav-right">
+    <a href="/" class="icon-btn" title="Home">
+      <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+    </a>
+    <a href="/wishlist/" class="icon-btn" title="Wishlist">
+      <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </svg>
+    </a>
+    <a href="/cart/" class="icon-btn" title="Cart">
+      <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 0 1-8 0"/>
+      </svg>
+    </a>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">   
+  <a href="/">Home</a> &nbsp;/&nbsp; <span>Contact Us</span>
+</div>
+
+<!-- CONTACT HERO -->
+<section class="contact-hero">
+  <div class="contact-hero-left">
+    <h1>Contact<br/><em style="font-style:italic; color:#1a4a42;">Us</em></h1>
+    <p>We're here to help you find the perfect piece for every occasion. Reach out to our team and we'll get back to you as soon as possible.</p>
+  </div>
+  <div class="contact-hero-right">
+    <img src="{% static 'images/contact.png' %}" alt="Tiarra Jewellery Store"/>
+  </div>
+</section>
+
+<!-- INFO CARDS -->
+<div class="info-section">
+  <div class="info-card">
+    <div class="info-icon">
+      <svg width="20" height="20" fill="none" stroke="#fff" stroke-width="1.7" viewBox="0 0 24 24">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+        <circle cx="12" cy="10" r="3"/>    
+      </svg>
+    </div>     
+    <div class="info-card-label">Visit Us</div>
+    <div class="info-card-value">WCC Road, Nagercoil<br/>Tamil Nadu, India</div>
+    <div class="info-card-sub">Come visit our showroom and explore our full collection in person.</div>
+  </div>
+  <div class="info-card">
+    <div class="info-icon">
+      <svg width="20" height="20" fill="none" stroke="#fff" stroke-width="1.7" viewBox="0 0 24 24">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.18 6.18l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/>
+      </svg>
+    </div>
+    <div class="info-card-label">Call Us</div>
+    <div class="info-card-value">+91 91 50 70 91 55</div>
+    <div class="info-card-sub">We're always happy to help.</div>
+  </div>
+  <div class="info-card">
+    <div class="info-icon">
+      <svg width="20" height="20" fill="none" stroke="#fff" stroke-width="1.7" viewBox="0 0 24 24">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+        <polyline points="22,6 12,13 2,6"/>
+      </svg>
+    </div>
+    <div class="info-card-label">Email Us</div>
+    <div class="info-card-value">tiarra.co.in</div>
+    <div class="info-card-sub">Send us a message and we'll respond within 24 hours on business days.</div>
+  </div>
+</div>
+
+<!-- FORM + MAP -->
+<div class="form-section">
+
+  <!-- FORM LEFT -->
+  <div class="form-left">
+    {% csrf_token %}
+    <h2>Write Us a Message</h2>
+    <p class="form-sub">Reach Out Anytime, We're Here to Help.</p>
+
+    <div class="success-msg" id="successMsg">
+      ✓ &nbsp; Thank you! Your message has been sent. We'll get back to you shortly.
+    </div>
+
+    <div class="form-group">
+      <label>Full Name</label>
+      <input type="text" id="fullName" placeholder="Your full name"/>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="emailInput" placeholder="your@email.com"/>
+      </div>
+      <div class="form-group">
+        <label>Telephone</label>
+        <input type="tel" id="phoneInput" placeholder="+91 00000 00000"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Message</label>
+      <textarea id="messageInput" rows="5" placeholder="Type Your Message..."></textarea>
+    </div>
+
+    <div class="form-checkbox">
+      <input type="checkbox" id="termsCheck"/>
+      <label for="termsCheck">I agree with <a href="#">Terms &amp; Conditions</a></label>
+    </div>
+
+    <button class="send-btn" onclick="handleSubmit()">Send Message</button>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer style="background:#1a1a1a; color:rgba(255,255,255,.55); padding:60px 32px 32px; font-family:'DM Sans', sans-serif;">
+  <!-- FIX: added footer-grid class so CSS media rules can target it -->
+  <div class="footer-grid" style="max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:40px; padding-bottom:40px; border-bottom:1px solid rgba(255,255,255,.08);">
+    
+    <div>
+      <div style="font-family:'Playfair Display', serif; font-size:1.8rem; color:#c9a84c; letter-spacing:.1em; margin-bottom:12px;">TIARRA</div>
+      <p style="font-size:.8rem; line-height:1.7; margin-bottom:18px; color:rgba(255,255,255,.55);">Bridal Jewellery &amp; Silk Sarees since 2010. Serving brides and families across Nagercoil and Kanyakumari with love and heritage.</p>
+      <!-- FIX: removed onmouseover/onmouseout — handled by CSS footer a:hover -->
+      <div style="display:flex; gap:12px; flex-wrap:nowrap;">
+        <a href="https://www.instagram.com/tiarra.co.in" target="_blank" aria-label="Instagram" style="width:28px; height:28px; border:1px solid rgba(255,255,255,.15); border-radius:50%; display:flex; align-items:center; justify-content:center;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://www.facebook.com/TiarraJewelsandSilks/" target="_blank" aria-label="Facebook" style="width:28px; height:28px; border:1px solid rgba(255,255,255,.15); border-radius:50%; display:flex; align-items:center; justify-content:center;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@Tiarrajewelsandsilks" target="_blank" aria-label="YouTube" style="width:28px; height:28px; border:1px solid rgba(255,255,255,.15); border-radius:50%; display:flex; align-items:center; justify-content:center;">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="3"/>
+            <polygon points="10 8.5 16 12 10 15.5" fill="rgba(255,255,255,0.5)" stroke="none"/>
+          </svg>
+        </a>
+
+        <a href="https://wa.me/919150709155" target="_blank" aria-label="WhatsApp" style="width:28px; height:28px; border:1px solid rgba(255,255,255,.15); border-radius:50%; display:flex; align-items:center; justify-content:center;">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 21l1.65-4.85A8.5 8.5 0 1 1 7.5 19.5z"/>
+            <path d="M9 10.5c-.3-.7 0-1.5.5-1.5h.5c.3 0 .5.2.7.5l.5 1c.1.3 0 .6-.2.8l-.3.3c.4.7 1 1.3 1.7 1.7l.3-.3c.2-.2.5-.3.8-.2l1 .5c.3.2.5.4.5.7v.5c0 .5-.8.8-1.5.5"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <h5 style="font-size:.65rem; letter-spacing:.22em; text-transform:uppercase; color:#c9a84c; margin-bottom:16px; font-weight:500;">Shop</h5>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <a href="{% url 'products' %}?category=Ring" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;">Rings</a>
+        <a href="{% url 'products' %}?category=Necklace" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;">Necklace</a>
+        <a href="{% url 'products' %}?category=Earrings" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;">Earrings</a>
+        <a href="{% url 'products' %}?category=Bracelets" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;">Bracelets</a>
+        <a href="{% url 'products' %}?category=Silk+Sarees" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;">Silk Sarees</a>
+        <a href="{% url 'products' %}?category=Bridal+Sarees" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;">Bridal Sarees</a>
+      </div>
+    </div>
+
+    <div>
+      <h5 style="font-size:.65rem; letter-spacing:.22em; text-transform:uppercase; color:#c9a84c; margin-bottom:16px; font-weight:500;">Company</h5>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <a href="/about" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;">About Us</a>
+        <a href="{% url 'craftsmanship' %}" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;">Our Craft</a>
+        <a href="{% url 'blog' %}" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;">Journal</a>
+        <a href="/contact" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;">Contact</a>
+      </div>
+    </div>
+
+    <div>
+      <h5 style="font-size:.65rem; letter-spacing:.22em; text-transform:uppercase; color:#c9a84c; margin-bottom:16px; font-weight:500;">Help</h5>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <a href="{% url 'faq' %}" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;">FAQ</a>
+        <a href="{% url 'shipping' %}" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;">Shipping</a>
+        
+        <a href="{% url 'size_guide' %}" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;">Size Guide</a>
+        <a href="/care" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;">Jewellery Care</a>
+        <a href="/privacy" style="font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none;">Privacy Policy</a>
+      </div>
+    </div>
+
+  </div>
+  <!-- FIX: added footer-bottom class for mobile stacking -->
+  <div class="footer-bottom" style="max-width:1200px; margin:24px auto 0; display:flex; justify-content:space-between; align-items:center; font-size:.72rem; flex-wrap:wrap; gap:8px;">
+    <span>© 2026 Tiarra Bridal Jewellery &amp; Silk Sarees, Nagercoil. All rights reserved.</span>
+    <span>Made with love in Tamil Nadu 🤍</span>
+  </div>
+</footer>
+
+<script>
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      document.cookie.split(';').forEach(cookie => {
+        const c = cookie.trim();
+        if (c.startsWith(name + '=')) cookieValue = decodeURIComponent(c.slice(name.length + 1));
+      });
+    }
+    return cookieValue;
+  }
+
+  function handleSubmit() {
+    const name    = document.getElementById('fullName').value.trim();
+    const email   = document.getElementById('emailInput').value.trim();
+    const phone   = document.getElementById('phoneInput').value.trim();
+    const message = document.getElementById('messageInput').value.trim();
+    const terms   = document.getElementById('termsCheck').checked;
+
+    if (!name || !email || !message) {
+      alert('Please fill in your name, email, and message.');
+      return;
+    }
+    if (!terms) {
+      alert('Please agree to the Terms & Conditions.');
+      return;
+    }
+
+    const btn = document.querySelector('.send-btn');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    fetch('/contact/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCookie('csrftoken'),
+      },
+      body: JSON.stringify({ name, email, phone, message })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.status === 'success') {
+        document.getElementById('successMsg').style.display = 'block';
+        document.getElementById('fullName').value = '';
+        document.getElementById('emailInput').value = '';
+        document.getElementById('phoneInput').value = '';
+        document.getElementById('messageInput').value = '';
+        document.getElementById('termsCheck').checked = false;
+        window.scrollTo({ top: document.querySelector('.form-left').offsetTop - 20, behavior: 'smooth' });
+      } else {
+        alert('Something went wrong. Please try again.');
+      }
+      btn.textContent = 'Send Message';
+      btn.disabled = false;
+    })
+    .catch(() => {
+      alert('Something went wrong. Please try again.');
+      btn.textContent = 'Send Message';
+      btn.disabled = false;
+    });
+  }
+</script>
+
+</body>
+</html>

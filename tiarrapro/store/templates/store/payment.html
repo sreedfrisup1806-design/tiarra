@@ -1,0 +1,1609 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Payment — TIARRA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+    <!-- ✅ Razorpay Checkout SDK — real payment gateway -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'DM Sans', sans-serif; background: #ffffff; color: #1c1c1c; min-height: 100vh; }
+
+        /* ── HEADER ── */
+        .os-header {
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 14px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .os-header span {
+            position: absolute;
+            right: 40px;
+        }
+
+        .os-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 400;
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: #1a4a3a;
+        }
+
+        /* ── STEPPER ── */
+        .os-stepper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 40px;
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            gap: 0;
+        }
+        .os-step { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+        .os-step-circle {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px; font-weight: 500;
+        }
+        .os-step-circle.done     { background: #2874f0; color: #fff; }
+        .os-step-circle.active   { background: #2874f0; color: #fff; }
+        .os-step-circle.inactive { background: #fff; border: 1.5px solid #bbb; color: #999; }
+        .os-step-label { font-size: 12px; font-weight: 400; }
+        .os-step-label.active   { color: #2874f0; font-weight: 600; }
+        .os-step-label.done     { color: #555; }
+        .os-step-label.inactive { color: #999; }
+        .os-step-line           { width: 90px; height: 1.5px; background: #2874f0; margin-bottom: 18px; }
+        .os-step-line.inactive  { background: #ccc; }
+
+        /* ── LAYOUT ── */
+        .py-body {
+            max-width: 760px;
+            margin: 24px auto;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* ── CARDS ── */
+        .py-card { background: #fff; border-radius: 2px; border: 1.5px solid #e8e8e8; }
+        .py-section-heading { font-size: 15px; font-weight: 500; color: #1c1c1c; padding: 18px 22px; }
+        .py-option { cursor: pointer; padding: 18px 20px; transition: border-color .15s, box-shadow .15s; }
+        .py-option:hover    { border-color: #2874f0; }
+        .py-option.selected { border-color: #2874f0; box-shadow: 0 0 0 1px #2874f0; }
+        .py-opt-row  { display: flex; align-items: center; justify-content: space-between; }
+        .py-opt-left { display: flex; align-items: center; }
+        .py-amount   { font-size: 15px; font-weight: 500; color: #1c1c1c; min-width: 54px; }
+        .py-sep      { width: 1px; height: 24px; background: #ddd; margin: 0 16px; }
+        .py-label    { font-size: 15px; font-weight: 400; color: #1c1c1c; display: flex; align-items: center; gap: 8px; }
+        .py-online-amt { display: flex; flex-direction: column; min-width: 54px; }
+        .py-struck   { font-size: 12px; color: #999; text-decoration: line-through; line-height: 1.5; }
+        .py-final    { font-size: 17px; font-weight: 600; color: #1c1c1c; line-height: 1.3; }
+        .py-save     { display: inline-block; background: #e8f5e9; color: #388e3c; font-size: 11px; font-weight: 500; padding: 2px 6px; border-radius: 2px; margin-top: 3px; width: fit-content; }
+        .py-bank     { margin-top: 10px; background: #f0eeff; border-radius: 3px; padding: 9px 12px; display: flex; align-items: center; gap: 8px; font-size: 13px; color: #555; font-weight: 300; }
+        .py-bank-dot { width: 18px; height: 18px; background: #388e3c; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .py-radio    { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #bbb; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: border-color .15s; }
+        .py-radio.checked { border-color: #2874f0; }
+        .py-radio.checked::after { content: ''; width: 10px; height: 10px; background: #2874f0; border-radius: 50%; }
+
+        /* ── PRICE CARD ── */
+        .py-price-card  { background: #fff; border-radius: 2px; padding: 20px 24px; border: 1.5px solid #e8e8e8; }
+        .py-price-title { font-size: 14px; font-weight: 400; color: #1c1c1c; margin-bottom: 16px; }
+        .py-price-row   { display: flex; justify-content: space-between; font-size: 14px; color: #1c1c1c; padding-bottom: 14px; border-bottom: 1px solid #f0f0f0; margin-bottom: 14px; }
+        .py-price-row .lbl { color: #555; border-bottom: 1px dotted #aaa; padding-bottom: 1px; }
+        .py-total-row   { display: flex; justify-content: center; gap: 16px; font-size: 15px; font-weight: 500; color: #1c1c1c; margin-bottom: 20px; }
+        .py-place-btn   { width: 100%; background: #1a5c3a; color: #fff; border: none; padding: 15px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer; border-radius: 2px; letter-spacing: .03em; transition: background .2s; }
+        .py-place-btn:hover  { background: #14472d; }
+        .py-place-btn:active { opacity: .9; }
+
+        /* ── ONLINE EXPANDED ── */
+        .py-online-expanded { display: none; margin-top: 14px; border-top: 1px solid #eee; padding-top: 14px; }
+        .py-online-expanded.open { display: block; }
+
+        .py-upi-header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 12px 0; cursor: pointer; font-size: 14px; font-weight: 500; color: #1c1c1c;
+        }
+        .py-upi-header .offers { color: #388e3c; font-size: 13px; font-weight: 400; margin-left: 8px; }
+        .py-upi-apps { display: flex; gap: 10px; margin: 10px 0 14px; }
+        .py-upi-apps img { height: 26px; width: auto; }
+        .py-upi-app-icon {
+            width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; font-size: 11px; font-weight: 700; color: #fff;
+        }
+
+        .py-qr-wrap {
+            display: flex; flex-direction: column; align-items: center;
+            padding: 16px; border: 1px solid #e0e0e0; border-radius: 4px; margin-bottom: 14px;
+        }
+        .py-qr-box {
+            width: 180px; height: 180px; border: 2px solid #2874f0; border-radius: 4px;
+            display: flex; align-items: center; justify-content: center;
+            position: relative; margin-bottom: 12px; overflow: hidden;
+        }
+        .py-qr-corner {
+            position: absolute; width: 22px; height: 22px; border-color: #2874f0; border-style: solid;
+        }
+        .py-qr-corner.tl { top: -1px; left: -1px; border-width: 3px 0 0 3px; }
+        .py-qr-corner.tr { top: -1px; right: -1px; border-width: 3px 3px 0 0; }
+        .py-qr-corner.bl { bottom: -1px; left: -1px; border-width: 0 0 3px 3px; }
+        .py-qr-corner.br { bottom: -1px; right: -1px; border-width: 0 3px 3px 0; }
+        .py-qr-inner { display: grid; grid-template-columns: repeat(8,1fr); gap: 3px; padding: 12px; opacity: .18; }
+        .py-qr-inner span { width: 12px; height: 12px; background: #111; border-radius: 1px; display: block; }
+        .py-view-qr-btn {
+            position: absolute; background: #2874f0; color: #fff; border: none; padding: 8px 20px;
+            border-radius: 4px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+            cursor: pointer; z-index: 2;
+        }
+        .py-qr-hint { font-size: 12px; color: #777; text-align: center; margin-top: 4px; }
+
+        .py-accordion { border-top: 1px solid #eee; }
+        .py-acc-header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 14px 0; cursor: pointer; font-size: 14px; font-weight: 400; color: #1c1c1c;
+            border-bottom: 1px solid #eee;
+        }
+        .py-acc-header .offers { color: #388e3c; font-size: 13px; margin-left: 8px; }
+        .py-acc-chevron { font-size: 16px; color: #555; transition: transform .2s; }
+        .py-acc-chevron.open { transform: rotate(180deg); }
+        .py-acc-body { display: none; padding: 14px 0; font-size: 13px; color: #555; }
+        .py-acc-body.open { display: block; }
+
+        .py-discount-banner {
+            background: #e8f5e9; border-radius: 3px; padding: 10px 14px;
+            display: flex; align-items: center; gap: 8px;
+            font-size: 13px; color: #2e7d32; font-weight: 400; margin-bottom: 16px;
+        }
+        .py-discount-dot { width: 20px; height: 20px; background: #388e3c; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+        /* ── CARD FIELD WRAPPER ── */
+        .card-field-wrap {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 20px;
+            padding-bottom: 6px;
+            transition: border-color .2s;
+        }
+        .card-field-wrap.valid   { border-color: #388e3c; }
+        .card-field-wrap.invalid { border-color: #d32f2f; }
+        .card-field-wrap input {
+            border: none; outline: none; flex: 1;
+            font-size: 14px; font-family: 'DM Sans', sans-serif;
+            color: #1c1c1c; background: transparent;
+        }
+        .card-field-indicator {
+            width: 22px; height: 22px; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px; font-weight: 700; opacity: 0;
+            transition: opacity .2s;
+        }
+        .card-field-indicator.show  { opacity: 1; }
+        .card-field-indicator.ok    { color: #388e3c; }
+        .card-field-indicator.fail  { color: #d32f2f; }
+
+        /* ── CARD VERIFIED BANNER ── */
+        #cardVerifiedBanner {
+            display: none;
+            background: #e8f5e9; border: 1px solid #a5d6a7;
+            border-radius: 3px; padding: 10px 14px;
+            align-items: center; gap: 8px;
+            font-size: 13px; color: #2e7d32; font-weight: 500;
+            margin-bottom: 14px;
+        }
+        #cardVerifiedBanner.show { display: flex; }
+
+        /* ── PAYMENT SUCCESS OVERLAY ── */
+        #paySuccessOverlay {
+            display: none;
+            position: fixed; inset: 0; z-index: 9999;
+            background: rgba(0,0,0,.55);
+            align-items: center; justify-content: center;
+        }
+        #paySuccessOverlay.show { display: flex; }
+
+        .pay-success-box {
+            background: #fff;
+            border-radius: 6px;
+            padding: 40px 36px;
+            max-width: 420px;
+            width: 92%;
+            text-align: center;
+            box-shadow: 0 12px 40px rgba(0,0,0,.18);
+            animation: popIn .35s cubic-bezier(.34,1.56,.64,1) both;
+        }
+        @keyframes popIn {
+            from { transform: scale(.82); opacity: 0; }
+            to   { transform: scale(1);  opacity: 1; }
+        }
+
+        .success-tick-wrap {
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            background: #e8f5e9;
+            margin: 0 auto 20px;
+            display: flex; align-items: center; justify-content: center;
+            position: relative;
+        }
+        .success-tick-wrap::before {
+            content: '';
+            position: absolute; inset: 0;
+            border-radius: 50%;
+            border: 3px solid #388e3c;
+            animation: ringPop .5s ease both;
+        }
+        @keyframes ringPop {
+            from { transform: scale(.6); opacity: 0; }
+            to   { transform: scale(1);  opacity: 1; }
+        }
+        .success-tick-svg { animation: tickDraw .4s .25s ease both; }
+        @keyframes tickDraw {
+            from { opacity: 0; transform: scale(.5); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+
+        .pay-success-title    { font-size: 22px; font-weight: 600; color: #1c1c1c; margin-bottom: 8px; }
+        .pay-success-subtitle { font-size: 14px; color: #555; font-weight: 300; margin-bottom: 6px; }
+        .pay-success-amount   { font-size: 28px; font-weight: 700; color: #388e3c; margin: 10px 0 4px; }
+        .pay-success-txn      { font-size: 12px; color: #999; margin-bottom: 24px; letter-spacing: .04em; }
+        .pay-success-meta     { background: #f8f8f8; border-radius: 4px; padding: 14px 16px; text-align: left; margin-bottom: 24px; }
+        .pay-success-meta-row { display: flex; justify-content: space-between; font-size: 13px; color: #555; padding: 5px 0; }
+        .pay-success-meta-row span:last-child { color: #1c1c1c; font-weight: 500; }
+        .pay-success-btn {
+            display: inline-block; background: #1a4a3a; color: #fff;
+            border: none; border-radius: 3px; padding: 13px 40px;
+            font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500;
+            cursor: pointer; letter-spacing: .03em; transition: background .2s; width: 100%;
+        }
+        .pay-success-btn:hover { background: #1a4a3a; }
+
+        /* ── SPINNER ── */
+        .btn-spinner {
+            display: inline-block; width: 16px; height: 16px;
+            border: 2px solid rgba(255,255,255,.4);
+            border-top-color: #fff; border-radius: 50%;
+            animation: spin .7s linear infinite; vertical-align: middle; margin-right: 8px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── MOBILE FIT ── */
+        @media (max-width: 480px) {
+            .os-header {
+                padding: 12px 16px;
+            }
+
+            .os-header span {
+                /* position: static;
+                font-size: 12px; */
+                display: none;
+            }
+
+            .os-header img {
+                height: 28px !important;
+            }
+
+            .os-stepper {
+                padding: 14px 12px;
+            }
+
+            .os-step-line {
+                width: 40px;
+            }
+
+            .os-step-label {
+                font-size: 10px;
+            }
+
+            .os-step-circle {
+                width: 26px;
+                height: 26px;
+                font-size: 11px;
+            }
+
+            .py-body {
+                margin: 14px auto;
+                padding: 0 12px;
+                gap: 8px;
+            }
+
+            .py-section-heading {
+                font-size: 14px;
+                padding: 14px 16px;
+            }
+
+            .py-option {
+                padding: 14px 14px;
+            }
+
+            .py-amount {
+                font-size: 13px;
+                min-width: 44px;
+            }
+
+            .py-sep {
+                margin: 0 10px;
+            }
+
+            .py-label {
+                font-size: 13px;
+                gap: 6px;
+            }
+
+            .py-final {
+                font-size: 15px;
+            }
+
+            .py-bank {
+                font-size: 12px;
+                padding: 8px 10px;
+                flex-wrap: wrap;
+            }
+
+            .py-price-card {
+                padding: 14px 14px;
+            }
+
+            .py-price-title {
+                font-size: 13px;
+            }
+
+            .py-price-row {
+                font-size: 13px;
+                padding-bottom: 12px;
+                margin-bottom: 12px;
+            }
+
+            .py-total-row {
+                font-size: 14px;
+                margin-bottom: 16px;
+            }
+
+            .py-place-btn {
+                padding: 13px;
+                font-size: 14px;
+            }
+
+            .py-qr-box {
+                width: 150px;
+                height: 150px;
+            }
+
+            .py-acc-header {
+                font-size: 13px;
+            }
+
+            .card-field-wrap input {
+                font-size: 13px;
+            }
+
+            .pay-success-box {
+                padding: 28px 20px;
+            }
+
+            .pay-success-title {
+                font-size: 18px;
+            }
+
+            .pay-success-amount {
+                font-size: 24px;
+            }
+
+            .pay-success-meta-row {
+                font-size: 12px;
+            }
+        }
+
+
+
+
+        /* ── TABLET: 481px – 768px ── */
+        @media (min-width: 481px) and (max-width: 768px) {
+            .py-body {
+                margin: 16px auto;
+                padding: 0 16px;
+            }
+            .os-stepper {
+                padding: 16px 20px;
+            }
+            .os-step-line {
+                width: 60px;
+            }
+            .py-place-btn {
+                padding: 14px;
+            }
+            .pay-success-box {
+                padding: 32px 24px;
+            }
+        }
+
+/* ── GLOBAL MOBILE SAFETY FIXES (all sizes ≤ 768px) ── */
+        @media (max-width: 768px) {
+    /* Prevent success overlay from overflowing viewport */
+            .pay-success-box {
+                max-height: 92vh;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+    /* UPI app icons: wrap instead of overflow */
+            .py-upi-apps {
+                flex-wrap: wrap;
+            }
+
+    /* QR wrap: reduce padding on small screens */
+            .py-qr-wrap {
+                padding: 10px;
+            }
+
+    /* MM/YY grid: never crush below 80px per field */
+            .py-acc-body > div > div[style*="grid-template-columns"] {
+                gap: 12px;
+            }
+
+    /* Online amount stack: prevent clipping */
+            .py-online-amt {
+                min-width: 0;
+                flex-shrink: 1;
+            }
+
+    /* Bank strip: allow wrap without breaking layout */
+            .py-bank {
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+
+    /* Price card total row: center safely */
+            .py-total-row {
+                flex-wrap: wrap;
+                justify-content: space-between;
+                gap: 8px;
+            }
+
+    /* Stepper: prevent label overflow */
+            .os-step {
+                min-width: 0;
+            }
+            .os-step-label {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 70px;
+            }
+
+    /* QR hint text: scale down */
+            .py-qr-hint {
+                font-size: 11px;
+            }
+
+    /* Accordion body card form padding */
+            .py-acc-body > div {
+                padding: 4px 0 6px;
+            }
+
+    /* Card verified banner: wrap text safely */
+            #cardVerifiedBanner {
+                flex-wrap: wrap;
+                font-size: 12px;
+            }
+
+    /* Success meta rows: allow wrap on very narrow */
+            .pay-success-meta-row {
+                flex-wrap: wrap;
+                gap: 4px;
+            }
+        }
+
+
+
+        /* ── NET BANKING ── */
+            .nb-bank-row {
+                display: flex; align-items: center; justify-content: space-between;
+                padding: 15px 0;
+                border-bottom: 1px solid #f0f0f0;
+                cursor: pointer;
+                transition: background .15s;
+            }
+            .nb-bank-row:hover { background: #fafafa; }
+            .nb-bank-left { display: flex; align-items: center; gap: 14px; }
+            .nb-bank-icon {
+                width: 36px; height: 36px; border-radius: 50%;
+                display: flex; align-items: center; justify-content: center;
+                flex-shrink: 0;
+            }
+            .nb-bank-name { font-size: 14px; color: #1c1c1c; font-weight: 400; }
+            .nb-radio-circle {
+                width: 18px; height: 18px; border-radius: 50%;
+                border: 1.5px solid #bbb; flex-shrink: 0;
+                transition: border-color .15s;
+            }
+            .nb-bank-row.selected .nb-radio-circle {
+                border-color: #9c27b0; border-width: 5px;
+            }
+            .nb-view-all {
+                font-size: 13px; font-weight: 700; color: #9c27b0;
+                padding: 16px 0 4px;
+                cursor: pointer; letter-spacing: .04em;
+            }
+            .nb-view-all:hover { text-decoration: underline; }
+
+
+            /* ── ALL BANKS DRAWER ── */
+            #allBanksOverlay {
+                display: none; position: fixed; inset: 0;
+                background: rgba(0,0,0,0.45); z-index: 2000;
+            }
+            #allBanksOverlay.open { display: block; }
+
+            #allBanksDrawer {
+                position: fixed; top: 0; right: -500px; bottom: 0;
+                width: 460px; max-width: 100vw;
+                background: #fff; z-index: 2100;
+                display: flex; flex-direction: column;
+                transition: right .3s cubic-bezier(.4,0,.2,1);
+                box-shadow: -4px 0 24px rgba(0,0,0,0.13);
+            }
+            #allBanksDrawer.open { right: 0; }
+
+            .ab-head {
+                display: flex; align-items: center; justify-content: space-between;
+                padding: 18px 22px; border-bottom: 1px solid #eee; flex-shrink: 0;
+            }
+            .ab-head h2 { font-size: 15px; font-weight: 600; letter-spacing: .06em; color: #1c1c1c; text-transform: uppercase; }
+            .ab-close { background: none; border: none; font-size: 22px; cursor: pointer; color: #555; padding: 2px 6px; border-radius: 4px; }
+            .ab-close:hover { background: #f5f5f5; }
+
+            .ab-search-wrap { padding: 14px 22px; border-bottom: 1px solid #eee; flex-shrink: 0; }
+            .ab-search {
+                width: 100%; padding: 10px 14px 10px 38px;
+                border: 1.5px solid #e0e0e0; border-radius: 6px;
+                font-size: 13px; font-family: 'DM Sans', sans-serif;
+                color: #1c1c1c; outline: none; background: #fafafa;
+                background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' fill='none' stroke='%23999' stroke-width='2' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
+                background-repeat: no-repeat; background-position: 12px center;
+            }
+            .ab-search:focus { border-color: #9c27b0; background-color: #fff; }
+
+            .ab-list { flex: 1; overflow-y: auto; }
+
+            .ab-bank-item {
+                display: flex; align-items: center; justify-content: space-between;
+                padding: 14px 22px; border-bottom: 1px solid #f5f5f5;
+                cursor: pointer; transition: background .12s;
+            }
+            .ab-bank-item:hover { background: #faf5ff; }
+            .ab-bank-item.selected { background: #f0fff4; }
+
+            .ab-bank-left { display: flex; align-items: center; gap: 14px; }
+            .ab-bank-icon {
+                width: 36px; height: 36px; border-radius: 50%;
+                display: flex; align-items: center; justify-content: center;
+                font-size: 11px; font-weight: 800; color: #fff; flex-shrink: 0;
+                border: 1.5px solid #e8e8e8;
+            }
+            .ab-bank-name { font-size: 14px; color: #1c1c1c; font-weight: 400; }
+            .ab-radio {
+                width: 18px; height: 18px; border-radius: 50%;
+                border: 1.5px solid #bbb; flex-shrink: 0; transition: border-color .15s;
+            }
+            .ab-bank-item.selected .ab-radio { border-color: #9c27b0; border-width: 5px; }
+
+            .ab-no-results { padding: 28px 22px; text-align: center; color: #999; font-size: 13px; }
+
+            .ab-foot { padding: 16px 22px; border-top: 1px solid #eee; flex-shrink: 0; }
+            .ab-select-btn {
+                width: 100%; padding: 15px;
+                background: #9c27b0; color: #fff;
+                border: none; border-radius: 3px;
+                font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600;
+                cursor: pointer; letter-spacing: .03em; transition: background .2s;
+            }
+            .ab-select-btn:hover { background: #7b1fa2; }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="os-header">
+    <img src="{% static 'images/TIARRA_Logo_English_2.png' %}" alt="TIARRA" style="height: 40px; width: auto;"/>
+    <span style="font-size:13px; color:#888; font-weight:300; position:absolute; right:40px;">Secure Checkout</span>
+</header>
+
+<!-- STEPPER -->
+<div class="os-stepper">
+    <div class="os-step">
+        <div class="os-step-circle done">&#10003;</div>
+        <span class="os-step-label done">Address</span>
+    </div>
+    <div class="os-step-line"></div>
+    <div class="os-step">
+        <div class="os-step-circle done">&#10003;</div>
+        <span class="os-step-label done">Order Summary</span>
+    </div>
+    <div class="os-step-line"></div>
+    <div class="os-step">
+        <div class="os-step-circle active">3</div>
+        <span class="os-step-label active">Payment</span>
+    </div>
+</div>
+
+<!-- BODY -->
+<div class="py-body">
+
+    <div class="py-card py-section-heading">Select Payment Method</div>
+
+    <!-- Cash on Delivery -->
+    <!-- <div class="py-card py-option" id="opt-cod" onclick="selectPayment('cod')">
+        <div class="py-opt-row">
+            <div class="py-opt-left">
+                <span class="py-amount">&#8377;{{ cod_total|floatformat:"0" }}</span>
+                <div class="py-sep"></div>
+                <span class="py-label">
+                    Cash on Delivery
+                    <svg width="22" height="16" viewBox="0 0 44 30" fill="none">
+                        <rect width="44" height="30" rx="4" fill="#e8f5e9"/>
+                        <rect x="4" y="7" width="36" height="16" rx="2" fill="#4caf50"/>
+                        <rect x="18" y="11" width="8" height="8" rx="1" fill="#fff" opacity=".9"/>
+                        <circle cx="8" cy="15" r="2" fill="#fff" opacity=".6"/>
+                        <circle cx="36" cy="15" r="2" fill="#fff" opacity=".6"/>
+                    </svg>
+                </span>
+            </div>
+            <div class="py-radio" id="radio-cod"></div>
+        </div>
+    </div> -->
+
+    <!-- Pay Online -->
+    <div class="py-card py-option" id="opt-online" onclick="selectPayment('online')">
+        <div class="py-opt-row">
+            <div class="py-opt-left">
+                <div class="py-online-amt">
+                    <span class="py-struck">&#8377;{{ cod_total|floatformat:"0" }}</span>
+                    <span class="py-final">&#8377;{{ online_total|floatformat:"0" }}</span>
+                    <span class="py-save">Save &#8377;{{ online_savings|floatformat:"0" }}</span>
+                </div>
+                <div class="py-sep"></div>
+                <span class="py-label">
+                    Pay Online
+                    <svg width="28" height="18" viewBox="0 0 44 28" fill="none">
+                        <rect width="44" height="28" rx="4" fill="#f5f5f5"/>
+                        <circle cx="17" cy="14" r="8" fill="#eb001b" opacity=".9"/>
+                        <circle cx="27" cy="14" r="8" fill="#f79e1b" opacity=".85"/>
+                    </svg>
+                </span>
+            </div>
+            <div class="py-radio" id="radio-online"></div>
+        </div>
+
+        <div class="py-bank">
+            <div class="py-bank-dot">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"/>
+                </svg>
+            </div>
+            Extra discount with bank offers
+            <span style="margin-left:auto; color:#2874f0; font-size:13px; cursor:pointer;">View Offers</span>
+        </div>
+
+        <!-- UPI Expanded Panel -->
+        <div class="py-online-expanded" id="onlineExpanded">
+
+            <div class="py-upi-header">
+                <span>Pay by any UPI App <span class="offers">· Offers Available</span></span>
+                <span style="font-size:18px; color:#555;">&#8963;</span>
+            </div>
+
+            <div class="py-qr-wrap">
+                <div class="py-upi-apps" style="margin-bottom:14px;">
+                    <div class="py-upi-app-icon" style="background:#00baf2; font-size:9px;">ET</div>
+                    <div class="py-upi-app-icon" style="background:linear-gradient(135deg,#4285f4,#34a853,#fbbc05,#ea4335);">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+                    </div>
+                    <div class="py-upi-app-icon" style="background:#6739b7;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><circle cx="12" cy="12" r="8"/></svg>
+                    </div>
+                    <div class="py-upi-app-icon" style="background:#00baf2; font-size:8px; letter-spacing:-1px;">Pay</div>
+                </div>
+                
+                
+                <button id="viewQrBtn" onclick="payWithUPI()"
+                    style="width:100%; padding:14px; background:#2874f0; color:#fff;
+                        border:none; border-radius:4px; font-family:'DM Sans',sans-serif;
+                        font-size:14px; font-weight:500; cursor:pointer; margin-bottom:10px;">
+                    Pay via UPI / QR Code
+                </button>
+                <p class="py-qr-hint">Razorpay will open — scan the QR or pay via any UPI app</p>
+
+
+
+
+            </div>
+
+            <!-- Accordion -->
+            <div class="py-accordion">
+
+
+
+                <!-- <div class="py-acc-header" onclick="toggleAcc(this)">
+                    <span>Wallet <span class="offers">· Offers Available</span></span>
+                    <span class="py-acc-chevron">&#8964;</span>
+                </div>
+                <div class="py-acc-body">Select your wallet to proceed.</div> -->
+
+                <div class="py-acc-header" onclick="toggleAcc(this)">
+                    <span>Debit/Credit Cards <span class="offers">· Offers Available</span></span>
+                    <span class="py-acc-chevron">&#8964;</span>
+                </div>
+                <div class="py-acc-body">
+                    <div style="padding:4px 0 8px;">
+                        <p style="font-size:14px;font-weight:500;color:#1c1c1c;margin-bottom:20px;">Enter your card details</p>
+
+                        <!-- Card Number -->
+                        <div class="card-field-wrap" id="wrap-num">
+                            <input id="cardNumber" type="text" placeholder="Enter Card Number" maxlength="19"
+                                oninput="formatCard(this); liveValidateCard()"/>
+                            <span class="card-field-indicator" id="ind-num"></span>
+                        </div>
+
+                        <!-- MM / YY -->
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;">
+                            <div class="card-field-wrap" id="wrap-mm" style="margin-bottom:0;">
+                                <input id="cardMM" type="text" placeholder="MM" maxlength="2"
+                                    oninput="this.value=this.value.replace(/\D/g,'');liveValidateCard()"/>
+                                <span class="card-field-indicator" id="ind-mm"></span>
+                            </div>
+                            <div class="card-field-wrap" id="wrap-yy" style="margin-bottom:0;">
+                                <input id="cardYY" type="text" placeholder="YY" maxlength="2"
+                                    oninput="this.value=this.value.replace(/\D/g,'');liveValidateCard()"/>
+                                <span class="card-field-indicator" id="ind-yy"></span>
+                            </div>
+                        </div>
+
+                        <!-- CVV -->
+                        <div class="card-field-wrap" id="wrap-cvv">
+                            <input id="cardCVV" type="password" placeholder="CVV" maxlength="3"
+                                oninput="this.value=this.value.replace(/\D/g,'');liveValidateCard()"/>
+                            <span class="card-field-indicator" id="ind-cvv"></span>
+                        </div>
+                        <p style="font-size:11px;color:#888;margin-bottom:20px;">3-digit code behind your card</p>
+
+                        <!-- Verified banner -->
+                        <div id="cardVerifiedBanner">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#388e3c" stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            Card verified successfully! You can now proceed to pay.
+                        </div>
+
+                        <!-- Error message -->
+                        <div id="cardError" style="display:none;background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;font-size:13px;padding:10px 14px;border-radius:3px;margin-bottom:14px;">
+                            ✕ Card details not found. Please check your card number, expiry and CVV.
+                        </div>
+
+                        <!-- Network error -->
+                        <div id="cardNetworkError" style="display:none;background:#fff8e1;border:1px solid #ffe082;color:#f57f17;font-size:13px;padding:10px 14px;border-radius:3px;margin-bottom:14px;">
+                            ⚠ Could not connect to server. Please try again.
+                        </div>
+
+                        <!-- Buttons -->
+                        <div style="display:flex;justify-content:flex-end;gap:12px;">
+                            <button onclick="cancelCard()"
+                                style="padding:10px 24px;border:1.5px solid #ccc;background:#fff;border-radius:3px;font-size:14px;font-family:'Jost',sans-serif;cursor:pointer;color:#333;">
+                                Cancel
+                            </button>
+                            <button id="verifyBtn" onclick="verifyCard()"
+                                style="padding:10px 24px;background:#9c27b0;color:#fff;border:none;border-radius:3px;font-size:14px;font-weight:500;font-family:'Jost',sans-serif;cursor:pointer;">
+                                Verify
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="py-acc-header" onclick="toggleAcc(this)" style="border-bottom:none;">
+                    <span>Net Banking</span>
+                    <span class="py-acc-chevron">&#8964;</span>
+                </div>
+                <div class="py-acc-body" style="padding:0;">
+
+    <!-- SBI -->
+                    <div class="nb-bank-row" onclick="selectBank(this, 'sbi')">
+                        <div class="nb-bank-left">
+                            <div class="nb-bank-icon" style="background:#1a3c6e;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                            </div>
+                            <span class="nb-bank-name">State Bank of India</span>
+                        </div>
+                        <div class="nb-radio-circle"></div>
+                    </div>
+
+    <!-- HDFC -->
+                    <div class="nb-bank-row" onclick="selectBank(this, 'hdfc')">
+                        <div class="nb-bank-left">
+                            <div class="nb-bank-icon" style="background:#fff; border:1.5px solid #e0e0e0;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                    <rect x="3" y="3" width="8" height="8" rx="1" fill="#e53935"/>
+                                    <rect x="13" y="3" width="8" height="8" rx="1" fill="#1565c0"/>
+                                    <rect x="3" y="13" width="8" height="8" rx="1" fill="#1565c0"/>
+                                    <rect x="13" y="13" width="8" height="8" rx="1" fill="#e53935"/>
+                                </svg>
+                            </div>
+                            <span class="nb-bank-name">HDFC Bank</span>
+                        </div>
+                        <div class="nb-radio-circle"></div>
+                    </div>
+
+    <!-- ICICI -->
+                    <div class="nb-bank-row" onclick="selectBank(this, 'icici')">
+                        <div class="nb-bank-left">
+                            <div class="nb-bank-icon" style="background:#ff6600;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                            </div>
+                            <span class="nb-bank-name">ICICI Netbanking</span>
+                        </div>
+                        <div class="nb-radio-circle"></div>
+                    </div>
+
+    <!-- Axis -->
+                    <div class="nb-bank-row" onclick="selectBank(this, 'axis')">
+                        <div class="nb-bank-left">
+                            <div class="nb-bank-icon" style="background:#97144d;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l10 20H2L12 2z"/></svg>
+                            </div>
+                            <span class="nb-bank-name">Axis Bank</span>
+                        </div>
+                        <div class="nb-radio-circle"></div>
+                    </div>
+
+                    <div class="nb-view-all" onclick="openAllBanks()">VIEW ALL BANKS &rsaquo;</div>
+                </div>
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Price Card -->
+    <div class="py-price-card">
+        <div class="py-price-title">Price Details ({{ qty }} Item{{ qty|pluralize }})</div>
+        <div class="py-price-row">
+            <span class="lbl">Product Price</span>
+            <span id="py-mrpDisplay">+ &#8377;{{ mrp|floatformat:"0" }}</span>
+        </div>
+        <div class="py-price-row" style="color:#388e3c;">
+            <span class="lbl" style="color:#388e3c;border-color:#388e3c;">Total Discounts</span>
+            <span id="py-displayTotal">- &#8377;{{ discount|floatformat:"0" }}</span>
+        </div>
+        <div class="py-total-row">
+            <span>Order Total</span>
+            <span id="py-orderTotal">&#8377;{{ cod_total|floatformat:"0" }}</span>
+        </div>
+        <div class="py-discount-banner" id="discountBanner" style="display:none;">
+            <div class="py-discount-dot">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"/>
+                </svg>
+            </div>
+            <span id="discountMsg">Yay! Your total discount is &#8377;{{ discount|floatformat:"0" }}</span>
+        </div>
+        <button class="py-place-btn" id="placeBtn" onclick="placeOrder()">Place Order</button>
+    </div>
+
+</div>
+
+
+<!-- ALL BANKS DRAWER -->
+<div id="allBanksOverlay" onclick="closeAllBanks()"></div>
+<div id="allBanksDrawer">
+    <div class="ab-head">
+        <h2>Select Your Bank</h2>
+        <button class="ab-close" onclick="closeAllBanks()">&#10005;</button>
+    </div>
+    <div class="ab-search-wrap">
+        <input class="ab-search" id="abSearch" type="text" placeholder="Search by your bank name" oninput="filterBanks()"/>
+    </div>
+    <div class="ab-list" id="abList"></div>
+    <div class="ab-foot">
+        <button class="ab-select-btn" onclick="selectBankFromDrawer()">Select</button>
+    </div>
+</div>
+
+<!-- PAYMENT SUCCESS OVERLAY -->
+<div id="paySuccessOverlay">
+    <div class="pay-success-box">
+        <div class="success-tick-wrap">
+            <svg class="success-tick-svg" width="38" height="38" viewBox="0 0 24 24" fill="none"
+                 stroke="#388e3c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+            </svg>
+        </div>
+        <div class="pay-success-title">Payment Successful!</div>
+        <div class="pay-success-subtitle">Your money has been transferred successfully</div>
+        <div class="pay-success-amount" id="successAmount">&#8377;0</div>
+        <div class="pay-success-txn" id="successTxnId">TXN ID: TIARRA0000000000</div>
+
+        <div class="pay-success-meta">
+            <div class="pay-success-meta-row">
+                <span>Payment Method</span>
+                <span id="successMethod">Card</span>
+            </div>
+            <div class="pay-success-meta-row">
+                <span>Status</span>
+                <span style="color:#388e3c;">✓ Transferred</span>
+            </div>
+            <div class="pay-success-meta-row">
+                <span>Date &amp; Time</span>
+                <span id="successDateTime">—</span>
+            </div>
+            <div class="pay-success-meta-row">
+                <span>Order ID</span>
+                <span id="successOrderId">—</span>
+            </div>
+        </div>
+
+        <button class="pay-success-btn" onclick="goHome()">Continue Shopping</button>
+    </div>
+</div>
+
+<!-- Django CSRF token (required for POST requests) -->
+{% csrf_token %}
+
+<script>
+    var DB_PRICE       = {{ cod_total|floatformat:"0" }};  // total cart price
+    var DISCOUNT_PCT   = 20;                                    // your fixed discount %
+    var MRP_CALC       = Math.round(DB_PRICE / (1 - DISCOUNT_PCT / 100)); // inflated MRP
+    var DISCOUNT       = MRP_CALC - DB_PRICE;                  // always = 400 if price=2000
+
+    var COD_TOTAL      = {{ cod_total|floatformat:"0" }};
+    var ONLINE_TOTAL   = {{ online_total|floatformat:"0" }};
+    var ONLINE_SAVINGS = {{ online_savings|floatformat:"0" }};
+    var PRODUCT_ID     = {{ product.id }};
+
+    var selectedMethod = null;
+    var cardVerified   = false;
+    var selectedBank   = null;   // ← ADDED
+
+    /* ════════════════════════════════════════════
+       GET DJANGO CSRF TOKEN
+    ════════════════════════════════════════════ */
+    function getCsrfToken() {
+        var el = document.querySelector('[name=csrfmiddlewaretoken]');
+        return el ? el.value : '';
+    }
+
+    /* ════════════════════════════════════════════
+       FIELD INDICATOR — green ✓ / red ✕
+    ════════════════════════════════════════════ */
+    function setIndicator(id, wrapId, state) {
+        var ind  = document.getElementById(id);
+        var wrap = document.getElementById(wrapId);
+        ind.classList.remove('show', 'ok', 'fail');
+        wrap.classList.remove('valid', 'invalid');
+        if (state === 'ok') {
+            ind.textContent = '✓';
+            ind.classList.add('show', 'ok');
+            wrap.classList.add('valid');
+        } else if (state === 'fail') {
+            ind.textContent = '✕';
+            ind.classList.add('show', 'fail');
+            wrap.classList.add('invalid');
+        }
+    }
+
+    /* ════════════════════════════════════════════
+       LIVE FORMAT + BASIC CHECK AS USER TYPES
+    ════════════════════════════════════════════ */
+    function liveValidateCard() {
+        var raw = document.getElementById('cardNumber').value.replace(/\s/g, '');
+        var mm  = document.getElementById('cardMM').value.trim();
+        var yy  = document.getElementById('cardYY').value.trim();
+        var cvv = document.getElementById('cardCVV').value.trim();
+        var currentYear  = new Date().getFullYear() % 100;
+        var currentMonth = new Date().getMonth() + 1;
+        var mmInt = parseInt(mm, 10);
+        var yyInt = parseInt(yy, 10);
+
+        if (raw.length > 0)
+            setIndicator('ind-num', 'wrap-num', raw.length === 16 ? 'ok' : 'fail');
+        else
+            setIndicator('ind-num', 'wrap-num', '');
+
+        if (mm.length > 0)
+            setIndicator('ind-mm', 'wrap-mm', (mm.length === 2 && mmInt >= 1 && mmInt <= 12) ? 'ok' : 'fail');
+        else
+            setIndicator('ind-mm', 'wrap-mm', '');
+
+        if (yy.length > 0) {
+            var notExpired = (yyInt > currentYear) || (yyInt === currentYear && mmInt >= currentMonth);
+            setIndicator('ind-yy', 'wrap-yy', (yy.length === 2 && notExpired) ? 'ok' : 'fail');
+        } else {
+            setIndicator('ind-yy', 'wrap-yy', '');
+        }
+
+        if (cvv.length > 0)
+            setIndicator('ind-cvv', 'wrap-cvv', cvv.length === 3 ? 'ok' : 'fail');
+        else
+            setIndicator('ind-cvv', 'wrap-cvv', '');
+
+        // Reset if user changes fields after verifying
+        if (cardVerified) {
+            cardVerified = false;
+            document.getElementById('cardVerifiedBanner').classList.remove('show');
+        }
+        document.getElementById('cardError').style.display        = 'none';
+        document.getElementById('cardNetworkError').style.display = 'none';
+    }
+
+    /* ════════════════════════════════════════════
+       VERIFY — hits Django /verify-card/ API
+       Checks ALL users in your database (infinite)
+    ════════════════════════════════════════════ */
+    function verifyCard() {
+        var raw = document.getElementById('cardNumber').value.replace(/\s/g, '');
+        var mm  = document.getElementById('cardMM').value.trim();
+        var yy  = document.getElementById('cardYY').value.trim();
+        var cvv = document.getElementById('cardCVV').value.trim();
+        var btn = document.getElementById('verifyBtn');
+
+        // Reset all messages
+        document.getElementById('cardError').style.display        = 'none';
+        document.getElementById('cardNetworkError').style.display = 'none';
+        document.getElementById('cardVerifiedBanner').classList.remove('show');
+
+        // Basic format check before hitting server
+        var mmInt        = parseInt(mm, 10);
+        var yyInt        = parseInt(yy, 10);
+        var currentYear  = new Date().getFullYear() % 100;
+        var currentMonth = new Date().getMonth() + 1;
+        var notExpired   = (yyInt > currentYear) || (yyInt === currentYear && mmInt >= currentMonth);
+
+        var formatOk = (
+            raw.length === 16 && /^\d+$/.test(raw) &&
+            mm.length === 2 && mmInt >= 1 && mmInt <= 12 &&
+            yy.length === 2 && notExpired &&
+            cvv.length === 3 && /^\d+$/.test(cvv)
+        );
+
+        if (!formatOk) {
+            document.getElementById('cardError').style.display = 'block';
+            return;
+        }
+
+        // Show spinner
+        btn.innerHTML = '<span class="btn-spinner"></span> Verifying…';
+        btn.disabled  = true;
+
+        fetch('/verify-card/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCsrfToken()
+            },
+            body: JSON.stringify({ number: raw, mm: mm, yy: yy, cvv: cvv })
+        })
+        .then(function(res) {
+            if (!res.ok) throw new Error('Server error ' + res.status);
+            return res.json();
+        })
+        .then(function(data) {
+            if (data.valid) {
+                setIndicator('ind-num', 'wrap-num', 'ok');
+                setIndicator('ind-mm',  'wrap-mm',  'ok');
+                setIndicator('ind-yy',  'wrap-yy',  'ok');
+                setIndicator('ind-cvv', 'wrap-cvv', 'ok');
+                document.getElementById('cardVerifiedBanner').classList.add('show');
+                document.getElementById('cardError').style.display = 'none';
+                cardVerified = true;
+            } else {
+                setIndicator('ind-num', 'wrap-num', 'fail');
+                setIndicator('ind-mm',  'wrap-mm',  'fail');
+                setIndicator('ind-yy',  'wrap-yy',  'fail');
+                setIndicator('ind-cvv', 'wrap-cvv', 'fail');
+                document.getElementById('cardError').style.display = 'block';
+                document.getElementById('cardVerifiedBanner').classList.remove('show');
+                cardVerified = false;
+            }
+        })
+        .catch(function(err) {
+            console.error('Verify error:', err);
+            document.getElementById('cardNetworkError').style.display = 'block';
+            cardVerified = false;
+        })
+        .finally(function() {
+            btn.innerHTML = 'Verify';
+            btn.disabled  = false;
+        });
+    }
+
+    /* ════════════════════════════════════════════
+       PLACE ORDER — real Razorpay payment
+    ════════════════════════════════════════════ */
+    function placeOrder() {
+        if (!selectedMethod) {
+            alert('Please select a payment method.');
+            return;
+        }
+
+        // if (selectedMethod === 'online') {
+        //     var cardBodyOpen = document.querySelector('.py-acc-body.open');
+        //     if (cardBodyOpen && !cardVerified) {
+        //         alert('Please verify your card details before placing the order.');
+        //         return;
+        //     }
+        // }
+
+        var btn = document.getElementById('placeBtn');
+
+        if (selectedMethod === 'cod') {
+            btn.innerHTML        = '<span class="btn-spinner"></span> Processing…';
+            btn.disabled         = true;
+            btn.style.background = '#7b1fa2';
+
+            fetch('/place-order/' + PRODUCT_ID + '/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCsrfToken()
+                },
+                body: JSON.stringify({ product_id: PRODUCT_ID, method: 'cod', qty: {{ qty }} })
+            })
+            .then(function(res) { return res.json(); })
+            .then(function(data) {
+                if (data.success) {
+                    showPaymentSuccess({
+                        amount   : COD_TOTAL,
+                        method   : 'Cash on Delivery',
+                        txnId    : data.order_id || ('TIARRA' + Date.now().toString().slice(-10)),
+                        orderId  : data.order_id || ('ORD' + Math.floor(Math.random() * 9000000 + 1000000))
+                    });
+                } else {
+                    alert(data.error || 'Order placement failed. Please try again.');
+                    btn.innerHTML        = 'Place Order';
+                    btn.disabled         = false;
+                    btn.style.background = '#9c27b0';
+                }
+            })
+            .catch(function() {
+                alert('Network error. Please try again.');
+                btn.innerHTML        = 'Place Order';
+                btn.disabled         = false;
+                btn.style.background = '#9c27b0';
+            });
+
+            return;
+        }
+
+        btn.innerHTML        = '<span class="btn-spinner"></span> Opening Payment…';
+        btn.disabled         = true;
+        btn.style.background = '#7b1fa2';
+
+        fetch('/create-razorpay-order/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCsrfToken()
+            },
+            body: JSON.stringify({ product_id: PRODUCT_ID, amount: ONLINE_TOTAL })
+        })
+        .then(function(res) {
+            if (!res.ok) throw new Error('Server error ' + res.status);
+            return res.json();
+        })
+        .then(function(orderData) {
+
+            btn.innerHTML        = 'Place Order';
+            btn.disabled         = false;
+            btn.style.background = '#9c27b0';
+
+            var bankCodes = { sbi: 'SBI', hdfc: 'HDFC', icici: 'ICIC', axis: 'UTIB' };
+
+            var options = {
+                key       : orderData.key_id,
+                amount    : orderData.amount,
+                currency  : orderData.currency || 'INR',
+                name      : 'TIARRA',
+                description: 'Order #' + orderData.razorpay_order_id,
+                order_id  : orderData.razorpay_order_id,
+                theme     : { color: '#9c27b0' },
+                // Pre-select net banking + bank if user chose one
+                ...(selectedBank && (bankCodes[selectedBank] || selectedBank)
+                    ? { method: 'netbanking', bank: bankCodes[selectedBank] || selectedBank }
+                    : cardVerified
+                    ? { method: 'card' }
+                    : {}),
+
+                handler: function(response) {
+                    fetch('/verify-razorpay-payment/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': getCsrfToken()
+                        },
+                        body: JSON.stringify({
+                            razorpay_payment_id : response.razorpay_payment_id,
+                            razorpay_order_id   : response.razorpay_order_id,
+                            razorpay_signature  : response.razorpay_signature,
+                            product_id          : PRODUCT_ID
+                        })
+                    })
+                    .then(function(res) { return res.json(); })
+                    .then(function(verifyData) {
+                        if (verifyData.success) {
+                            showPaymentSuccess({
+                                amount : ONLINE_TOTAL,
+                                method : selectedBank ? 'Net Banking' : 'Debit / Credit Card',
+                                txnId  : response.razorpay_payment_id,
+                                orderId: verifyData.order_id || response.razorpay_order_id
+                            });
+                        } else {
+                            alert('Payment verification failed. Contact support with TXN ID: ' + response.razorpay_payment_id);
+                        }
+                    })
+                    .catch(function() {
+                        alert('Could not verify payment. Contact support with TXN ID: ' + response.razorpay_payment_id);
+                    });
+                },
+
+                modal: {
+                    ondismiss: function() {
+                        btn.innerHTML        = 'Place Order';
+                        btn.disabled         = false;
+                        btn.style.background = '#9c27b0';
+                    }
+                }
+            };
+
+            var rzp = new Razorpay(options);
+            rzp.open();
+        })
+        .catch(function(err) {
+            console.error('Razorpay order creation failed:', err);
+            alert('Could not initialise payment. Please try again.');
+            btn.innerHTML        = 'Place Order';
+            btn.disabled         = false;
+            btn.style.background = '#9c27b0';
+        });
+    }
+
+    /* ════════════════════════════════════════════
+       PAYMENT SUCCESS OVERLAY
+    ════════════════════════════════════════════ */
+    function showPaymentSuccess(info) {
+        var now   = new Date();
+        var dtStr = now.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })
+                  + ' ' + now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+
+        document.getElementById('successAmount').textContent   = '₹' + info.amount.toLocaleString('en-IN');
+        document.getElementById('successTxnId').textContent    = 'TXN ID: ' + info.txnId;
+        document.getElementById('successMethod').textContent   = info.method;
+        document.getElementById('successDateTime').textContent = dtStr;
+        document.getElementById('successOrderId').textContent  = info.orderId;
+        document.getElementById('paySuccessOverlay').classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function goHome() {
+        window.location.href = '/dashboard/';
+    }
+
+    /* ════════════════════════════════════════════
+       HELPERS
+    ════════════════════════════════════════════ */
+    function selectPayment(method) {
+        ['online'].forEach(function(m) {
+            document.getElementById('opt-'   + m).classList.remove('selected');
+            document.getElementById('radio-' + m).classList.remove('checked');
+        });
+
+        document.getElementById('opt-'   + method).classList.add('selected');
+        document.getElementById('radio-' + method).classList.add('checked');
+        selectedMethod = method;
+
+        var expanded = document.getElementById('onlineExpanded');
+        if (method === 'online') expanded.classList.add('open');
+        else                     expanded.classList.remove('open');
+
+        var total   = (method === 'online') ? ONLINE_TOTAL : COD_TOTAL;
+        var savings = (method === 'online') ? (DISCOUNT + ONLINE_SAVINGS) : DISCOUNT;
+        document.getElementById('py-orderTotal').textContent = '\u20b9' + total.toLocaleString('en-IN');
+
+        var banner = document.getElementById('discountBanner');
+        var msg    = document.getElementById('discountMsg');
+        if (savings > 0) {
+            msg.textContent = 'Yay! Your total discount is \u20b9' + savings.toLocaleString('en-IN');
+            banner.style.display = 'flex';
+        } else {
+            banner.style.display = 'none';
+        }
+    }
+
+    function toggleAcc(header) {
+        var body    = header.nextElementSibling;
+        var chevron = header.querySelector('.py-acc-chevron');
+        var isOpen  = body.classList.contains('open');
+        document.querySelectorAll('.py-acc-body').forEach(function(b)    { b.classList.remove('open'); });
+        document.querySelectorAll('.py-acc-chevron').forEach(function(c) { c.classList.remove('open'); });
+        if (!isOpen) { body.classList.add('open'); chevron.classList.add('open'); }
+    }
+
+    function formatCard(input) {
+        var v = input.value.replace(/\D/g, '').substring(0, 16);
+        input.value = v.replace(/(.{4})/g, '$1 ').trim();
+    }
+
+    function cancelCard() {
+        document.getElementById('cardNumber').value = '';
+        document.getElementById('cardMM').value     = '';
+        document.getElementById('cardYY').value     = '';
+        document.getElementById('cardCVV').value    = '';
+        document.getElementById('cardError').style.display        = 'none';
+        document.getElementById('cardNetworkError').style.display = 'none';
+        document.getElementById('cardVerifiedBanner').classList.remove('show');
+        cardVerified = false;
+        ['num', 'mm', 'yy', 'cvv'].forEach(function(f) {
+            setIndicator('ind-' + f, 'wrap-' + f, '');
+        });
+        document.querySelectorAll('.py-acc-body').forEach(function(b)    { b.classList.remove('open'); });
+        document.querySelectorAll('.py-acc-chevron').forEach(function(c) { c.classList.remove('open'); });
+    }
+
+
+
+
+
+
+    function payWithUPI() {
+    var btn = document.getElementById('viewQrBtn');
+    btn.textContent = 'Opening Razorpay…';
+    btn.disabled = true;
+
+    fetch('/create-razorpay-order/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCsrfToken()
+        },
+        body: JSON.stringify({ product_id: PRODUCT_ID, amount: ONLINE_TOTAL })
+    })
+    .then(function(res) { return res.json(); })
+    .then(function(orderData) {
+        btn.textContent = 'Pay via UPI / QR Code';
+        btn.disabled = false;
+
+        var options = {
+            key        : orderData.key_id,
+            amount     : orderData.amount,
+            currency   : orderData.currency || 'INR',
+            name       : 'TIARRA',
+            description: 'Order Payment',
+            order_id   : orderData.razorpay_order_id,
+            method     : 'upi',
+            theme      : { color: '#2874f0' },
+
+            handler: function(response) {
+                fetch('/verify-razorpay-payment/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCsrfToken()
+                    },
+                    body: JSON.stringify({
+                        razorpay_payment_id: response.razorpay_payment_id,
+                        razorpay_order_id  : response.razorpay_order_id,
+                        razorpay_signature : response.razorpay_signature,
+                        product_id         : PRODUCT_ID
+                    })
+                })
+                .then(function(res) { return res.json(); })
+                .then(function(verifyData) {
+                    if (verifyData.success) {
+                        showPaymentSuccess({
+                            amount : ONLINE_TOTAL,
+                            method : 'UPI',
+                            txnId  : response.razorpay_payment_id,
+                            orderId: verifyData.order_id || response.razorpay_order_id
+                        });
+                    } else {
+                        alert('Payment verification failed. Contact support with TXN ID: ' + response.razorpay_payment_id);
+                    }
+                })
+                .catch(function() {
+                    alert('Could not verify payment. Contact support.');
+                });
+            },
+
+            modal: {
+                ondismiss: function() {
+                    btn.textContent = 'Pay via UPI / QR Code';
+                    btn.disabled = false;
+                }
+            }
+        };
+
+        var rzp = new Razorpay(options);
+        rzp.open();
+    })
+    .catch(function() {
+        alert('Could not initialise payment. Please try again.');
+        btn.textContent = 'Pay via UPI / QR Code';
+        btn.disabled = false;
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+    // Fix MRP display to show inflated price
+    document.getElementById('py-mrpDisplay').textContent = '+ ₹' + MRP_CALC.toLocaleString('en-IN');
+    document.getElementById('py-displayTotal').textContent = '- ₹' + DISCOUNT.toLocaleString('en-IN');
+
+    function selectBank(row, bank) {
+        document.querySelectorAll('.nb-bank-row').forEach(function(r) {
+            r.classList.remove('selected');
+        });
+        row.classList.add('selected');
+        selectedBank = bank;   // ← ADDED: save selected bank
+    }
+
+    /* ════════════════════════════════════════════
+       ALL BANKS DRAWER
+    ════════════════════════════════════════════ */
+    var ALL_BANKS = [
+        { name: 'State Bank of India',                  code: 'SBI'  },
+        { name: 'HDFC Bank',                            code: 'HDFC' },
+        { name: 'ICICI Netbanking',                     code: 'ICIC' },
+        { name: 'Axis Bank',                            code: 'UTIB' },
+        { name: 'Airtel Payments Bank',                 code: 'AIRP' },
+        { name: 'Allahabad Bank',                       code: 'ALLA' },
+        { name: 'Andhra Bank',                          code: 'ANDB' },
+        { name: 'Bank of Bahrain and Kuwait',           code: 'BBKM' },
+        { name: 'Bank of Baroda',                       code: 'BARB' },
+        { name: 'Bank of India',                        code: 'BKID' },
+        { name: 'Bank of Maharashtra',                  code: 'MAHB' },
+        { name: 'Bharat Bank',                          code: 'BHRT' },
+        { name: 'Canara Bank',                          code: 'CNRB' },
+        { name: 'Catholic Syrian Bank',                 code: 'CSBK' },
+        { name: 'Central Bank Of India',                code: 'CBIN' },
+        { name: 'CityUnion',                            code: 'CIUB' },
+        { name: 'Corporation Bank',                     code: 'CORP' },
+        { name: 'Cosmos Bank',                          code: 'COSB' },
+        { name: 'DBS Bank Ltd',                         code: 'DBSS' },
+        { name: 'DCB BANK Business',                    code: 'DCBB' },
+        { name: 'DCB Bank',                             code: 'DCBL' },
+        { name: 'Dena Bank',                            code: 'BKDN' },
+        { name: 'Deutsche Bank',                        code: 'DEUT' },
+        { name: 'Dhanlaxmi Bank',                       code: 'DLXB' },
+        { name: 'Federal Bank',                         code: 'FDRL' },
+        { name: 'IDFC Bank',                            code: 'IDFB' },
+        { name: 'Indian Bank',                          code: 'IDIB' },
+        { name: 'Indian Overseas Bank',                 code: 'IOBA' },
+        { name: 'IndusInd Bank',                        code: 'INDB' },
+        { name: 'Industrial Development Bank of India', code: 'IDBI' },
+        { name: 'Jammu and Kashmir Bank',               code: 'JAKA' },
+        { name: 'Jana Small Finance Bank',              code: 'JSFB' },
+        { name: 'Janata Sahakari Bank',                 code: 'JSBL' },
+        { name: 'Karnataka Bank',                       code: 'KARB' },
+        { name: 'Karur Vysya',                          code: 'KVBL' },
+        { name: 'Kotak Bank',                           code: 'KKBK' },
+        { name: 'Lakshmi Vilas Bank',                   code: 'LAVB' },
+        { name: 'Oriental Bank of Commerce',            code: 'ORBC' },
+        { name: 'Punjab and Sind Bank',                 code: 'PSIB' },
+        { name: 'Punjab National Bank',                 code: 'PUNB' },
+        { name: 'RBL Bank',                             code: 'RATN' },
+        { name: 'Saraswat Bank',                        code: 'SRCB' },
+        { name: 'South Indian Bank',                    code: 'SIBL' },
+        { name: 'Standard Chartered Bank',              code: 'SCBL' },
+        { name: 'Syndicate Bank',                       code: 'SYNB' },
+        { name: 'Tamilnad Mercantile Bank',             code: 'TMBL' },
+        { name: 'UCO Bank',                             code: 'UCBA' },
+        { name: 'Union Bank of India',                  code: 'UBIN' },
+        { name: 'United Bank of India',                 code: 'UTBI' },
+        { name: 'Vijaya Bank',                          code: 'VIJB' },
+        { name: 'Yes Bank',                             code: 'YESB' },
+    ];
+
+    var abSelectedCode = null;
+    var abSelectedName = null;
+
+    function openAllBanks() {
+        abSelectedCode = selectedBank || null;
+        document.getElementById('abSearch').value = '';
+        renderAllBanks(ALL_BANKS);
+        document.getElementById('allBanksOverlay').classList.add('open');
+        document.getElementById('allBanksDrawer').classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeAllBanks() {
+        document.getElementById('allBanksOverlay').classList.remove('open');
+        document.getElementById('allBanksDrawer').classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    function renderAllBanks(banks) {
+        var list = document.getElementById('abList');
+        if (banks.length === 0) {
+            list.innerHTML = '<div class="ab-no-results">No banks found matching your search.</div>';
+            return;
+        }
+        list.innerHTML = banks.map(function(b) {
+            var initials = b.name.split(' ').slice(0, 2).map(function(w) { return w[0]; }).join('');
+            var colors   = ['#1a3c6e','#004c8f','#ff6600','#97144d','#e40000','#1b5e20',
+                            '#880e4f','#0d47a1','#4a148c','#00695c','#c62828','#37474f'];
+            var color    = colors[Math.abs(b.code.charCodeAt(0) + b.code.charCodeAt(1)) % colors.length];
+            var isSel    = abSelectedCode === b.code;
+            return '<div class="ab-bank-item' + (isSel ? ' selected' : '') + '" onclick="selectBankItem(\'' + b.code + '\',\'' + b.name.replace(/'/g,"\\'") + '\')">' +
+                '<div class="ab-bank-left">' +
+                '<div class="ab-bank-icon" style="background:' + color + ';">' + initials + '</div>' +
+                '<span class="ab-bank-name">' + b.name + '</span>' +
+                '</div>' +
+                '<div class="ab-radio"></div>' +
+                '</div>';
+        }).join('');
+    }
+
+    function filterBanks() {
+        var q = document.getElementById('abSearch').value.toLowerCase();
+        renderAllBanks(ALL_BANKS.filter(function(b) { return b.name.toLowerCase().includes(q); }));
+    }
+
+    function selectBankItem(code, name) {
+        abSelectedCode = code;
+        abSelectedName = name;
+        var q = document.getElementById('abSearch').value.toLowerCase();
+        renderAllBanks(ALL_BANKS.filter(function(b) { return b.name.toLowerCase().includes(q); }));
+    }
+
+    function selectBankFromDrawer() {
+        if (!abSelectedCode) { alert('Please select a bank.'); return; }
+
+        // Save as selectedBank (use code directly for all banks)
+        selectedBank = abSelectedCode;
+
+        // Highlight in the short list if it's one of the 4
+        var shortMap = { 'SBI': 'sbi', 'HDFC': 'hdfc', 'ICIC': 'icici', 'UTIB': 'axis' };
+        document.querySelectorAll('.nb-bank-row').forEach(function(r) { r.classList.remove('selected'); });
+        if (shortMap[abSelectedCode]) {
+            var shortRow = document.querySelector('.nb-bank-row[onclick*="' + shortMap[abSelectedCode] + '"]');
+            if (shortRow) shortRow.classList.add('selected');
+        }
+
+        // Update VIEW ALL BANKS text to show selection
+        var viewAll = document.querySelector('.nb-view-all');
+        viewAll.textContent = '✓ ' + abSelectedName + ' selected  ›';
+        viewAll.style.color = '#388e3c';
+
+        closeAllBanks();  
+    }
+    
+    selectPayment('online');
+</script>
+
+</body>
+</html>

@@ -1,0 +1,621 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us – Tiarra | Bridal Jewellery & Silk Sarees</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-deep:   #1c3a2b;
+      --green-mid:    #2a5240;
+      --green-light:  #3d7a5c;
+      --gold:         #c9a84c;
+      --gold-light:   #e2c07a;
+      --cream:        #faf6ef;
+      --text-dark:    #1a1a1a;
+      --text-mid:     #4a4a4a;
+      --text-light:   #8a8a8a;
+      --white:        #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #ffffff;
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ── ANNOUNCEMENT ── */
+    .announcement {
+      background: var(--green-deep);
+      color: var(--gold-light);
+      text-align: center;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      padding: 10px 20px;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--white);
+      border-bottom: 1px solid #e8e0d4;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 18px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo { display:flex; flex-direction:column; align-items:center; text-decoration:none; }
+    .logo-main { font-family:'Playfair Display', serif; font-size:2rem; font-weight:600; color:var(--gold); letter-spacing:.08em; line-height:1; }
+    .logo-sub { font-size:.65rem; letter-spacing:.2em; color:var(--text-mid); text-transform:uppercase; margin-top:2px; }
+
+    nav ul { display:flex; gap:28px; list-style:none; }
+    nav a { font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; text-decoration:none; color:var(--text-dark); transition:color .2s; }
+    nav a:hover, nav a.active { color:var(--gold); }
+
+    .header-icons { display:flex; gap:18px; }
+    .header-icons svg { width:20px; height:20px; stroke:var(--text-dark); fill:none; cursor:pointer; transition:stroke .2s; }
+    .header-icons svg:hover { stroke:var(--gold); }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      max-width:1280px; margin:0 auto; padding:14px 32px;
+      display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+      font-size:.72rem; letter-spacing:.1em; color:var(--text-light);
+    }
+    .breadcrumb a { color:var(--text-light); text-decoration:none; transition:color .2s; }
+    .breadcrumb a:hover { color:var(--gold); }
+    .breadcrumb span.sep { color:#ccc; }
+    .breadcrumb span.current { color:var(--text-mid); }
+
+    /* ── HERO ── */
+    .hero {
+      position:relative; height:520px;
+      background:var(--green-deep);
+      overflow:hidden;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .hero-bg-grid {
+      position:absolute; inset:0;
+      background-image:
+        linear-gradient(rgba(201,168,76,.06) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(201,168,76,.06) 1px,transparent 1px);
+      background-size:60px 60px;
+    }
+    .hero-ornament {
+      position:absolute; width:420px; height:420px;
+      border-radius:50%; border:1px solid rgba(201,168,76,.18);
+      top:50%; left:50%; transform:translate(-50%,-50%);
+    }
+    .hero-ornament::before { content:''; position:absolute; inset:30px; border-radius:50%; border:1px solid rgba(201,168,76,.12); }
+    .hero-ornament::after  { content:''; position:absolute; inset:60px; border-radius:50%; border:1px solid rgba(201,168,76,.08); }
+    .hero-img-left, .hero-img-right {
+      position:absolute; top:0; height:100%; width:55%;
+      object-fit:cover; opacity:.22;
+    }
+    .hero-img-left  { left:0; clip-path:polygon(0 0,85% 0,100% 100%,0 100%); }
+    .hero-img-right { right:0; clip-path:polygon(15% 0,100% 0,100% 100%,0 100%); }
+    .hero-content {
+      position:relative; text-align:center; padding:0 20px;
+      animation:fadeUp .9s ease both;
+    }
+    .hero-eyebrow { font-size:.68rem; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-bottom:14px; }
+    .hero-title { font-family:'Playfair Display', serif; font-size:clamp(2.8rem,5vw,4.2rem); font-weight:300; color:var(--white); line-height:1.12; margin-bottom:18px; }
+    .hero-title em { font-style:italic; color:var(--gold-light); }
+    .hero-divider { width:60px; height:1px; background:var(--gold); margin:0 auto 16px; }
+    .hero-sub { font-size:.88rem; letter-spacing:.08em; color:rgba(255,255,255,.65); max-width:480px; line-height:1.7; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ── SHARED ── */
+    section { padding:90px 32px; }
+    .section-inner { max-width:1200px; margin:0 auto; }
+    .section-tag { font-size:.65rem; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; }
+    .section-heading { font-family:'Playfair Display', serif; font-size:clamp(2rem,3.5vw,3rem); font-weight:400; line-height:1.15; color:var(--green-deep); margin-bottom:18px; }
+    .section-heading em { font-style:italic; }
+    .gold-rule { width:50px; height:2px; background:var(--gold); margin:0 0 24px; }
+    .gold-rule.center { margin:0 auto 24px; }
+
+    /* ── STORY ── */
+    .story { background:var(--white); }
+    .story-grid { display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center; }
+    .story-text p { font-size:.93rem; line-height:1.85; color:var(--text-mid); margin-bottom:16px; }
+    .story-text p:first-of-type::first-letter {
+      font-family:'Playfair Display', serif; font-size:3.4rem; float:left;
+      line-height:.8; padding-right:8px; padding-top:6px; color:var(--gold);
+    }
+    .story-images { display:grid; grid-template-columns:1fr 1fr; grid-template-rows:220px 220px; gap:12px; }
+    .story-images img { width:100%; height:100%; object-fit:cover; border-radius:2px; }
+    .story-images img:first-child { grid-column:1/3; }
+
+    /* ── VALUES ── */
+    .values { background: #ffffff; }
+    .values-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:32px; }
+    .value-card {
+      background:var(--white); border:1px solid #ede7dc;
+      padding:40px 32px; text-align:center; position:relative;
+      transition:box-shadow .3s, transform .3s;
+    }
+    .value-card:hover { box-shadow:0 12px 40px rgba(28,58,43,.08); transform:translateY(-4px); }
+    .value-card::before { content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); width:40px; height:2px; background:var(--gold); }
+    .value-icon { width:52px; height:52px; background:var(--green-deep); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 20px; }
+    .value-icon svg { width:24px; height:24px; stroke:var(--gold); fill:none; stroke-width:1.5; }
+    .value-card h3 { font-family:'Playfair Display', serif; font-size:1.3rem; color:var(--green-deep); margin-bottom:12px; }
+    .value-card p { font-size:.83rem; color:var(--text-mid); line-height:1.75; }
+
+    /* ── COLLECTIONS ── */
+    .collections { background:var(--green-deep); padding:90px 32px; }
+    .collections .section-tag { color:var(--gold-light); }
+    .collections .section-heading { color:var(--white); text-align:center; }
+    .collections-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; margin-top:52px; }
+    .coll-item { position:relative; overflow:hidden; aspect-ratio:3/4; cursor:pointer; }
+    .coll-item img { width:100%; height:100%; object-fit:cover; transition:transform .6s ease; }
+    .coll-item:hover img { transform:scale(1.06); }
+    .coll-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(to top,rgba(28,58,43,.85) 0%,transparent 60%);
+      display:flex; flex-direction:column; justify-content:flex-end; padding:24px 20px;
+    }
+    .coll-overlay span { display:block; font-size:.65rem; letter-spacing:.25em; text-transform:uppercase; color:var(--gold); margin-bottom:4px; }
+    .coll-overlay h4 { font-family:'Playfair Display', serif; font-size:1.25rem; font-weight:400; color:var(--white); }
+
+    /* ── STATS ── */
+    .stats { background:var(--white); padding:72px 32px; border-top:1px solid #ede7dc; border-bottom:1px solid #ede7dc; }
+    .stats-grid { max-width:900px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:20px; text-align:center; }
+    .stat-num { font-family:'Playfair Display', serif; font-size:3rem; font-weight:600; color:var(--gold); line-height:1; }
+    .stat-label { font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; color:var(--text-light); margin-top:6px; }
+
+    /* ── ARTISANS ── */
+    .artisans { background: #ffffff; }
+    .artisans-layout { display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center; }
+    .artisans-images { position:relative; }
+    .artisans-images img.main-img { width:100%; aspect-ratio:4/5; object-fit:cover; border-radius:2px; }
+    .artisans-images .accent-img {
+      position:absolute; bottom:-28px; right:-28px; width:46%;
+      aspect-ratio:1; object-fit:cover; border:6px solid var(--cream); border-radius:2px;
+    }
+    .artisans-text p { font-size:.93rem; line-height:1.85; color:var(--text-mid); margin-bottom:14px; }
+    .craft-tags { display:flex; flex-wrap:wrap; gap:8px; margin-top:24px; }
+    .craft-tags span { font-size:.68rem; letter-spacing:.15em; text-transform:uppercase; border:1px solid var(--gold); color:var(--green-deep); padding:6px 14px; }
+
+    /* ── VISIT ── */
+    .visit { background:var(--white); }
+    .visit-layout { display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:start; }
+    .info-row { display:flex; gap:16px; align-items:flex-start; margin-bottom:28px; }
+    .info-icon { width:38px; height:38px; background:var(--green-deep); border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
+    .info-icon svg { width:16px; height:16px; stroke:var(--gold); fill:none; stroke-width:1.8; }
+    .info-label { font-size:.62rem; letter-spacing:.2em; text-transform:uppercase; color:var(--text-light); margin-bottom:4px; }
+    .info-value { font-size:.9rem; color:var(--text-dark); line-height:1.6; }
+    .map-embed { width:100%; border-radius:2px; overflow:hidden; border:1px solid #ede7dc; }
+    .map-embed iframe { width:100%; height:340px; border:0; display:block; }
+
+    /* ── PROMISE ── */
+    .promise { background:linear-gradient(135deg,var(--green-deep) 0%,var(--green-mid) 100%); padding:80px 32px; text-align:center; }
+    .promise-inner { max-width:680px; margin:0 auto; }
+    .promise h2 { font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,4vw,3rem); font-weight:300; color:var(--white); margin-bottom:18px; }
+    .promise h2 em { font-style:italic; color:var(--gold-light); }
+    .promise p { font-size:.9rem; color:rgba(255,255,255,.7); line-height:1.8; margin-bottom:36px; }
+    .btn-gold { display:inline-block; padding:14px 38px; background:var(--gold); color:var(--green-deep); font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; text-decoration:none; font-weight:500; transition:background .25s; }
+    .btn-gold:hover { background:var(--gold-light); }
+
+    /* ── FOOTER ── */
+    footer { background:var(--text-dark); color:rgba(255,255,255,.55); padding:60px 32px 32px; }
+    .footer-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:40px; padding-bottom:40px; border-bottom:1px solid rgba(255,255,255,.08); }
+    .footer-logo { font-family:'Playfair Display', serif; font-size:1.8rem; color:var(--gold); letter-spacing:.1em; margin-bottom:12px; }
+    .footer-brand p { font-size:.8rem; line-height:1.7; margin-bottom:18px; }
+    .footer-social { display:flex; gap:12px; }
+    .footer-social a { width:34px; height:34px; border:1px solid rgba(255,255,255,.15); border-radius:50%; display:flex; align-items:center; justify-content:center; transition:border-color .2s; }
+    .footer-social a:hover { border-color:var(--gold); }
+    .footer-social svg { width:14px; height:14px; stroke:rgba(255,255,255,.5); fill:none; stroke-width:1.5; }
+    .footer-col h5 { font-size:.65rem; letter-spacing:.22em; text-transform:uppercase; color:var(--gold); margin-bottom:16px; }
+    .footer-col ul { list-style:none; }
+    .footer-col li { margin-bottom:8px; }
+    .footer-col a { font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none; transition:color .2s; }
+    .footer-col a:hover { color:var(--gold-light); }
+    .footer-bottom { max-width:1200px; margin:24px auto 0; display:flex; justify-content:space-between; align-items:center; font-size:.72rem; }
+
+    /* ══════════════════════════════════════════
+       RESPONSIVE — TABLET (≤960px)
+    ══════════════════════════════════════════ */
+    @media (max-width:960px) {
+      .story-grid,
+      .artisans-layout,
+      .visit-layout { grid-template-columns:1fr; gap:40px; }
+      .values-grid { grid-template-columns:1fr 1fr; }
+      .collections-grid { grid-template-columns:1fr 1fr; }
+      .stats-grid { grid-template-columns:repeat(2,1fr); gap:32px; }
+      .footer-inner { grid-template-columns:1fr 1fr; }
+      nav ul { display:none; }
+      .artisans-images .accent-img { right: -14px; bottom: -14px; }
+      .artisans-images { margin-bottom: 42px; }
+    }
+
+    /* ══════════════════════════════════════════
+       RESPONSIVE — MOBILE (≤600px)
+    ══════════════════════════════════════════ */
+    @media (max-width:600px) {
+
+      /* Global */
+      section { padding: 48px 16px; }
+
+      /* Announcement */
+      .announcement { font-size: .68rem; letter-spacing: .06em; padding: 9px 16px; }
+
+      /* Header */
+      .header-inner { padding: 12px 16px; }
+      .logo img { height: 28px !important; }
+      .logo-sub { font-size: .55rem; }
+
+      /* Breadcrumb */
+      .breadcrumb { padding: 10px 16px; font-size: .65rem; }
+
+      /* Hero */
+      .hero { height: 380px; }
+      .hero-ornament { width: 260px; height: 260px; }
+      .hero-title { font-size: clamp(1.8rem, 8vw, 2.6rem); }
+      .hero-sub { font-size: .78rem; letter-spacing: .04em; }
+      .hero-eyebrow { font-size: .6rem; letter-spacing: .2em; }
+
+      /* Story */
+      /* Story */
+      .story-grid { gap: 28px; }
+      .story-images {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+      }
+      .story-images img:first-child { grid-column: 1 / 3; }
+      .story-images img { height: 180px; }
+      .story-text p:first-of-type::first-letter { font-size: 2.4rem; }
+
+      /* Values */
+      .values-grid { grid-template-columns: 1fr; gap: 16px; }
+      .value-card { padding: 28px 20px; }
+      .value-card h3 { font-size: 1.1rem; }
+
+      /* Collections */
+      .collections { padding: 48px 16px; }
+      .collections-grid { grid-template-columns: 1fr 1fr; gap: 2px; }
+      .coll-overlay h4 { font-size: .95rem; }
+      .coll-overlay { padding: 16px 12px; }
+
+      /* Stats */
+      .stats { padding: 48px 16px; }
+      .stats-grid { grid-template-columns: repeat(2,1fr); gap: 24px 12px; }
+      .stat-num { font-size: 2rem; }
+      .stat-label { font-size: .6rem; letter-spacing: .1em; }
+
+      /* Artisans */
+      .artisans-layout { gap: 24px; }
+      .artisans-images { margin-bottom: 52px; }
+      .artisans-images .accent-img {
+        right: 0;
+        bottom: -40px;
+        border-width: 4px;
+        width: 40%;
+      }
+      .craft-tags span { font-size: .6rem; padding: 5px 10px; }
+
+      /* Visit */
+      .visit-layout { gap: 32px; }
+      .map-embed iframe { height: 240px; }
+      .info-value { font-size: .82rem; }
+      .info-label { font-size: .58rem; }
+
+      /* Promise */
+      .promise { padding: 52px 16px; }
+      .promise h2 { font-size: clamp(1.6rem, 7vw, 2.2rem); }
+      .promise p { font-size: .85rem; }
+      .btn-gold { padding: 12px 28px; font-size: .68rem; }
+
+      /* Footer */
+      footer { padding: 40px 16px 24px; }
+      .footer-inner { grid-template-columns: 1fr; gap: 28px; }
+      .footer-logo { font-size: 1.4rem; }
+      .footer-brand p { font-size: .75rem; }
+      .footer-bottom { flex-direction: column; gap: 8px; text-align: center; font-size: .65rem; }
+    }
+
+    /* ══════════════════════════════════════════
+       RESPONSIVE — SMALL MOBILE (≤380px)
+    ══════════════════════════════════════════ */
+    @media (max-width:380px) {
+      section { padding: 40px 12px; }
+      .hero { height: 340px; }
+      .hero-title { font-size: clamp(1.6rem, 9vw, 2rem); }
+      .hero-ornament { width: 200px; height: 200px; }
+      .collections-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 18px 10px; }
+      .stat-num { font-size: 1.8rem; }
+      .story-images img { height: 160px; }
+      footer { padding: 32px 12px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="announcement">
+  Tiarra offers exquisite bridal jewellery and luxurious silk sarees in Nagercoil. Discover timeless styles for every special occasion.
+</div>
+
+<header>
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <img src="{% static 'images/TIARRA_Logo_English_2.png' %}" alt="TIARRA" style="height: 40px; width: auto;"/>
+      <span class="logo-sub">Bridal Jewellery & Silk Sarees</span>
+    </a>
+  </div>
+</header>
+
+<div class="breadcrumb">
+  <a href="/">Home</a>
+  <span class="sep">›</span>
+  <span class="current">About Us</span>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-ornament"></div>
+  <img class="hero-img-left"  src="https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=800&q=80" alt="Silk saree" />
+  <img class="hero-img-right" src="https://images.unsplash.com/photo-1606503153255-59d8b8b82176?w=800&q=80" alt="Jewellery" />
+  <div class="hero-content">
+    <p class="hero-eyebrow">Est. Nagercoil · Since 2010</p>
+    <h1 class="hero-title">Where Every Jewel<br>Tells <em>Her Story</em></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-sub">Crafting heirlooms, weaving dreams — Tiarra is Nagercoil's trusted destination for bridal jewellery and the finest silk sarees.</p>
+  </div>
+</div>
+
+<!-- OUR STORY -->
+<section class="story">
+  <div class="section-inner">
+    <div class="story-grid">
+      <div class="story-text">
+        <p class="section-tag">Our Story</p>
+        <h2 class="section-heading">A Legacy Born from<br><em>Passion &amp; Heritage</em></h2>
+        <div class="gold-rule"></div>
+        <p>Tiarra was born from a simple belief: that every woman deserves to feel extraordinary on the most important days of her life. Founded in Nagercoil, at the heart of Tamil Nadu's rich textile and jewellery tradition, we set out to be more than a store — we wanted to be a part of your family's story.</p>
+        <p>From the grand Kanjivaram silks woven along the banks of the Kaveri to the intricate temple gold jewellery of the deep south, our collections are a love letter to Indian craftsmanship. Every piece we curate is chosen with meticulous care, honouring the artisans who pour generations of skill into their work.</p>
+        <p>Over the years, Tiarra has grown into a destination that brides and families trust not just for the quality of our pieces, but for the warmth of our experience — where choosing your wedding jewellery feels like a celebration in itself.</p>
+      </div>
+      <div class="story-images">
+        <img src="{% static 'images/bridal.png' %}" alt="Bridal saree" />
+        <img src="{% static 'images/traditional.png' %}" alt="Traditional jewellery" />
+        <img src="{% static 'images/goldornament.png' %}" alt="Gold necklace" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values">
+  <div class="section-inner">
+    <p class="section-tag" style="text-align:center">Why Tiarra</p>
+    <h2 class="section-heading" style="text-align:center">Our Guiding <em>Principles</em></h2>
+    <div class="gold-rule center"></div>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+        </div>
+        <h3>Uncompromised Quality</h3>
+        <p>Every piece — from a delicate stud to a grand bridal set — is sourced from certified artisans and verified for purity, ensuring it becomes a treasured heirloom.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+        </div>
+        <h3>Authentic Heritage</h3>
+        <p>We work directly with master weavers and goldsmiths from Tamil Nadu's most celebrated traditions, preserving techniques passed down through centuries.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <h3>A Personal Experience</h3>
+        <p>Shopping at Tiarra is never transactional. Our stylists take time to understand your story, your wedding, your family — and curate selections that feel entirely yours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLLECTIONS -->
+<section class="collections">
+  <p class="section-tag" style="text-align:center">Our Collections</p>
+  <h2 class="section-heading" style="text-align:center">Jewels &amp; <em>Silks</em> for Every Occasion</h2>
+  <div class="gold-rule center"></div>
+  <div class="section-inner">
+    <div class="collections-grid">
+      <div class="coll-item">
+        <img src="{% static 'images/bridaljewl.png' %}" alt="Bridal Jewellery" />
+        <div class="coll-overlay"><span>Collection</span><h4>Bridal Jewellery</h4></div>
+      </div>
+      <div class="coll-item">
+        <img src="{% static 'images/silks.png' %}" alt="Kanjivaram Silks" />
+        <div class="coll-overlay"><span>Collection</span><h4>Kanjivaram Silks</h4></div>
+      </div>
+      <div class="coll-item">
+        <img src="{% static 'images/temple.png' %}" alt="Temple Jewellery" />
+        <div class="coll-overlay"><span>Collection</span><h4>Temple Jewellery</h4></div>
+      </div>
+      <div class="coll-item">
+        <img src="{% static 'images/party.png' %}" alt="Party Wear" />
+        <div class="coll-overlay"><span>Collection</span><h4>Party Wear</h4></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stats-grid">
+    <div><div class="stat-num">14+</div><div class="stat-label">Years of Heritage</div></div>
+    <div><div class="stat-num">5,000+</div><div class="stat-label">Happy Brides</div></div>
+    <div><div class="stat-num">1,200+</div><div class="stat-label">Jewellery Designs</div></div>
+    <div><div class="stat-num">300+</div><div class="stat-label">Silk Saree Varieties</div></div>
+  </div>
+</div>
+
+<!-- ARTISANS -->
+<section class="artisans">
+  <div class="section-inner">
+    <div class="artisans-layout">
+      <div class="artisans-images">
+        <img class="main-img" src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=700&q=80" alt="Artisan weaving" />
+        <img class="accent-img" src="https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=500&q=80" alt="Gold jewellery craft" />
+      </div>
+      <div class="artisans-text">
+        <p class="section-tag">The Craft</p>
+        <h2 class="section-heading">Handcrafted by<br><em>Master Artisans</em></h2>
+        <div class="gold-rule"></div>
+        <p>Behind every Tiarra piece is a craftsperson whose family has woven silk or shaped gold for generations. We travel to the workshops of Kanchipuram, Dharmavaram, and the goldsmith communities of Nagercoil to source directly — ensuring authenticity and fair artisan partnerships.</p>
+        <p>Our jewellery is hallmarked and our sarees carry GI certification where applicable. When you wear Tiarra, you carry not just beauty, but the living tradition of Indian craftsmanship.</p>
+        <div class="craft-tags">
+          <span>Kanjivaram Silk</span>
+          <span>Temple Gold</span>
+          <span>Hallmarked Silver</span>
+          <span>Kundan</span>
+          <span>Polki</span>
+          <span>Zari Weaving</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISIT US -->
+<section class="visit">
+  <div class="section-inner">
+    <div class="visit-layout">
+      <div>
+        <p class="section-tag">Visit Us</p>
+        <h2 class="section-heading">Find Us in<br><em>Nagercoil</em></h2>
+        <div class="gold-rule"></div>
+        <div class="info-row">
+          <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div>
+            <div class="info-label">Store Address</div>
+            <div class="info-value">Tiarra Bridal Jewellery &amp; Silk Sarees<br>Main Road, Nagercoil – 629 001<br>Kanyakumari District, Tamil Nadu</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 13.7 19.79 19.79 0 0 1 1 5.08 2 2 0 0 1 2.96 3h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.09 10.8a16 16 0 0 0 6.11 6.11l1.16-1.16a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21 18z"/></svg></div>
+          <div>
+            <div class="info-label">Phone</div>
+            <div class="info-value">+91 98765 43210</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div>
+          <div>
+            <div class="info-label">Email</div>
+            <div class="info-value">tiarra.co.in@gmail.com</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div>
+            <div class="info-label">Store Hours</div>
+            <div class="info-value">Monday – Saturday: 10:00 AM – 8:30 PM<br>Sunday: 11:00 AM – 7:00 PM</div>
+          </div>
+        </div>
+      </div>
+      <div class="map-embed">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126831.67!2d77.3432!3d8.1774!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b04f006fba55a8f%3A0x6ec44abe8d5f6a23!2sNagercoil%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1700000000000"
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          title="Tiarra Store – Nagercoil">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROMISE -->
+<section class="promise">
+  <div class="promise-inner">
+    <h2>Begin Your Bridal<br><em>Journey with Us</em></h2>
+    <p>Whether you're searching for the perfect Kanjivaram for your wedding day or a diamond set that will be passed down to your daughters — Tiarra is where your story begins.</p>
+    <a href="{% url 'products' %}" class="btn-gold">Explore Collections</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">TIARRA</div>
+      <p>Bridal Jewellery &amp; Silk Sarees since 2010. Serving brides and families across Nagercoil and Kanyakumari with love and heritage.</p>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/tiarra.co.in" target="_blank" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://www.facebook.com/TiarraJewelsandSilks/" target="_blank" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@Tiarrajewelsandsilks" target="_blank" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="3"/>
+            <polygon points="10 8.5 16 12 10 15.5" fill="rgba(255,255,255,0.5)" stroke="none"/>
+          </svg>
+        </a>
+
+        <a href="https://wa.me/919150709155" target="_blank" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 21l1.65-4.85A8.5 8.5 0 1 1 7.5 19.5z"/>
+            <path d="M9 10.5c-.3-.7 0-1.5.5-1.5h.5c.3 0 .5.2.7.5l.5 1c.1.3 0 .6-.2.8l-.3.3c.4.7 1 1.3 1.7 1.7l.3-.3c.2-.2.5-.3.8-.2l1 .5c.3.2.5.4.5.7v.5c0 .5-.8.8-1.5.5"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Shop</h5>
+      <ul>
+        <li><a href="{% url 'products' %}?category=ring">Rings</a></li>
+        <li><a href="{% url 'products' %}?category=necklace">Necklace</a></li>
+        <li><a href="{% url 'products' %}?category=earrings">Earrings</a></li>
+        <li><a href="{% url 'products' %}?category=bracelets">Bracelets</a></li>
+        <li><a href="{% url 'products' %}?category=silk-sarees">Silk Sarees</a></li>
+        <li><a href="{% url 'products' %}?category=bridal-sarees">Bridal Sarees</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="/about">About Us</a></li>
+        <li><a href="{% url 'craftsmanship' %}">Our Craft</a></li>
+        <li><a href="{% url 'blog' %}">Journal</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Help</h5>
+      <ul>
+        <li><a href="{% url 'faq' %}">FAQ</a></li>
+        <li><a href="{% url 'shipping' %}">Shipping</a></li>
+        
+        <li><a href="{% url 'size_guide' %}">Size Guide</a></li>
+        <li><a href="/care">Jewellery Care</a></li>
+        <li><a href="/privacy">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Tiarra Bridal Jewellery &amp; Silk Sarees, Nagercoil. All rights reserved.</span>
+    <span>Made with love in Tamil Nadu 🤍</span>
+  </div>
+</footer>
+
+</body>
+</html>

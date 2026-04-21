@@ -1,0 +1,741 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Order Summary — TIARRA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'DM Sans', sans-serif; background: #ffffff; color: #1c1c1c; min-height: 100vh; }
+
+        /* ── HEADER ── */
+        .os-header {
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 14px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .os-header span { position: absolute; right: 40px; }
+        .os-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px; font-weight: 400;
+            letter-spacing: .22em; text-transform: uppercase;
+            text-decoration: none; color: #1a4a3a;
+        }
+
+        /* ── STEPPER ── */
+        .os-stepper {
+            display: flex; align-items: center; justify-content: center;
+            padding: 20px 40px; background: #fff;
+            border-bottom: 1px solid #e0e0e0; gap: 0;
+        }
+        .os-step { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+        .os-step-circle {
+            width: 32px; height: 32px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px; font-weight: 500;
+        }
+        .os-step-circle.done  { background: #2874f0; color: #fff; }
+        .os-step-circle.active   { background: #2874f0; color: #fff; }
+        .os-step-circle.inactive { background: #fff; border: 1.5px solid #bbb; color: #999; }
+        .os-step-label { font-size: 12px; font-weight: 400; }
+        .os-step-label.active   { color: #2874f0; font-weight: 600; }
+        .os-step-label.done     { color: #555; }
+        .os-step-label.inactive { color: #999; }
+        .os-step-line { width: 90px; height: 1.5px; background: #2874f0; margin-bottom: 18px; }
+        .os-step-line.inactive { background: #ccc; }
+
+        /* ── MAIN LAYOUT ── */
+        .os-body {
+            max-width: 1100px; margin: 24px auto;
+            padding: 0 20px;
+            display: grid; grid-template-columns: 1fr 360px;
+            gap: 16px; align-items: start;
+        }
+        .os-left  { display: flex; flex-direction: column; gap: 12px; }
+
+        /* Address card */
+        .os-card { background: #fff; border-radius: 2px; padding: 20px 24px; }
+        .os-card-title { font-size: 13px; font-weight: 400; color: #888; margin-bottom: 12px; letter-spacing: .01em; }
+        .os-deliver-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+        .os-deliver-name {
+            font-size: 15px; font-weight: 500; color: #1c1c1c;
+            display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+        }
+        .os-home-badge {
+            font-size: 11px; font-weight: 500; color: #888;
+            border: 1px solid #ccc; border-radius: 2px;
+            padding: 2px 8px; letter-spacing: .04em;
+        }
+        .os-deliver-addr { font-size: 13px; font-weight: 300; color: #555; line-height: 1.7; max-width: 520px; }
+        .os-deliver-phone { font-size: 13px; font-weight: 400; color: #333; margin-top: 6px; }
+        .os-change-btn {
+            background: none; border: 1px solid #2874f0; color: #2874f0;
+            font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+            padding: 8px 20px; border-radius: 2px; cursor: pointer;
+            white-space: nowrap; transition: background .2s; flex-shrink: 0;
+        }
+        .os-change-btn:hover { background: #e8f0fe; }
+
+        /* Product card */
+        .os-hot-badge { font-size: 12px; font-weight: 500; color: #388e3c; margin-bottom: 12px; }
+        .os-product-row { display: flex; align-items: flex-start; gap: 16px; }
+        .os-product-img { width: 72px; height: 72px; object-fit: cover; border-radius: 4px; background: #e8ede9; flex-shrink: 0; }
+        .os-product-info { flex: 1; }
+        .os-product-name { font-size: 14px; font-weight: 400; color: #1c1c1c; line-height: 1.5; margin-bottom: 4px; }
+        .os-product-cat { font-size: 12px; color: #888; margin-bottom: 8px; }
+        .os-rating { display: flex; align-items: center; gap: 6px; font-size: 12px; margin-bottom: 10px; }
+        .os-stars { background: #388e3c; color: #fff; padding: 2px 6px; border-radius: 2px; font-size: 12px; font-weight: 500; }
+        .os-review-count { color: #888; }
+        .os-price-row { display: flex; align-items: baseline; gap: 10px; margin-top: 8px; }
+        .os-discount-pct  { color: #388e3c; font-size: 14px; font-weight: 600; }
+        .os-original-price{ font-size: 14px; color: #888; text-decoration: line-through; }
+        .os-final-price   { font-size: 18px; font-weight: 600; color: #1c1c1c; }
+        .os-qty-row { margin-top: 12px; }
+        .os-qty-select { padding: 6px 12px; border: 1px solid #ccc; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 13px; color: #1c1c1c; background: #fff; cursor: pointer; }
+        .os-delivery-date { font-size: 13px; color: #555; margin-top: 14px; }
+        .os-delivery-date strong { color: #1c1c1c; font-weight: 500; }
+        .os-email-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 0 0; border-top: 1px solid #f0f0f0; margin-top: 16px; }
+        .os-email-row span { font-size: 13px; color: #555; display: flex; align-items: center; gap: 10px; }
+        .os-email-row a { color: #2874f0; font-size: 13px; font-weight: 500; text-decoration: none; }
+        .os-terms { font-size: 12px; color: #888; line-height: 1.7; }
+        .os-terms a { color: #2874f0; text-decoration: none; }
+
+        /* ── RIGHT PANEL ── */
+        .os-right { display: flex; flex-direction: column; gap: 12px; }
+        .os-price-card { background: #fff; border-radius: 2px; padding: 20px 24px; }
+        .os-price-title { font-size: 13px; font-weight: 500; color: #888; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #f0f0f0; }
+        .os-price-line { display: flex; justify-content: space-between; align-items: center; font-size: 14px; color: #1c1c1c; margin-bottom: 14px; }
+        .os-price-line .label { color: #555; display: flex; align-items: center; gap: 4px; }
+        .os-price-line .val { font-weight: 400; }
+        .os-price-line .val.discount { color: #388e3c; font-weight: 500; }
+        .os-total-line { display: flex; justify-content: space-between; align-items: center; font-size: 15px; font-weight: 500; color: #1c1c1c; padding-top: 14px; border-top: 1px solid #f0f0f0; margin-bottom: 14px; }
+        .os-saving-banner { background: #e8f5e9; border-radius: 2px; padding: 10px 14px; font-size: 13px; font-weight: 500; color: #388e3c; margin-bottom: 16px; text-align: center; }
+        .os-secure-row { display: flex; align-items: center; gap: 10px; font-size: 12px; color: #888; line-height: 1.6; padding: 14px 0; border-top: 1px solid #f0f0f0; border-bottom: 1px solid #f0f0f0; margin-bottom: 16px; }
+        .os-continue-wrap { background: #fff; border-radius: 2px; padding: 16px 24px; }
+        .os-continue-top { display: flex; align-items: baseline; gap: 6px; margin-bottom: 4px; }
+        .os-continue-strike { font-size: 13px; color: #888; text-decoration: line-through; }
+        .os-continue-price { font-size: 22px; font-weight: 600; color: #1c1c1c; }
+        .os-view-details { font-size: 13px; color: #2874f0; text-decoration: none; display: block; margin-bottom: 14px; }
+        .os-continue-btn { width: 100%; background: #fb641b; color: #fff; border: none; padding: 15px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer; border-radius: 2px; letter-spacing: .03em; transition: background .2s; }
+        .os-continue-btn:hover { background: #e85a18; }
+
+        /* ── ADDRESS DRAWER ── */
+        .addr-overlay {
+            display: none;
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.45);
+            z-index: 1100;
+            transition: opacity .3s;
+        }
+        .addr-overlay.open { display: block; }
+
+        .addr-drawer {
+            position: fixed;
+            top: 0; right: -480px; bottom: 0;
+            width: 460px; max-width: 100vw;
+            background: #fff;
+            z-index: 1200;
+            display: flex; flex-direction: column;
+            transition: right .32s cubic-bezier(.4,0,.2,1);
+            box-shadow: -4px 0 24px rgba(0,0,0,0.13);
+        }
+        .addr-drawer.open { right: 0; }
+
+        .addr-drawer-head {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 18px 22px;
+            border-bottom: 1px solid #e8e8e8;
+            flex-shrink: 0;
+        }
+        .addr-drawer-head h2 {
+            font-size: 15px; font-weight: 600;
+            letter-spacing: .06em; color: #1c1c1c;
+            text-transform: uppercase;
+        }
+        .addr-drawer-close {
+            background: none; border: none; cursor: pointer;
+            font-size: 22px; color: #555; line-height: 1;
+            padding: 2px 6px; border-radius: 4px;
+            transition: background .15s;
+        }
+        .addr-drawer-close:hover { background: #f5f5f5; }
+
+        .addr-drawer-body {
+            flex: 1; overflow-y: auto;
+            padding: 0;
+        }
+
+        /* ADD NEW ADDRESS row */
+        .addr-add-new {
+            display: flex; align-items: center; gap: 8px;
+            padding: 18px 22px;
+            border-bottom: 1px solid #eee;
+            color: #c0392b;
+            font-size: 14px; font-weight: 600;
+            cursor: pointer;
+            letter-spacing: .02em;
+            transition: background .15s;
+        }
+        .addr-add-new:hover { background: #fff5f5; }
+        .addr-add-new svg { flex-shrink: 0; }
+
+        /* Address item */
+        .addr-item {
+            display: flex; align-items: flex-start; gap: 14px;
+            padding: 18px 22px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background .15s;
+        }
+        .addr-item:hover { background: #f5f8ff; }
+        .addr-item.selected { background: #eef3fd; }
+
+        .addr-radio {
+            width: 18px; height: 18px; flex-shrink: 0;
+            accent-color: #2874f0;
+            margin-top: 2px; cursor: pointer;
+        }
+
+        .addr-item-info { flex: 1; }
+        .addr-item-name { font-size: 14px; font-weight: 600; color: #1c1c1c; margin-bottom: 4px; }
+        .addr-item-text { font-size: 13px; color: #555; line-height: 1.65; margin-bottom: 5px; }
+        .addr-item-phone { font-size: 13px; color: #333; margin-bottom: 8px; }
+        .addr-item-edit {
+            font-size: 13px; font-weight: 600; color: #2874f0;
+            cursor: pointer; background: none; border: none;
+            padding: 0; letter-spacing: .02em;
+        }
+        .addr-item-edit:hover { text-decoration: underline; }
+
+        /* Drawer footer */
+        .addr-drawer-foot {
+            padding: 16px 22px;
+            border-top: 1px solid #eee;
+            flex-shrink: 0;
+        }
+        .addr-deliver-btn {
+            width: 100%; padding: 15px;
+            background: #c0392b; color: #fff;
+            border: none; border-radius: 3px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px; font-weight: 600;
+            cursor: pointer; letter-spacing: .03em;
+            transition: background .2s;
+        }
+        .addr-deliver-btn:hover { background: #a93226; }
+
+        /* ── ADD ADDRESS FORM (inline in drawer) ── */
+        .addr-form-section {
+            display: none;
+            padding: 18px 22px;
+            border-bottom: 1px solid #eee;
+        }
+        .addr-form-section.open { display: block; }
+        .addr-form-section h3 { font-size: 14px; font-weight: 600; margin-bottom: 14px; color: #1c1c1c; }
+        .addr-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .addr-form-grid .full { grid-column: 1 / -1; }
+        .addr-form-group { display: flex; flex-direction: column; gap: 5px; }
+        .addr-form-group label { font-size: 12px; color: #888; font-weight: 400; }
+        .addr-form-group input,
+        .addr-form-group select {
+            padding: 9px 12px; border: 1px solid #ddd; border-radius: 3px;
+            font-family: 'DM Sans', sans-serif; font-size: 13px; color: #1c1c1c;
+            background: #fff; outline: none;
+        }
+        .addr-form-group input:focus,
+        .addr-form-group select:focus { border-color: #2874f0; }
+        .addr-form-actions { display: flex; gap: 10px; margin-top: 14px; }
+        .addr-form-save {
+            flex: 1; padding: 11px;
+            background: #2874f0; color: #fff;
+            border: none; border-radius: 3px;
+            font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+            cursor: pointer;
+        }
+        .addr-form-save:hover { background: #1a5dc8; }
+        .addr-form-cancel {
+            padding: 11px 18px;
+            background: none; border: 1px solid #ccc; color: #555;
+            border-radius: 3px; font-family: 'DM Sans', sans-serif;
+            font-size: 13px; cursor: pointer;
+        }
+
+        /* Sticky bottom bar — mobile only */
+        .os-sticky-bar { display: none; }
+
+        /* ── MOBILE ── */
+        @media (max-width: 600px) {
+            .os-header { padding: 12px 16px; justify-content: center; }
+            .os-header span { display: none; }
+            .os-header img { height: 28px !important; }
+            .os-stepper { padding: 14px 12px; }
+            .os-step-line { width: 40px; }
+            .os-step-label { font-size: 10px; }
+            .os-step-circle { width: 26px; height: 26px; font-size: 11px; }
+            .os-body { grid-template-columns: 1fr; margin: 14px auto; padding: 0 12px 90px; gap: 12px; }
+            .os-card { padding: 14px; border: 1px solid #f0ede8; border-radius: 6px; }
+            .os-deliver-row { flex-direction: column; gap: 12px; }
+            .os-change-btn { padding: 8px 20px; font-size: 12px; align-self: flex-start; }
+            .os-deliver-name { font-size: 13px; flex-wrap: wrap; }
+            .os-deliver-addr { font-size: 12px; }
+            .os-product-name { font-size: 13px; }
+            .os-final-price { font-size: 16px; }
+            .os-email-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+            .os-price-card { padding: 14px; border: 1px solid #f0ede8; border-radius: 6px; }
+            .os-continue-wrap { display: none; }
+            .os-sticky-bar {
+                display: flex; align-items: center; justify-content: space-between;
+                position: fixed; bottom: 0; left: 0; right: 0;
+                background: #fff; border-top: 1px solid #e0e0e0;
+                padding: 12px 16px; z-index: 998; gap: 12px;
+                box-shadow: 0 -2px 10px rgba(0,0,0,0.08);
+            }
+            .os-sticky-bar-price { display: flex; flex-direction: column; }
+            .os-sticky-bar-price .strike { font-size: 11px; color: #888; text-decoration: line-through; }
+            .os-sticky-bar-price .amount { font-size: 18px; font-weight: 600; color: #1c1c1c; }
+            .os-sticky-bar .os-continue-btn { width: auto; flex: 1; padding: 13px 16px; font-size: 14px; }
+            .addr-drawer { width: 100vw; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ══════════════ ADDRESS DRAWER ══════════════ -->
+<div class="addr-overlay" id="addrOverlay" onclick="closeDrawer()"></div>
+
+<div class="addr-drawer" id="addrDrawer">
+    <!-- Head -->
+    <div class="addr-drawer-head">
+        <h2>Select Delivery Address</h2>
+        <button class="addr-drawer-close" onclick="closeDrawer()">&#10005;</button>
+    </div>
+
+    <!-- Body -->
+    <div class="addr-drawer-body" id="addrDrawerBody">
+
+        <!-- ADD NEW ADDRESS -->
+        <div class="addr-add-new" onclick="toggleAddForm()">
+            <svg width="16" height="16" fill="none" stroke="#c0392b" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            ADD NEW ADDRESS
+        </div>
+
+        <!-- Inline Add / Edit Form -->
+        <div class="addr-form-section" id="addrFormSection">
+            <h3 id="addrFormTitle">Add New Address</h3>
+            <div class="addr-form-grid">
+                <div class="addr-form-group">
+                    <label>Full Name *</label>
+                    <input type="text" id="af_name" placeholder="Your name"/>
+                </div>
+                <div class="addr-form-group">
+                    <label>Phone *</label>
+                    <input type="text" id="af_phone" placeholder="10-digit mobile"/>
+                </div>
+                <div class="addr-form-group">
+                    <label>PIN Code *</label>
+                    <input type="text" id="af_pin" placeholder="PIN"/>
+                </div>
+                <div class="addr-form-group">
+                    <label>City *</label>
+                    <input type="text" id="af_city" placeholder="City"/>
+                </div>
+                <div class="addr-form-group">
+                    <label>State</label>
+                    <input type="text" id="af_state" placeholder="State"/>
+                </div>
+                <div class="addr-form-group">
+                    <label>Address Type</label>
+                    <select id="af_type">
+                        <option value="home">Home</option>
+                        <option value="work">Work</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="addr-form-group full">
+                    <label>Flat / House No *</label>
+                    <input type="text" id="af_address" placeholder="Flat, House no, Building"/>
+                </div>
+                <div class="addr-form-group full">
+                    <label>Area / Road / Colony</label>
+                    <input type="text" id="af_road" placeholder="Area, Colony, Street, Sector"/>
+                </div>
+            </div>
+            <div class="addr-form-actions">
+                <button class="addr-form-save" onclick="saveNewAddress()">Save Address</button>
+                <button class="addr-form-cancel" onclick="toggleAddForm()">Cancel</button>
+            </div>
+        </div>
+
+        <!-- Existing Addresses List -->
+        <div id="addrList"></div>
+
+    </div><!-- /body -->
+
+    <!-- Footer -->
+    <div class="addr-drawer-foot">
+        <button class="addr-deliver-btn" onclick="deliverToSelected()">Deliver to this Address</button>
+    </div>
+</div>
+<!-- ══════════════════════════════════════════════ -->
+
+
+<!-- HEADER -->
+<header class="os-header">
+    <img src="{% static 'images/TIARRA_Logo_English_2.png' %}" alt="TIARRA" style="height: 40px; width: auto;"/>
+    <span style="font-size:13px; color:#888; font-weight:300;">Secure Checkout</span>
+</header>
+
+<!-- STEPPER -->
+<div class="os-stepper">
+    <div class="os-step">
+        <div class="os-step-circle done">&#10003;</div>
+        <span class="os-step-label done">Address</span>
+    </div>
+    <div class="os-step-line"></div>
+    <div class="os-step">
+        <div class="os-step-circle active">2</div>
+        <span class="os-step-label active">Order Summary</span>
+    </div>
+    <div class="os-step-line inactive"></div>
+    <div class="os-step">
+        <div class="os-step-circle inactive">3</div>
+        <span class="os-step-label inactive">Payment</span>
+    </div>
+</div>
+
+<!-- BODY -->
+<div class="os-body">
+    <div class="os-left">
+
+        <!-- Deliver To -->
+        <div class="os-card">
+            <div class="os-card-title">Deliver to:</div>
+            <div class="os-deliver-row">
+                <div>
+                    {% if address %}
+                    <div class="os-deliver-name" id="dispName">
+                        {{ address.name }}
+                        <span class="os-home-badge" id="dispBadge">{{ address.type|upper|default:"HOME" }}</span>
+                    </div>
+                    <div class="os-deliver-addr" id="dispAddr">
+                        {{ address.address }}{% if address.road %}, {{ address.road }}{% endif %}, {{ address.city }}{% if address.state %}, {{ address.state }}{% endif %} {{ address.pin }}
+                    </div>
+                    <div class="os-deliver-phone" id="dispPhone">{{ address.phone }}</div>
+                    {% else %}
+                    <div class="os-deliver-name" id="dispName">No address saved</div>
+                    <div class="os-deliver-addr" id="dispAddr"></div>
+                    <div class="os-deliver-phone" id="dispPhone"></div>
+                    <span class="os-home-badge" id="dispBadge" style="display:none;"></span>
+                    {% endif %}
+                </div>
+                <button class="os-change-btn" onclick="openDrawer()">Change</button>
+            </div>
+        </div>
+
+        <!-- Product -->
+        <!-- Products -->
+        {% for product in products %}
+        <div class="os-card">
+            <div class="os-hot-badge">Hot Deal</div>
+            <div class="os-product-row">
+                {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="os-product-img"/>
+                {% else %}
+                <div class="os-product-img"></div>
+                {% endif %}
+                <div class="os-product-info">
+                    <div class="os-product-name">{{ product.name }}</div>
+                    <div class="os-product-cat">{{ product.category }}</div>
+                    <div class="os-rating">
+                        <span class="os-stars">★ 4.9</span>
+                        <span class="os-review-count">(38)</span>
+                    </div>
+                    <div class="os-price-row">
+                        <span class="os-discount-pct">&#8595;20%</span>
+                        <span class="os-final-price">₹{{ product.price|floatformat:"0" }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="os-delivery-date">
+                Delivery by <strong>Mar 25, Wed</strong>
+            </div>
+            <div class="os-email-row">
+                <span>
+                    <svg width="16" height="16" fill="none" stroke="#888" stroke-width="1.7" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3,5 12,13 21,5"/></svg>
+                    Email ID required for delivery
+                </span>
+                <a href="#">Add Email</a>
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- Terms -->
+        <div class="os-card">
+            <p class="os-terms">
+                By continuing with the order, you confirm that you are above 18 years of age, and you agree to Tiarra's
+                <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- RIGHT -->
+    <div class="os-right">
+        <div class="os-price-card">
+            <div class="os-price-title">Price Details</div>
+            <div class="os-price-line">
+                <span class="label">MRP</span>
+                <span class="val">₹{{ mrp|floatformat:"0" }}</span>
+            </div>
+            <div class="os-price-line">
+                <span class="label">Fees <svg width="12" height="12" fill="none" stroke="#888" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+                <span class="val">₹7</span>
+            </div>
+            <div class="os-price-line">
+                <span class="label">Discounts <svg width="12" height="12" fill="none" stroke="#888" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+                <span class="val discount" id="discountVal">− ₹{{ discount|floatformat:"0" }}</span>
+            </div>
+            <div class="os-total-line">
+                <span>Total Amount</span>
+                <span id="totalVal">₹{{ total|floatformat:"0" }}</span>
+            </div>
+            <div class="os-saving-banner" id="savingBanner">
+                You will save ₹{{ discount|floatformat:"0" }} on this order
+            </div>
+            <div class="os-secure-row">
+                <svg width="28" height="28" fill="none" stroke="#888" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span>Safe and secure payments. Easy returns. 100% Authentic products.</span>
+            </div>
+        </div>
+
+        <div class="os-continue-wrap">
+            <div class="os-continue-top">
+                <span class="os-continue-strike" id="strikePrice">{{ mrp|floatformat:"0" }}</span>
+                <span class="os-continue-price" id="continuePrice">₹{{ total|floatformat:"0" }}</span>
+            </div>
+            <a href="#" class="os-view-details">View price details</a>
+            <button class="os-continue-btn" onclick="window.location.href='{% url 'payment' %}'">Continue</button>
+        </div>
+    </div>
+</div>
+
+<!-- Sticky bar (mobile) -->
+<div class="os-sticky-bar">
+    <div class="os-sticky-bar-price">
+        <span class="strike" id="stickyStrike">₹{{ mrp|floatformat:"0" }}</span>
+        <span class="amount" id="stickyPrice">₹{{ total|floatformat:"0" }}</span>
+    </div>
+    <button class="os-continue-btn" onclick="window.location.href='{% url 'payment' %}'">Continue</button>
+</div>
+
+<script>
+  /* ── Price update ── */
+  const BASE_MRP      = {{ mrp }};
+  const BASE_FEES     = {{ fees }};
+  const BASE_DISCOUNT = {{ discount }};
+  const BASE_TOTAL    = {{ total }};
+
+  function updatePrices() {
+    const qty      = parseInt(document.getElementById('qtySelect').value);
+    const mrp      = BASE_MRP * qty;
+    const fees     = BASE_FEES;
+    const discount = BASE_DISCOUNT * qty;
+    const total    = mrp + fees - discount;
+    document.getElementById('finalPrice').textContent    = '₹' + total.toLocaleString('en-IN');
+    document.getElementById('discountVal').textContent   = '− ₹' + discount.toLocaleString('en-IN');
+    document.getElementById('totalVal').textContent      = '₹' + total.toLocaleString('en-IN');
+    document.getElementById('savingBanner').textContent  = 'You will save ₹' + discount.toLocaleString('en-IN') + ' on this order';
+    document.getElementById('strikePrice').textContent   = mrp.toLocaleString('en-IN');
+    document.getElementById('continuePrice').textContent = '₹' + total.toLocaleString('en-IN');
+    document.getElementById('stickyStrike').textContent  = '₹' + mrp.toLocaleString('en-IN');
+    document.getElementById('stickyPrice').textContent   = '₹' + total.toLocaleString('en-IN');
+  }
+
+  /* ── Address drawer state ── */
+  let addresses     = {{ addresses_json|safe }};
+  let selectedIdx   = 0;   // which address is selected in drawer
+  let editingIdx    = -1;  // -1 = adding new, >=0 = editing existing
+
+  function openDrawer() {
+    renderAddressList();
+    document.getElementById('addrOverlay').classList.add('open');
+    document.getElementById('addrDrawer').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDrawer() {
+    document.getElementById('addrOverlay').classList.remove('open');
+    document.getElementById('addrDrawer').classList.remove('open');
+    document.body.style.overflow = '';
+    // hide form if open
+    document.getElementById('addrFormSection').classList.remove('open');
+  }
+
+  function renderAddressList() {
+    const list = document.getElementById('addrList');
+    list.innerHTML = '';
+
+    if (addresses.length === 0) {
+      list.innerHTML = '<p style="padding:20px 22px; color:#888; font-size:13px;">No saved addresses. Add one above.</p>';
+      return;
+    }
+
+    addresses.forEach((addr, i) => {
+      const item = document.createElement('div');
+      item.className = 'addr-item' + (i === selectedIdx ? ' selected' : '');
+      item.innerHTML = `
+        <input type="radio" class="addr-radio" name="addrRadio"
+               ${i === selectedIdx ? 'checked' : ''}
+               onchange="selectAddress(${i})"/>
+        <div class="addr-item-info">
+          <div class="addr-item-name">${addr.name || ''}</div>
+          <div class="addr-item-text">
+            ${addr.address || ''}${addr.road ? ', ' + addr.road : ''},
+            ${addr.city || ''}${addr.state ? ', ' + addr.state : ''} — ${addr.pin || ''}
+          </div>
+          <div class="addr-item-phone">${addr.phone || ''}</div>
+          <button class="addr-item-edit" onclick="editAddress(event, ${i})">EDIT</button>
+        </div>
+      `;
+      item.addEventListener('click', (e) => {
+        // clicking the whole row (not the edit button) selects it
+        if (!e.target.classList.contains('addr-item-edit')) {
+          selectAddress(i);
+        }
+      });
+      list.appendChild(item);
+    });
+  }
+
+  function selectAddress(idx) {
+    selectedIdx = idx;
+    renderAddressList();
+  }
+
+  /* ── Deliver to selected ── */
+  function deliverToSelected() {
+    if (addresses.length === 0) {
+      alert('Please add an address first.');
+      return;
+    }
+    const addr = addresses[selectedIdx];
+
+    // Update the visible address on the page
+    document.getElementById('dispName').innerHTML =
+      `${addr.name} <span class="os-home-badge" id="dispBadge">${(addr.type || 'home').toUpperCase()}</span>`;
+    document.getElementById('dispAddr').textContent =
+      `${addr.address || ''}${addr.road ? ', ' + addr.road : ''}, ${addr.city || ''}${addr.state ? ', ' + addr.state : ''} ${addr.pin || ''}`;
+    document.getElementById('dispPhone').textContent = addr.phone || '';
+
+    // Persist selected address as first in session via API
+    fetch('/save-address/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken') },
+      body: JSON.stringify({ ...addr, _set_primary: selectedIdx })
+    });
+
+    closeDrawer();
+  }
+
+  /* ── Add new address ── */
+  function toggleAddForm() {
+    editingIdx = -1;
+    const section = document.getElementById('addrFormSection');
+    if (section.classList.contains('open')) {
+      section.classList.remove('open');
+    } else {
+      // clear form
+      ['af_name','af_phone','af_pin','af_city','af_state','af_address','af_road'].forEach(id => {
+        document.getElementById(id).value = '';
+      });
+      document.getElementById('af_type').value = 'home';
+      document.getElementById('addrFormTitle').textContent = 'Add New Address';
+      section.classList.add('open');
+    }
+  }
+
+  function saveNewAddress() {
+    const newAddr = {
+      name:    document.getElementById('af_name').value.trim(),
+      phone:   document.getElementById('af_phone').value.trim(),
+      pin:     document.getElementById('af_pin').value.trim(),
+      city:    document.getElementById('af_city').value.trim(),
+      state:   document.getElementById('af_state').value.trim(),
+      address: document.getElementById('af_address').value.trim(),
+      road:    document.getElementById('af_road').value.trim(),
+      type:    document.getElementById('af_type').value,
+    };
+    if (!newAddr.name || !newAddr.phone || !newAddr.address || !newAddr.city) {
+      alert('Please fill in Name, Phone, Address, and City.');
+      return;
+    }
+
+    if (editingIdx >= 0) {
+      // update existing
+      addresses[editingIdx] = newAddr;
+      fetch('/update-address/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken') },
+        body: JSON.stringify({ ...newAddr, idx: editingIdx })
+      });
+      selectedIdx = editingIdx;
+    } else {
+      // add new
+      addresses.push(newAddr);
+      fetch('/save-address/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken') },
+        body: JSON.stringify(newAddr)
+      });
+      selectedIdx = addresses.length - 1;
+    }
+
+    document.getElementById('addrFormSection').classList.remove('open');
+    editingIdx = -1;
+    renderAddressList();
+  }
+
+  /* ── Edit existing address ── */
+  function editAddress(e, idx) {
+    e.stopPropagation();
+    editingIdx = idx;
+    const addr = addresses[idx];
+    document.getElementById('af_name').value    = addr.name    || '';
+    document.getElementById('af_phone').value   = addr.phone   || '';
+    document.getElementById('af_pin').value     = addr.pin     || '';
+    document.getElementById('af_city').value    = addr.city    || '';
+    document.getElementById('af_state').value   = addr.state   || '';
+    document.getElementById('af_address').value = addr.address || '';
+    document.getElementById('af_road').value    = addr.road    || '';
+    document.getElementById('af_type').value    = addr.type    || 'home';
+    document.getElementById('addrFormTitle').textContent = 'Edit Address';
+    document.getElementById('addrFormSection').classList.add('open');
+    document.getElementById('addrFormSection').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  /* ── CSRF helper ── */
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      for (const cookie of document.cookie.split(';')) {
+        const c = cookie.trim();
+        if (c.startsWith(name + '=')) {
+          cookieValue = decodeURIComponent(c.slice(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+</script>
+</body>
+</html>

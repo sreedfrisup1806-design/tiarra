@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Tiarra | My Account</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+    <style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: #fff; color: #1c1c1c; min-height: 100vh; }
+
+.dash-topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px; height: 64px; border-bottom: 1px solid #e8e4de;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.dash-logo { text-decoration: none; position: absolute; left: 50%; transform: translateX(-50%); }
+.dash-logo img { height: 28px; width: auto; mix-blend-mode: multiply; }
+.dash-nav { display: flex; align-items: center; gap: 32px; }
+.dash-nav a {
+  font-size: 14px; font-weight: 400; color: #555; text-decoration: none;
+  padding-bottom: 4px; border-bottom: 2px solid transparent;
+  transition: color .2s, border-color .2s;
+}
+.dash-nav a.active { color: #1c1c1c; border-bottom: 2px solid #1a4a42; font-weight: 500; }
+.dash-nav a:hover { color: #1a4a42; }
+.dash-user {
+  display: flex; align-items: center; gap: 8px; cursor: pointer;
+  font-size: 14px; font-weight: 300; color: #444;
+  background: none; border: none; font-family: 'DM Sans', sans-serif; position: relative;
+}
+.dash-user:hover { color: #1a4a42; }
+.dash-content { max-width: 1100px; margin: 48px auto; padding: 0 40px; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+.dash-content h2 {
+  font-family: 'DM Sans', sans-serif; font-size: 22px;
+  font-weight: 500; color: #1c1c1c; margin-bottom: 24px;
+}
+
+/* ── EMPTY ORDERS ── */
+.orders-box {
+  border: 1px solid #e8e4de; border-radius: 8px;
+  padding: 80px 40px; text-align: center;
+}
+.orders-box h3 { font-size: 16px; font-weight: 500; color: #1c1c1c; margin-bottom: 8px; }
+.orders-box p  { font-size: 14px; font-weight: 300; color: #888; }
+.orders-box p a { color: #1a4a42; text-decoration: none; }
+.orders-box p a:hover { text-decoration: underline; }
+
+/* ── ORDER ITEM ── */
+.order-item {
+  display: flex; align-items: center; gap: 16px;
+  padding: 18px 0; border-bottom: 1px solid #f0ede8;
+  cursor: pointer; transition: background .15s;
+}
+.order-item:first-child { border-top: 1px solid #f0ede8; }
+.order-item:hover { background: #fafaf9; padding-left: 8px; padding-right: 8px; border-radius: 6px; }
+.order-img {
+  width: 72px; height: 72px; object-fit: cover;
+  border-radius: 4px; background: #f0ede8; flex-shrink: 0;
+}
+.order-img-placeholder {
+  width: 72px; height: 72px; border-radius: 4px;
+  background: #f0ede8; flex-shrink: 0;
+}
+.order-info { flex: 1; }
+.order-status { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
+.order-status.confirmed { color: #2874f0; }
+.order-status.delivered { color: #388e3c; }
+.order-status.cancelled { color: #c62828; }
+.order-status.pending   { color: #f57c00; }
+.order-name {
+  font-size: 14px; font-weight: 400; color: #1c1c1c; margin-bottom: 6px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 480px;
+}
+.order-stars { display: flex; gap: 3px; margin-bottom: 3px; }
+.order-stars span { font-size: 16px; color: #ccc; cursor: pointer; transition: color .15s; }
+.order-stars span:hover,
+.order-stars span.filled { color: #f5a623; }
+.order-rate-label { font-size: 12px; color: #888; font-weight: 300; }
+.order-amount { font-size: 14px; font-weight: 500; color: #1c1c1c; white-space: nowrap; }
+.order-method { font-size: 12px; color: #888; font-weight: 300; margin-top: 2px; text-align: right; }
+.order-chevron { color: #bbb; flex-shrink: 0; }
+
+/* ── PROFILE ── */
+.profile-card {
+  border: 1px solid #e8e4de; border-radius: 8px; padding: 32px; max-width: 520px;
+}
+.profile-card h3 { font-size: 16px; font-weight: 500; margin-bottom: 20px; color: #1c1c1c; }
+.profile-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 0; border-bottom: 1px solid #f0ede8;
+}
+.profile-row:last-child { border-bottom: none; }
+.profile-row label { font-size: 13px; font-weight: 400; color: #888; }
+.profile-row span  { font-size: 14px; font-weight: 300; color: #1c1c1c; }
+
+/* ── FOOTER ── */
+.dash-footer {
+  border-top: 1px solid #e8e4de; padding: 24px 40px;
+  display: flex; justify-content: center; gap: 24px; margin-top: 80px;
+}
+.dash-footer a { font-size: 13px; font-weight: 300; color: #888; text-decoration: none; transition: color .2s; }
+.dash-footer a:hover { color: #1a4a42; }
+
+/* ── DROPDOWN ── */
+.user-dropdown {
+  display: none; position: absolute; top: 36px; right: 0;
+  background: #fff; border: 1px solid #e8e4de; border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.10); min-width: 160px; z-index: 100; overflow: hidden;
+}
+.user-dropdown a { display: block; padding: 12px 16px; font-size: 13.5px; font-weight: 300; color: #333; text-decoration: none; transition: background .2s; }
+.user-dropdown a:hover { background: #f5f5f5; color: #1a4a42; }
+[hidden] { display: none !important; }
+
+/* Desktop: invisible wrapper */
+.dash-topbar-row { display: contents; }
+.mobile-signout-form { display: none; }
+
+/* ── MOBILE ── */
+@media (max-width: 600px) {
+  .dash-topbar {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    height: 52px;
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 999;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+
+  .desktop-signout-text { display: none; }
+
+  .dash-logo {
+    position: absolute !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  
+
+  .dash-logo img { height: 20px; }
+
+  .dash-topbar-row { display: contents; }
+
+  .dash-nav {
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 6px;
+  }
+
+  .dash-nav a { font-size: 12px; }
+
+  .dash-topbar-row > div {
+    display: none !important;
+  }
+
+  .back-home-label { display: none; }
+
+  .dash-user svg,
+  .dash-topbar a svg { width: 16px; height: 16px; }
+
+  .dash-topbar-row > div form button,
+  .dash-topbar-row > div a { font-size: 12px !important; }
+
+  .dash-content { margin: 28px auto; padding: 0 16px; }
+  .dash-content h2 { font-size: 18px; margin-bottom: 16px; }
+  .orders-box { padding: 48px 20px; }
+  .order-item { gap: 12px; padding: 14px 0; }
+  .order-img, .order-img-placeholder { width: 56px; height: 56px; }
+  .order-name { font-size: 13px; max-width: 160px; }
+  .order-status { font-size: 11px; }
+  .order-stars span { font-size: 14px; }
+  .order-rate-label { font-size: 11px; }
+  .order-amount { font-size: 13px; }
+  .order-method { font-size: 11px; }
+
+  .profile-card { padding: 20px 16px; max-width: 100%; }
+
+  .profile-card input[type="text"],
+  #addressForm input[type="text"],
+  [id^="editForm-"] input[type="text"] { font-size: 16px; }
+
+  #addressForm > div:last-child,
+  [id^="editForm-"] > div:last-child,
+  #nameEdit > div { flex-direction: column; }
+
+  #addressForm button,
+  [id^="editForm-"] button,
+  #nameEdit button { width: 100%; justify-content: center; }
+
+  .dash-footer {
+    padding: 20px 16px; gap: 14px;
+    flex-wrap: wrap; justify-content: center; margin-top: 48px;
+  }
+  .dash-footer a { font-size: 12px; }
+
+  /* Hide dropdown on mobile */
+  .dash-user .user-dropdown { display: none !important; }
+  /* Hide chevron arrow on mobile */
+  /* Hide chevron arrow on mobile */
+  .dash-user > svg:nth-child(2) { display: none; }
+/* Hide sign out text, keep profile icon */
+  .dash-user .user-dropdown { display: none !important; }
+  .mobile-signout-form {
+    display: flex !important;
+    align-items: center;
+    gap: 14px;
+    position: fixed;
+    right: 10px;
+    top: 14px;
+    z-index: 1000;
+  }
+
+  .mobile-signout-form a,
+  .mobile-signout-form button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    color: #555;
+    text-decoration: none;
+  }
+
+  .mobile-signout-form svg { width: 18px; height: 18px; }
+}
+
+</style>
+</head>
+<body>
+
+  <header class="dash-topbar">
+    <a href="/" class="dash-logo">
+      <img src="{% static 'images/TIARRA_Logo_English_2.png' %}" alt="Tiarra"/>
+    </a>
+    <div class="dash-topbar-row">
+    <nav class="dash-nav">
+      <a href="#" class="active" onclick="showTab('orders', this)">Orders</a>
+      <a href="#" onclick="showTab('profile', this)">Profile</a>
+    </nav>
+    <div style="display:flex; align-items:center; gap:20px;">
+      <a href="/" style="display:flex; align-items:center; gap:6px; font-size:13px; font-weight:400; color:#555; text-decoration:none; transition:color .2s; white-space:nowrap;" onmouseover="this.style.color='#1a4a42'" onmouseout="this.style.color='#555'">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <span class="back-home-label">Back to Home</span>
+      </a>
+      <button class="dash-user" onclick="toggleUserMenu(event)">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+        <div class="user-dropdown">
+          <div style="display:flex; align-items:center; gap:10px; padding:14px 16px; border-bottom:1px solid #e8e4de;">
+            <svg width="18" height="18" fill="none" stroke="#888" stroke-width="1.7" viewBox="0 0 24 24">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+            <span style="font-size:13px; font-weight:300; color:#555;">{{ email }}</span>
+          </div>
+          <a href="#" onclick="showTab('profile', document.querySelectorAll('.dash-nav a')[1])">Profile</a>
+          <form method="post" action="/logout/" style="margin:0;">
+            {% csrf_token %}
+            <button type="submit" style="background:none; border:none; cursor:pointer; display:block; width:100%; padding:12px 16px; font-size:13.5px; font-weight:300; color:#333; text-align:left; font-family:'Jost',sans-serif; transition:background .2s;" onmouseover="this.style.background='#f5f5f5'; this.style.color='#1a4a42'" onmouseout="this.style.background='none'; this.style.color='#333'">
+              <span class="desktop-signout-text">Sign out</span>
+            </button>
+          </form>
+        </div>
+      </button>
+
+
+
+      <form class="mobile-signout-form" method="post" action="/logout/" style="margin:0;">
+        <a href="/" style="display:flex; align-items:center; color:#555;">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </a>
+        <a href="#" onclick="showTab('profile', document.querySelectorAll('.dash-nav a')[1])" style="display:flex; align-items:center; color:#555;">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </a>
+        {% csrf_token %}
+        <button type="submit" style="background:none; border:none; cursor:pointer; padding:0; display:flex; align-items:center; color:#555;" title="Sign out">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+        </button>
+      </form>
+
+
+      
+    </div>
+    </div><!-- end dash-topbar-row -->
+  </header>
+
+  <main class="dash-content">
+    {% csrf_token %}
+
+    <!-- ORDERS TAB -->
+    <div id="tab-orders" class="tab-panel active">
+      <h2>Orders</h2>
+
+      {% if orders %}
+        <div class="orders-list">
+          {% for order in orders %}
+          <div class="order-item" onclick="window.location.href='/order/{{ order.id }}/'">
+            {% if order.product.image %}
+              <img src="{{ order.product.image.url }}" alt="{{ order.product.name }}" class="order-img"/>
+            {% else %}
+              <div class="order-img-placeholder"></div>
+            {% endif %}
+            <div class="order-info">
+              <div class="order-status {{ order.status }}">
+                {% if order.status == 'confirmed' %}Confirmed on
+                {% elif order.status == 'delivered' %}Delivered on
+                {% elif order.status == 'cancelled' %}Cancelled on
+                {% else %}Pending on{% endif %}
+                {{ order.created_at|date:"M d, Y" }}
+              </div>
+              <div class="order-name">{{ order.product.name }}</div>
+              <div class="order-stars" id="stars-{{ order.id }}">
+                <span onclick="rateStar({{ order.id }}, 1)">★</span>
+                <span onclick="rateStar({{ order.id }}, 2)">★</span>
+                <span onclick="rateStar({{ order.id }}, 3)">★</span>
+                <span onclick="rateStar({{ order.id }}, 4)">★</span>
+                <span onclick="rateStar({{ order.id }}, 5)">★</span>
+              </div>
+              <div class="order-rate-label">Rate this product now</div>
+            </div>
+            <div style="text-align:right; flex-shrink:0;">
+              <div class="order-amount">₹{{ order.total_amount|floatformat:"0" }}</div>
+              <div class="order-method">
+                {% if order.payment_method == 'cod' %}Cash on Delivery{% else %}Paid Online{% endif %}
+              </div>
+            </div>
+            <div class="order-chevron">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M9 18l6-6-6-6"/>
+              </svg>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="orders-box">
+          <h3>No orders yet</h3>
+          <p>Go to <a href="/">store</a> to place an order.</p>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- PROFILE TAB -->
+    <div id="tab-profile" class="tab-panel">
+      <h2>Profile</h2>
+      <div class="profile-card" style="margin-bottom: 24px;">
+        <div class="profile-row" style="align-items: flex-start; flex-direction: column; gap: 4px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label style="font-size:14px; font-weight:400; color:#888;">Name</label>
+            <button id="editNameBtn" onclick="toggleNameEdit()" style="background:none; border:none; cursor:pointer; color:#1a4a42; padding:0; display:flex; align-items:center;">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+              </svg>
+            </button>
+          </div>
+          <div id="nameDisplay" style="font-size:14px; font-weight:300; color:#1c1c1c;">{{ name|default:"" }}</div>
+          <div id="nameEdit" style="display:none; width:100%;">
+            <input type="text" id="nameInput" placeholder="Enter your name" value="{{ name|default:'' }}"
+              style="width:100%; padding:10px 14px; border:1.5px solid #c5c5e8; border-radius:6px; font-family:'Jost',sans-serif; font-size:14px; outline:none; margin-top:6px;"/>
+            <div style="display:flex; gap:8px; margin-top:8px;">
+              <button onclick="saveName()" style="padding:8px 20px; background:#1a4a42; color:#fff; border:none; border-radius:6px; font-family:'Jost',sans-serif; font-size:13px; cursor:pointer;">Save</button>
+              <button onclick="toggleNameEdit()" style="padding:8px 20px; background:#f0f0f0; color:#333; border:none; border-radius:6px; font-family:'Jost',sans-serif; font-size:13px; cursor:pointer;">Cancel</button>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="profile-row" style="align-items: flex-start; flex-direction: column; gap: 4px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label style="font-size:14px; font-weight:400; color:#888;">Email</label>
+            <button id="editEmailBtn" onclick="toggleEmailEdit()" style="background:none; border:none; cursor:pointer; color:#1a4a42; padding:0; display:flex; align-items:center;">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+              </svg>
+            </button>
+          </div>
+          <div id="emailDisplay" style="font-size:14px; font-weight:300; color:#1c1c1c;">{{ email }}</div>
+          <div id="emailEdit" style="display:none; width:100%;">
+            <input type="email" id="emailInput" placeholder="Enter your email" value="{{ email }}"
+              style="width:100%; padding:10px 14px; border:1.5px solid #c5c5e8; border-radius:6px; font-family:'DM Sans',sans-serif; font-size:14px; outline:none; margin-top:6px;"/>
+            <div style="display:flex; gap:8px; margin-top:8px;">
+              <button onclick="saveEmail()" style="padding:8px 20px; background:#1a4a42; color:#fff; border:none; border-radius:6px; font-family:'DM Sans',sans-serif; font-size:13px; cursor:pointer;">Save</button>
+              <button onclick="toggleEmailEdit()" style="padding:8px 20px; background:#f0f0f0; color:#333; border:none; border-radius:6px; font-family:'DM Sans',sans-serif; font-size:13px; cursor:pointer;">Cancel</button>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="profile-card">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+          <h3 style="margin-bottom:0;">Addresses</h3>
+          <button onclick="toggleAddressForm()" style="background:none; border:none; font-family:'Jost',sans-serif; font-size:14px; color:#1a4a42; cursor:pointer; display:flex; align-items:center; gap:4px; font-weight:400;">+ Add</button>
+        </div>
+        <div id="addressForm" style="display:none; margin-bottom:16px;">
+          <input type="text" placeholder="Full name" style="width:100%; padding:10px 14px; border:1.5px solid #ddd; border-radius:6px; font-family:'Jost',sans-serif; font-size:14px; outline:none; margin-bottom:8px;"/>
+          <input type="text" placeholder="Address line 1" style="width:100%; padding:10px 14px; border:1.5px solid #ddd; border-radius:6px; font-family:'Jost',sans-serif; font-size:14px; outline:none; margin-bottom:8px;"/>
+          <input type="text" placeholder="City" style="width:100%; padding:10px 14px; border:1.5px solid #ddd; border-radius:6px; font-family:'Jost',sans-serif; font-size:14px; outline:none; margin-bottom:8px;"/>
+          <input type="text" placeholder="PIN code" style="width:100%; padding:10px 14px; border:1.5px solid #ddd; border-radius:6px; font-family:'Jost',sans-serif; font-size:14px; outline:none; margin-bottom:8px;"/>
+          <input type="text" placeholder="Phone number" style="width:100%; padding:10px 14px; border:1.5px solid #ddd; border-radius:6px; font-family:'Jost',sans-serif; font-size:14px; outline:none; margin-bottom:12px;"/>
+          <div style="display:flex; gap:8px;">
+            <button onclick="saveAddress()" style="padding:10px 24px; background:#1a4a42; color:#fff; border:none; border-radius:6px; font-family:'Jost',sans-serif; font-size:13px; cursor:pointer;">Save Address</button>
+            <button onclick="toggleAddressForm()" style="padding:10px 24px; background:#f0f0f0; color:#333; border:none; border-radius:6px; font-family:'Jost',sans-serif; font-size:13px; cursor:pointer;">Cancel</button>
+          </div>
+        </div>
+        <div id="noAddressBox" style="background:#f7f7f7; border-radius:6px; padding:20px 16px; display:flex; align-items:center; gap:10px;" {% if addresses %}hidden{% endif %}>
+          <svg width="16" height="16" fill="none" stroke="#888" stroke-width="1.7" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <span style="font-size:14px; font-weight:300; color:#888;">No addresses added</span>
+        </div>
+        <div id="addressList">
+          {% for addr in addresses %}
+          <div class="addr-item" id="addr-{{ forloop.counter0 }}" style="border:1px solid #e8e4de; border-radius:6px; padding:14px 16px; margin-bottom:8px;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+              <div>
+                <p style="font-size:14px; font-weight:500; color:#1c1c1c; margin-bottom:4px;">{{ addr.name }}</p>
+                <p style="font-size:13px; font-weight:300; color:#555; line-height:1.6;">
+                  {{ addr.address }}, {{ addr.city }}, {{ addr.pin }}<br/>{{ addr.phone }}
+                </p>
+              </div>
+              <button onclick="editAddress({{ forloop.counter0 }})" style="background:none; border:none; font-family:'Jost',sans-serif; font-size:13px; color:#1a4a42; cursor:pointer; font-weight:400; white-space:nowrap; margin-left:12px;">Edit</button>
+            </div>
+            <div id="editForm-{{ forloop.counter0 }}" style="display:none; margin-top:12px;">
+              <input type="text" placeholder="Full name" value="{{ addr.name }}" style="width:100%; padding:10px 14px; border:1.5px solid #ddd; border-radius:6px; font-family:'Jost',sans-serif; font-size:14px; outline:none; margin-bottom:8px;"/>
+              <input type="text" placeholder="Address line 1" value="{{ addr.address }}" style="width:100%; padding:10px 14px; border:1.5px solid #ddd; border-radius:6px; font-family:'Jost',sans-serif; font-size:14px; outline:none; margin-bottom:8px;"/>
+              <input type="text" placeholder="City" value="{{ addr.city }}" style="width:100%; padding:10px 14px; border:1.5px solid #ddd; border-radius:6px; font-family:'Jost',sans-serif; font-size:14px; outline:none; margin-bottom:8px;"/>
+              <input type="text" placeholder="PIN code" value="{{ addr.pin }}" style="width:100%; padding:10px 14px; border:1.5px solid #ddd; border-radius:6px; font-family:'Jost',sans-serif; font-size:14px; outline:none; margin-bottom:8px;"/>
+              <input type="text" placeholder="Phone number" value="{{ addr.phone }}" style="width:100%; padding:10px 14px; border:1.5px solid #ddd; border-radius:6px; font-family:'Jost',sans-serif; font-size:14px; outline:none; margin-bottom:12px;"/>
+              <div style="display:flex; gap:8px;">
+                <button onclick="updateAddress({{ forloop.counter0 }})" style="padding:10px 24px; background:#1a4a42; color:#fff; border:none; border-radius:6px; font-family:'Jost',sans-serif; font-size:13px; cursor:pointer;">Save Changes</button>
+                <button onclick="editAddress({{ forloop.counter0 }})" style="padding:10px 24px; background:#f0f0f0; color:#333; border:none; border-radius:6px; font-family:'Jost',sans-serif; font-size:13px; cursor:pointer;">Cancel</button>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="dash-footer">
+    <a href="#">Refund policy</a>
+    <a href="#">Privacy policy</a>
+    <a href="#">Terms of service</a>
+    <a href="#">Contact information</a>
+  </footer>
+
+<script>
+    function showTab(tab, el) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.dash-nav a').forEach(a => a.classList.remove('active'));
+      document.getElementById('tab-' + tab).classList.add('active');
+      el.classList.add('active');
+    }
+    function toggleNameEdit() {
+      const display = document.getElementById('nameDisplay');
+      const edit = document.getElementById('nameEdit');
+      edit.style.display = edit.style.display === 'none' ? 'block' : 'none';
+      display.style.display = display.style.display === 'none' ? 'block' : 'none';
+    }
+    function saveName() {
+      const name = document.getElementById('nameInput').value.trim();
+      if (!name) { alert('Please enter a name.'); return; }
+      const csrftoken = document.cookie.split(';').find(c => c.trim().startsWith('csrftoken=')).trim().split('=')[1];
+      fetch('/save-profile/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrftoken },
+        body: JSON.stringify({ field: 'name', value: name })
+      }).then(() => {
+        document.getElementById('nameDisplay').textContent = name;
+        toggleNameEdit();
+      });
+    }
+    function toggleAddressForm() {
+      const form = document.getElementById('addressForm');
+      form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    }
+    function saveAddress() {
+      const inputs = document.querySelectorAll('#addressForm input');
+      const data = {
+        name: inputs[0].value.trim(), address: inputs[1].value.trim(),
+        city: inputs[2].value.trim(), pin: inputs[3].value.trim(), phone: inputs[4].value.trim()
+      };
+      if (!data.name || !data.address || !data.city || !data.pin || !data.phone) {
+        alert('Please fill all fields.'); return;
+      }
+      const csrftoken = document.cookie.split(';').find(c => c.trim().startsWith('csrftoken=')).trim().split('=')[1];
+      fetch('/save-address/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrftoken },
+        body: JSON.stringify(data)
+      })
+      .then(res => res.json()) 
+      .then(result => {
+        if (result.status === 'success') {
+          const list = document.getElementById('addressList');
+          document.getElementById('noAddressBox').hidden = true;
+          const idx = document.querySelectorAll('#addressList .addr-item').length;
+          list.innerHTML += `<div class="addr-item" id="addr-${idx}" style="border:1px solid #e8e4de; border-radius:6px; padding:14px 16px; margin-bottom:8px;"><div style="display:flex; justify-content:space-between; align-items:flex-start;"><div><p style="font-size:14px; font-weight:500; color:#1c1c1c; margin-bottom:4px;">${data.name}</p><p style="font-size:13px; font-weight:300; color:#555; line-height:1.6;">${data.address}, ${data.city}, ${data.pin}<br/>${data.phone}</p></div><button onclick="editAddress(${idx})" style="background:none; border:none; font-family:'Jost',sans-serif; font-size:13px; color:#1a4a42; cursor:pointer; font-weight:400; white-space:nowrap; margin-left:12px;">Edit</button></div></div>`;
+          inputs.forEach(i => i.value = '');  
+          toggleAddressForm();
+        } else { alert('Error: ' + (result.message || 'Could not save address.')); }
+      })
+      .catch(err => { alert('Something went wrong: ' + err.message); });
+    }
+    function editAddress(idx) {
+      const form = document.getElementById('editForm-' + idx);
+      form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    }   
+    function updateAddress(idx) {
+      const form = document.getElementById('editForm-' + idx);
+      const inputs = form.querySelectorAll('input');
+      const data = {
+        idx: idx, name: inputs[0].value.trim(), address: inputs[1].value.trim(),
+        city: inputs[2].value.trim(), pin: inputs[3].value.trim(), phone: inputs[4].value.trim()
+      };
+      const csrftoken = document.cookie.split(';').find(c => c.trim().startsWith('csrftoken=')).trim().split('=')[1];
+      fetch('/update-address/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrftoken },
+        body: JSON.stringify(data)
+      })
+      .then(res => res.json())
+      .then(result => {
+        if (result.status === 'success') {
+          const item = document.getElementById('addr-' + idx);
+          item.querySelector('p:first-child').textContent = data.name;
+          item.querySelectorAll('p')[1].innerHTML = `${data.address}, ${data.city}, ${data.pin}<br/>${data.phone}`;
+          form.style.display = 'none';
+        } else { alert('Could not update address.'); }
+      });
+    }
+    function toggleUserMenu(e) {
+      e.stopPropagation();
+      const dropdown = document.querySelector('.user-dropdown');
+      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+    document.addEventListener('click', function() {
+      const dropdown = document.querySelector('.user-dropdown');
+      if (dropdown) dropdown.style.display = 'none';
+    });
+    function rateStar(orderId, rating) {
+      const stars = document.querySelectorAll('#stars-' + orderId + ' span');
+      stars.forEach(function(s, i) {
+        s.classList.toggle('filled', i < rating);
+      });
+    }
+
+
+
+
+    function toggleEmailEdit() {
+      const display = document.getElementById('emailDisplay');
+      const edit = document.getElementById('emailEdit');
+      edit.style.display = edit.style.display === 'none' ? 'block' : 'none';
+      display.style.display = display.style.display === 'none' ? 'block' : 'none';
+    }
+    function saveEmail() {
+      const email = document.getElementById('emailInput').value.trim();
+      if (!email) { alert('Please enter an email.'); return; }
+      const csrftoken = document.cookie.split(';').find(c => c.trim().startsWith('csrftoken=')).trim().split('=')[1];
+      fetch('/save-profile/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrftoken },
+        body: JSON.stringify({ field: 'email', value: email })
+      }).then(() => {
+        document.getElementById('emailDisplay').textContent = email;
+        toggleEmailEdit();
+      });
+    }
+</script>
+</body>
+</html>
