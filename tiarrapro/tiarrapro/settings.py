@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-ahu7-%ro=1==%wpi+doa-g8t-##2#x$#=)@j-z)8gljgh*-sdx')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['tiarra-production.up.railway.app', 'localhost', '127.0.0.1']
 
 
 # Application definition
