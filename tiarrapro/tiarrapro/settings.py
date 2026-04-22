@@ -182,3 +182,6 @@ SESSION_SAVE_EVERY_REQUEST = True          # reset the 30-day timer on every req
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False    # don't logout when browser closes
 
 
+CSRF_TRUSTED_ORIGINS = ['https://tiarra-production.up.railway.app']
+
+
