@@ -111,7 +111,6 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 
@@ -181,6 +180,5 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 30   # 30 days in seconds
 SESSION_SAVE_EVERY_REQUEST = True          # reset the 30-day timer on every request
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False    # don't logout when browser closes
-
 
 

@@ -1,0 +1,172 @@
+[
+{
+  "model": "store.product",
+  "pk": 1,
+  "fields": {
+    "name": "Double hoops",
+    "category": "Earrings",
+    "price": "1200.00",
+    "stock": 0,
+    "image": "products/Screenshot_2026-03-14_165937.png",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "Double hoops. Double elegance.\r\n\r\nA perfect blend of minimal design and modern sophistication. These hoops are crafted to complement every style with grace and charm.\r\n\r\nBecause true beauty is always in the details.\r\n\r\n#Tiarra #JewelsAndSilks #ModernElegance #MinimalLuxury",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 2,
+  "fields": {
+    "name": "Drop Earrings",
+    "category": "Earrings",
+    "price": "1200.00",
+    "stock": 0,
+    "image": "products/Screenshot_2026-03-16_093834.png",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "Where elegance meets simplicity.\r\n\r\nDesigned with graceful curves and a lightweight finish, these drop earrings add a touch of sophistication to your everyday style.\r\n\r\nAvailable now at Tiarra Jewels & Silks - Nagercoil.\r\n\r\n#Tiarra #JewelsAndSilks #ModernElegance #MinimalLuxury #NagercoilJewellery",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 3,
+  "fields": {
+    "name": "Silver Anklet",
+    "category": "Anklet",
+    "price": "1200.00",
+    "stock": 0,
+    "image": "products/Screenshot_2026-03-14_095447.png",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "Shine with every step.\r\n\r\nElevate your elegance with this beautifully crafted Silver Anklet from Tiarra Jewels & Silks. Designed with intricate detailing and a graceful finish, this piece adds a subtle sparkle to your every movement.\r\n\r\nPerfect for daily wear or special occasions. Where tradition meets timeless style.\r\n\r\nLightweight | Elegant | Classic Design \r\nAvailable now at Tiarra, Nagercoil\r\n\r\n#TiarraJewels #SilverAnklet #Elegantstyle \r\n#TraditionalJewellery #MinimalLuxury\r\n#JewelleryLove #AnkletDesign\r\n#SouthIndianJewellery #DailyWearJewellery",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 4,
+  "fields": {
+    "name": "Silver Anklet",
+    "category": "Anklet",
+    "price": "1200.00",
+    "stock": 0,
+    "image": "products/Screenshot_2026-03-16_093952.png",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "Pure form. Perfect finish\r\n\r\nExperience the beauty of refined craftsmanship with this  stunning Silver Anklet from Tiarra Jewels & Silks. \r\nEvery detail is designed to reflect grace, adding a delicate sparkle to your every step.\r\n\r\nA perfect blend of tradition and modern elegance - made for the women who loves timeless style.\r\n\r\nPremium Finish | Intricate Design | Everyday Elegance\r\nVisit us at WCC Road, Nagercoil\r\n\r\n#TiarraJewels #SilverElegance #AnkletDesign \r\n#LuxuryJewellery #MinimalStyle \r\n#TraditionalMeetsModern #JewelleryLovers\r\n#ElegantLook #SouthIndianStyle\r\n#TimelessBeauty",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 5,
+  "fields": {
+    "name": "Stone Earrings",
+    "category": "Earrings",
+    "price": "1200.00",
+    "stock": 0,
+    "image": "products/Screenshot_2026-03-17_111837.png",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "Designed for moments that matter.\r\n\r\nIntricately designed silver earrings that redefine sophistication and charm.\r\nBecause your style deserves nothing less than stunning.\r\n\r\n#SilverJewellery #EmeraldStyle #ElegantLook\r\n#LuxuryJewels #StatementEarrings\r\n#EthnicElegance #ModernTraditional\r\n#jewelleryLovers #IndianJewellery\r\n#ClassyStyle",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 6,
+  "fields": {
+    "name": "ring",
+    "category": "Ring",
+    "price": "1200.00",
+    "stock": 0,
+    "image": "products/Screenshot_2026-03-13_151506.png",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "Step into the world of timeless luxury with this exquisite emerald and diamond floral ring.\r\n\r\nCrafted with precision, the pear-cut emeralds and sparkling diamonds create a breathtaking bloom of elegance, perfect for those who adore sophistication and grace.\r\n\r\n#TiarraJewels #EmeraldBeauty \r\n#LuxuryJewelry #FloralElegance",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 7,
+  "fields": {
+    "name": "women's studs",
+    "category": "Earrings",
+    "price": "1200.00",
+    "stock": 0,
+    "image": "products/Screenshot_2026-03-13_151956.png",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "Embrace the beauty of simplicity with these exquisite floral stud earrings, a perfect blend of elegance and timeless charm.\r\n\r\nHandcrafted to perfection, the delicate petals radiate sophistication, while the sparkling centerpiece adds a touch of brilliance. Whether for a casual outing  or a special occasion, these earrings are designed to complement your every look with effortless grace.\r\n\r\n#TiarraJewels #FloralElegance\r\n#TimelessJewelry #LuxuryCraftsmanship",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 8,
+  "fields": {
+    "name": "wedding necklace",
+    "category": "Necklace",
+    "price": "1200.00",
+    "stock": 0,
+    "image": "products/Screenshot_2026-03-13_152236.png",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "Adorn yourself with regal elegance on your special day with this breathtaking emerald and diamond necklace.\r\n\r\nA perfect blend of tradition and luxury, this masterpiece is crafted for the bride who treasures timeless beauty. Let every moment sparkle with unmatched sophistication.\r\n\r\n#BridalCollection #RoyalLook\r\n#TempleJewellery #GoldJewellery",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 9,
+  "fields": {
+    "name": "party wear necklace",
+    "category": "Necklace",
+    "price": "1200.00",
+    "stock": 0,
+    "image": "products/Screenshot_2026-03-13_152526.png",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "Experience the allure of understated elegance with this captivating gold and emerald necklace.\r\n\r\nDesigned to embody timeless charm, its delicate craftsmanship and vibrant hues make it a perfect addition to your collection. Whether for grand celebrations or intimate moments, this piece radiates sophistication and grace\r\n\r\n#TiarraJewels #EmeraldElegance\r\n#LuxuryJewelry #TimelessDesign",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 10,
+  "fields": {
+    "name": "wedding ring",
+    "category": "Ring",
+    "price": "1200.00",
+    "stock": 0,
+    "image": "products/Screenshot_2026-03-13_152752.png",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "Make a bold statement of elegance with this captivating emerald and diamond ring.\r\n\r\nFeaturing a vibrant emerald centerpiece encased in a halo of sparkling diamonds, this masterpiece is the epitome of luxury and sophistication. perfect for adding timeless charm to your jewelry collection.\r\n\r\n#TiarraJewels #EmeraldElegance\r\n#LuxuryJewelry #TimelessBeauty",
+    "is_active": true,
+    "show_on_home": false
+  }
+}
+]
