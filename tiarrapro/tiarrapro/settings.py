@@ -28,7 +28,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['tiarra.co.in', 'www.tiarra.co.in', 'tiarra-production.up.railway.app']
 
-CSRF_TRUSTED_ORIGINS = ['https://tiarra.co.in', 'https://www.tiarra.co.in']
+# CSRF_TRUSTED_ORIGINS = ['https://tiarra.co.in', 'https://www.tiarra.co.in']
 
 
 # Application definition
@@ -185,8 +185,12 @@ SESSION_SAVE_EVERY_REQUEST = True          # reset the 30-day timer on every req
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False    # don't logout when browser closes
 
 
-CSRF_TRUSTED_ORIGINS = ['https://tiarra-production.up.railway.app']
-
+# CSRF_TRUSTED_ORIGINS = ['https://tiarra-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = [
+    'https://tiarra.co.in',
+    'https://www.tiarra.co.in',
+    'https://tiarra-production.up.railway.app',
+]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
