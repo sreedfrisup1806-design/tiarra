@@ -26,7 +26,9 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-ahu7-%ro=1==%w
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['tiarra-production.up.railway.app', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['tiarra.co.in', 'www.tiarra.co.in', 'tiarra-production.up.railway.app']
+
+CSRF_TRUSTED_ORIGINS = ['https://tiarra.co.in', 'https://www.tiarra.co.in']
 
 
 # Application definition
