@@ -19,13 +19,12 @@ def home(request):
     product_20k = all_products[2] if len(all_products) > 2 else None
     product_30k = all_products[1] if len(all_products) > 1 else None
     product_50k = all_products[3] if len(all_products) > 3 else None
-    cat_products = list(Product.objects.filter(is_active=True, show_on_home=True).order_by('id'))
-    cat_stone   = cat_products[4] if len(cat_products) > 4 else None
-    cat_wedding = cat_products[5] if len(cat_products) > 5 else None
-    cat_stud    = cat_products[6] if len(cat_products) > 6 else None
-    cat_gold    = cat_products[7] if len(cat_products) > 7 else None
-    cat_fine    = cat_products[8] if len(cat_products) > 8 else None
-    cat_diamond = cat_products[9] if len(cat_products) > 9 else None
+    cat_stone   = Product.objects.filter(is_active=True, show_on_home=True, category__icontains='earring').first()
+    cat_wedding = Product.objects.filter(is_active=True, show_on_home=True, category__icontains='ring').first()
+    cat_stud    = Product.objects.filter(is_active=True, show_on_home=True, name__icontains='stud').first()
+    cat_gold    = Product.objects.filter(is_active=True, show_on_home=True, name__icontains='gold').first()
+    cat_fine    = Product.objects.filter(is_active=True, show_on_home=True, name__icontains='fine').first()
+    cat_diamond = Product.objects.filter(is_active=True, show_on_home=True, name__icontains='diamond').first()
     return render(request, 'store/home.html', {
         'product_10k': product_10k,
         'product_20k': product_20k,
