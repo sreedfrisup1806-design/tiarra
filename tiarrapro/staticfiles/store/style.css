@@ -1,0 +1,237 @@
+
+/* Diamond section layout */
+
+
+.diamond-section{
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:80px;
+background:#f5f5f5;
+}
+
+/* Left side */
+
+.left{
+width:40%;
+}
+
+.left h2{
+font-family:'Cormorant Garamond', serif;
+font-size:36px;
+margin-bottom:20px;
+}
+
+.left img{
+width:320px;
+}
+
+/* Right side grid */
+
+.right{
+width:55%;
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:35px;
+text-align:center;
+}
+
+/* Diamond shape */
+
+.shape img{
+width:60px;
+}
+
+.shape p{
+margin-top:8px;
+font-size:14px;
+}
+
+
+
+/* ── POPULAR ENGAGEMENT RINGS ── */
+.rings-section {
+  padding: 52px 40px 48px;
+  background: #ffffff;
+}
+.rings-section h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 38px;
+  font-weight: 400;
+  color: #1c1c1c;
+  margin-bottom: 8px;
+}
+.subtitle {
+  color: #666;
+  font-size: 13.5px;
+  font-weight: 300;
+  margin-bottom: 28px;
+}
+.rings-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+.ring-card {
+  display: block;
+  cursor: pointer;
+}
+.ring-card-img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.ring-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform .6s cubic-bezier(.25,.46,.45,.94);
+}
+.ring-card:hover .ring-card-img img {
+  transform: scale(1.06);
+}
+.ring-card p {
+  font-size: 13.5px;
+  font-weight: 300;
+  color: #1c1c1c;
+  margin-top: 0;
+}
+
+
+
+
+/* ── 2026 TREND REPORT ── */
+.trend-section {
+  background: #fff;
+  padding: 56px 0 0;
+}
+.trend-header {
+  padding: 0 40px 32px;
+}
+.trend-header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 38px;
+  font-weight: 400;
+  color: #1c1c1c;
+  margin-bottom: 10px;
+}
+.trend-header p {
+  font-size: 13.5px;
+  font-weight: 300;
+  color: #555;
+}
+.trend-grid {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 620px;
+}
+.trend-card {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.trend-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform .7s ease;
+}
+.trend-card:hover img {
+  transform: scale(1.04);
+}
+/* Dark overlay for left & right cards */
+.trend-card.dark::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.55) 40%, transparent 100%);
+  pointer-events: none;
+}
+/* Light/neutral overlay for middle card */
+.trend-card.light::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(220,210,195,0.92) 35%, transparent 75%);
+  pointer-events: none;
+}
+.trend-card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  text-align: center;
+  padding: 0 32px 44px;
+}
+/* Dark card text */
+.trend-card.dark .trend-card-content h3 { color: #fff; }
+.trend-card.dark .trend-card-content p  { color: rgba(255,255,255,0.90); }
+.trend-card.dark .trend-btn {
+  color: #1c1c1c;
+  background: #fff;
+  border: 1.5px solid #fff;
+}
+.trend-card.dark .trend-btn:hover {
+  background: transparent;
+  color: #fff;
+}
+/* Light card text */
+.trend-card.light .trend-card-content h3 { color: #1c1c1c; }
+.trend-card.light .trend-card-content p  { color: #333; }
+.trend-card.light .trend-btn {
+  color: #1c1c1c;
+  background: #fff;
+  border: 1.5px solid #1c1c1c;
+}
+.trend-card.light .trend-btn:hover {
+  background: #1c1c1c;
+  color: #fff;
+}
+/* Shared heading & paragraph */
+.trend-card-content h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 34px;
+  font-weight: 300;
+  letter-spacing: .02em;
+  margin-bottom: 14px;
+}
+.trend-card-content p {
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.75;
+  margin-bottom: 22px;
+  max-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* Shop Now button */
+.trend-btn {
+  display: inline-block;
+  padding: 14px 44px;
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: .05em;
+  text-decoration: none;
+  transition: background .25s, color .25s;
+}
+
+
+
+
+
+
+
+
+
+
