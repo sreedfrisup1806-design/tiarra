@@ -199,3 +199,11 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
+
+
+
+# Cache settings
+CACHE_MIDDLEWARE_SECONDS = 300  # Cache pages for 5 minutes
+
+# Whitenoise caching
+WHITENOISE_MAX_AGE = 31536000  # Cache static files for 1 year
