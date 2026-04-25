@@ -493,7 +493,7 @@
             <a href="/product/{{ product.id }}/" style="text-decoration:none; color:inherit; display:block;">
                 <div class="card-img">
                     {% if product.image %}
-                        <img src="{{ product.image.url }}" alt="{{ product.name }}" loading="lazy"/>
+                        <img src="{{ product.image_url }}" alt="{{ product.name }}" loading="lazy"/>
                     {% else %}
                         <img src="https://via.placeholder.com/400x400/ede9e2/1a4a3a?text=TIARRA" alt="{{ product.name }}" loading="lazy"/>
                     {% endif %}
