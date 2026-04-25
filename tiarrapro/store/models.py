@@ -31,6 +31,16 @@ class Product(models.Model):
 
     def review_count(self):
         return self.reviews.count()
+
+    def image_url(self):
+        if self.image:
+            image_str = str(self.image)
+            if image_str.startswith('http'):
+                return image_str
+            if '/' not in image_str and '.' not in image_str:
+                return f'https://res.cloudinary.com/dvvsswgcr/image/upload/{image_str}'
+            return self.image.url
+        return ''
     
 
 class ProductSize(models.Model):
