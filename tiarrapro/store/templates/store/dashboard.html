@@ -333,7 +333,7 @@ body { font-family: 'DM Sans', sans-serif; background: #fff; color: #1c1c1c; min
           {% for order in orders %}
           <div class="order-item" onclick="window.location.href='/order/{{ order.id }}/'">
             {% if order.product.image %}
-              <img src="{{ order.product.image.url }}" alt="{{ order.product.name }}" class="order-img"/>
+              <img src="{{ order.product.image_url }}" alt="{{ order.product.name }}" class="order-img"/>
             {% else %}
               <div class="order-img-placeholder"></div>
             {% endif %}
