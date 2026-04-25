@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'cloudinary_storage',
+    'cloudinary',
 ]
 
 
@@ -207,3 +209,14 @@ CACHE_MIDDLEWARE_SECONDS = 300  # Cache pages for 5 minutes
 
 # Whitenoise caching
 WHITENOISE_MAX_AGE = 31536000  # Cache static files for 1 year
+
+
+
+# Cloudinary settings
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dvvsswgcr',
+    'API_KEY': '577459892237616',
+    'API_SECRET': 'EHhPPJI_lbb6i3L9C1ZPIOy8Fqk',
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
