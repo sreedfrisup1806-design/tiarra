@@ -1,0 +1,2246 @@
+[
+{
+  "model": "store.product",
+  "pk": 1,
+  "fields": {
+    "name": "Double hoops",
+    "category": "Earrings",
+    "price": "1200.00",
+    "stock": 0,
+    "image": "erfchem3njbhnhcsmxdh",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "Double hoops. Double elegance.\r\n\r\nA perfect blend of minimal design and modern sophistication. These hoops are crafted to complement every style with grace and charm.\r\n\r\nBecause true beauty is always in the details.\r\n\r\n#Tiarra #JewelsAndSilks #ModernElegance #MinimalLuxury",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 2,
+  "fields": {
+    "name": "Drop Earrings",
+    "category": "Earrings",
+    "price": "1200.00",
+    "stock": 0,
+    "image": "qwfvpcl1b3w3cngacpxz",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "Where elegance meets simplicity.\r\n\r\nDesigned with graceful curves and a lightweight finish, these drop earrings add a touch of sophistication to your everyday style.\r\n\r\nAvailable now at Tiarra Jewels & Silks - Nagercoil.\r\n\r\n#Tiarra #JewelsAndSilks #ModernElegance #MinimalLuxury #NagercoilJewellery",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 3,
+  "fields": {
+    "name": "Silver Anklet",
+    "category": "Anklet",
+    "price": "1200.00",
+    "stock": 0,
+    "image": "szxcki2ovtvexq5zjzsc",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "Shine with every step.\r\n\r\nElevate your elegance with this beautifully crafted Silver Anklet from Tiarra Jewels & Silks. Designed with intricate detailing and a graceful finish, this piece adds a subtle sparkle to your every movement.\r\n\r\nPerfect for daily wear or special occasions. Where tradition meets timeless style.\r\n\r\nLightweight | Elegant | Classic Design \r\nAvailable now at Tiarra, Nagercoil\r\n\r\n#TiarraJewels #SilverAnklet #Elegantstyle \r\n#TraditionalJewellery #MinimalLuxury\r\n#JewelleryLove #AnkletDesign\r\n#SouthIndianJewellery #DailyWearJewellery",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 4,
+  "fields": {
+    "name": "Silver Anklet",
+    "category": "Anklet",
+    "price": "1200.00",
+    "stock": 0,
+    "image": "d0jptnazmwupek9qvevk",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "Pure form. Perfect finish\r\n\r\nExperience the beauty of refined craftsmanship with this  stunning Silver Anklet from Tiarra Jewels & Silks. \r\nEvery detail is designed to reflect grace, adding a delicate sparkle to your every step.\r\n\r\nA perfect blend of tradition and modern elegance - made for the women who loves timeless style.\r\n\r\nPremium Finish | Intricate Design | Everyday Elegance\r\nVisit us at WCC Road, Nagercoil\r\n\r\n#TiarraJewels #SilverElegance #AnkletDesign \r\n#LuxuryJewellery #MinimalStyle \r\n#TraditionalMeetsModern #JewelleryLovers\r\n#ElegantLook #SouthIndianStyle\r\n#TimelessBeauty",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 5,
+  "fields": {
+    "name": "Stone Earrings",
+    "category": "Earrings",
+    "price": "1200.00",
+    "stock": 29,
+    "image": "dmrxoaxfx9jk5hknvsiw",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "Designed for moments that matter.\r\n\r\nIntricately designed silver earrings that redefine sophistication and charm.\r\nBecause your style deserves nothing less than stunning.\r\n\r\n#SilverJewellery #EmeraldStyle #ElegantLook\r\n#LuxuryJewels #StatementEarrings\r\n#EthnicElegance #ModernTraditional\r\n#jewelleryLovers #IndianJewellery\r\n#ClassyStyle",
+    "is_active": true,
+    "show_on_home": true
+  }
+},
+{
+  "model": "store.product",
+  "pk": 6,
+  "fields": {
+    "name": "ring",
+    "category": "Ring",
+    "price": "1200.00",
+    "stock": 0,
+    "image": "t8nosjmhnx9vmd6wnjip",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "Step into the world of timeless luxury with this exquisite emerald and diamond floral ring.\r\n\r\nCrafted with precision, the pear-cut emeralds and sparkling diamonds create a breathtaking bloom of elegance, perfect for those who adore sophistication and grace.\r\n\r\n#TiarraJewels #EmeraldBeauty \r\n#LuxuryJewelry #FloralElegance",
+    "is_active": true,
+    "show_on_home": true
+  }
+},
+{
+  "model": "store.product",
+  "pk": 7,
+  "fields": {
+    "name": "women's studs",
+    "category": "Earrings",
+    "price": "1200.00",
+    "stock": 0,
+    "image": "ieznbvopdd3z74vmvmz8",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "Embrace the beauty of simplicity with these exquisite floral stud earrings, a perfect blend of elegance and timeless charm.\r\n\r\nHandcrafted to perfection, the delicate petals radiate sophistication, while the sparkling centerpiece adds a touch of brilliance. Whether for a casual outing  or a special occasion, these earrings are designed to complement your every look with effortless grace.\r\n\r\n#TiarraJewels #FloralElegance\r\n#TimelessJewelry #LuxuryCraftsmanship",
+    "is_active": true,
+    "show_on_home": true
+  }
+},
+{
+  "model": "store.product",
+  "pk": 8,
+  "fields": {
+    "name": "wedding necklace",
+    "category": "Necklace",
+    "price": "1200.00",
+    "stock": 0,
+    "image": "lkcfqfpu5adnhzqilsif",
+    "image2": "products/WhatsApp_Image_2026-04-24_at_3.55.55_PM.jpeg",
+    "image3": "products/WhatsApp_Image_2026-04-24_at_3.55.55_PM_1.jpeg",
+    "image4": "",
+    "description": "Adorn yourself with regal elegance on your special day with this breathtaking emerald and diamond necklace.\r\n\r\nA perfect blend of tradition and luxury, this masterpiece is crafted for the bride who treasures timeless beauty. Let every moment sparkle with unmatched sophistication.\r\n\r\n#BridalCollection #RoyalLook\r\n#TempleJewellery #GoldJewellery",
+    "is_active": true,
+    "show_on_home": true
+  }
+},
+{
+  "model": "store.product",
+  "pk": 9,
+  "fields": {
+    "name": "party wear necklace",
+    "category": "Necklace",
+    "price": "1200.00",
+    "stock": 0,
+    "image": "mrizyzlxrsiizs9jg6rf",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "Experience the allure of understated elegance with this captivating gold and emerald necklace.\r\n\r\nDesigned to embody timeless charm, its delicate craftsmanship and vibrant hues make it a perfect addition to your collection. Whether for grand celebrations or intimate moments, this piece radiates sophistication and grace\r\n\r\n#TiarraJewels #EmeraldElegance\r\n#LuxuryJewelry #TimelessDesign",
+    "is_active": true,
+    "show_on_home": true
+  }
+},
+{
+  "model": "store.product",
+  "pk": 10,
+  "fields": {
+    "name": "wedding ring",
+    "category": "Ring",
+    "price": "1200.00",
+    "stock": 0,
+    "image": "himmwh1enspfeodqpmp4",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "Make a bold statement of elegance with this captivating emerald and diamond ring.\r\n\r\nFeaturing a vibrant emerald centerpiece encased in a halo of sparkling diamonds, this masterpiece is the epitome of luxury and sophistication. perfect for adding timeless charm to your jewelry collection.\r\n\r\n#TiarraJewels #EmeraldElegance\r\n#LuxuryJewelry #TimelessBeauty",
+    "is_active": true,
+    "show_on_home": true
+  }
+},
+{
+  "model": "store.product",
+  "pk": 11,
+  "fields": {
+    "name": "couple ring",
+    "category": "Ring",
+    "price": "1200.00",
+    "stock": 18,
+    "image": "lwruzgrllw5gp8zormdq",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "A bond sealed with love, trust, and forever.\r\nBegin your journey with Tiarra Jewels & Silks.\r\n\r\nOur Couple Rings are designed to celebrate your forever bond with unmatched craftsmanship.\r\nBecause your love deserves nothing but the best.\r\n\r\n#LuxuryJewellery #CoupleGoals\r\n#WeddingVibes #GoldJewellery #TiarraJewels\r\n#ShopNow #NagercoilBuisness",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 12,
+  "fields": {
+    "name": "Gold Barrel Pendant with White Enamel",
+    "category": "Pendant Necklace",
+    "price": "1200.00",
+    "stock": 0,
+    "image": "h0ksclsikzmpx7oblclt",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "Perfect for gifting or treating yourself.\r\n\r\nA Pendant that speaks the language of love and timeless beauty.\r\nOnly at Tiarra Jewels & Silks.\r\n\r\n#PendantLove #ElegantJewellery\r\n#Tiarra #GoldJewellery #ShopNow",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 13,
+  "fields": {
+    "name": "fingerprint-inspired Ring",
+    "category": "Ring",
+    "price": "1200.00",
+    "stock": 23,
+    "image": "nodf8ckuqamae7jsb285",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "Celebrate your bond with timeless elegance through this beautifully crafted pair of couple rings. Designed with a modern textured pattern, these rings feature a unique fingerprint-inspired engraving that symbolizes individuality coming together as one. The subtle embedded stone adds a touch of sophistication and sparkle, making it perfect for everyday wear or special occasions.\r\n\r\n#CoupleRings #LoveInStyle #ForeverTogether #MatchingRings #CoupleGoals #EngagementRings #LoveSymbol #TogetherForever #ElegantJewellery #MinimalistJewelry #RingGoals #HisAndHers #PromiseRings #TimelessLove #LuxuryStyle #JewelleryLove #RomanticVibes #PerfectGift #LoveStory #WeddingJewellery",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 14,
+  "fields": {
+    "name": "Heart-Shaped Stud Earrings",
+    "category": "Stud Earrings",
+    "price": "1200.00",
+    "stock": 0,
+    "image": "h7mskchsa5wiqk29clm2",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "Add a touch of romance and elegance to your look with these stunning heart-shaped stud earrings. Designed with a bold red enamel finish and a sparkling crystal-studded top, these earrings beautifully blend charm and sophistication.\r\n\r\n#HeartEarrings #LoveJewellery #RomanticStyle #RedAndGold #ElegantAccessories #JewelleryAddict #ChicStyle #MinimalJewelry #DailyWearJewelry #FashionJewels #SparkleInStyle #GiftForHer #ValentineVibes #CuteAccessories #LuxuryLook #TrendyJewellery #StatementStuds #StyleWithLove",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 15,
+  "fields": {
+    "name": "sarees",
+    "category": "Sarees",
+    "price": "1200.00",
+    "stock": 3,
+    "image": "l98uxbfqftwcqewrqo9p",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "western saree for occations",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 16,
+  "fields": {
+    "name": "silk sarees",
+    "category": "Silk Sarees",
+    "price": "20000.00",
+    "stock": 9,
+    "image": "zgnz7jyb4o2kq1nsapog",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 17,
+  "fields": {
+    "name": "silk sarees",
+    "category": "Silk Sarees",
+    "price": "30000.00",
+    "stock": 12,
+    "image": "dfmc1pqfpcb1tglfef9b",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 18,
+  "fields": {
+    "name": "Bridal sarees",
+    "category": "Bridal Sarees",
+    "price": "60000.00",
+    "stock": 70,
+    "image": "wpicrvhwgl1eivgikm4y",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 19,
+  "fields": {
+    "name": "Bridal Sarees",
+    "category": "Bridal Sarees",
+    "price": "20000.00",
+    "stock": 50,
+    "image": "mytlkvzvjdwl7rhsatef",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 20,
+  "fields": {
+    "name": "Bridal Sarees",
+    "category": "Bridal Sarees",
+    "price": "40500.00",
+    "stock": 28,
+    "image": "umwjj25e7hlk6xoj4xnj",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 21,
+  "fields": {
+    "name": "engagement rings",
+    "category": "ring&style=engagement",
+    "price": "23000.00",
+    "stock": 53,
+    "image": "keyjknkntzaw8fyrmrum",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 22,
+  "fields": {
+    "name": "engagement rings",
+    "category": "ring&style=engagement",
+    "price": "30000.00",
+    "stock": 45,
+    "image": "hzk6yopxwpq1bc39ekmq",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 23,
+  "fields": {
+    "name": "engagement rings",
+    "category": "ring&style=engagement",
+    "price": "32000.00",
+    "stock": 15,
+    "image": "mmv3ke6ubgswokxftwas",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 24,
+  "fields": {
+    "name": "solitaire rings",
+    "category": "ring&style=solitaire",
+    "price": "18000.00",
+    "stock": 44,
+    "image": "xr93kiqkuohelcd3rlls",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 25,
+  "fields": {
+    "name": "solitaire rings",
+    "category": "ring&style=solitaire",
+    "price": "21000.00",
+    "stock": 15,
+    "image": "wdlj5podtvrmfmh9wl2j",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 26,
+  "fields": {
+    "name": "solitaire rings",
+    "category": "ring&style=solitaire",
+    "price": "23000.00",
+    "stock": 21,
+    "image": "b7wsprul3eo7q2sp1mcr",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 27,
+  "fields": {
+    "name": "couple ring",
+    "category": "ring&style=couple",
+    "price": "32000.00",
+    "stock": 31,
+    "image": "gxxqr5lj0jzang7oj2gy",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 28,
+  "fields": {
+    "name": "couple ring",
+    "category": "ring&style=couple",
+    "price": "22000.00",
+    "stock": 8,
+    "image": "g9xl1hmf9zzbtq4fxkj2",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 29,
+  "fields": {
+    "name": "couple ring",
+    "category": "ring&style=couple",
+    "price": "35000.00",
+    "stock": 22,
+    "image": "hkyiu9youplqqfo2mvxk",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 30,
+  "fields": {
+    "name": "bands",
+    "category": "ring&style=bands",
+    "price": "20000.00",
+    "stock": 53,
+    "image": "xi5a8njr93skf8zlrkcd",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 31,
+  "fields": {
+    "name": "bands",
+    "category": "ring&style=bands",
+    "price": "20000.00",
+    "stock": 131,
+    "image": "xby01gffhghiys4bq9mr",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 32,
+  "fields": {
+    "name": "bands",
+    "category": "ring&style=bands",
+    "price": "20000.00",
+    "stock": 20,
+    "image": "u9rd9gg467c0wxd4vg8j",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 33,
+  "fields": {
+    "name": "daily wear ring",
+    "category": "ring&style=dailywear",
+    "price": "12000.00",
+    "stock": 40,
+    "image": "uoevypbep4w4o3zal7ay",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 34,
+  "fields": {
+    "name": "daily wear ring",
+    "category": "ring&style=dailywear",
+    "price": "12000.00",
+    "stock": 31,
+    "image": "euyp6tustzswuued57xb",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 35,
+  "fields": {
+    "name": "daily wear ring",
+    "category": "ring&style=dailywear",
+    "price": "12000.00",
+    "stock": 48,
+    "image": "svdig3imah4eeqehioil",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 36,
+  "fields": {
+    "name": "chains",
+    "category": "necklace&style=chains",
+    "price": "5000.00",
+    "stock": 24,
+    "image": "vx5lidrkvheetym3edmd",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 37,
+  "fields": {
+    "name": "chains",
+    "category": "necklace&style=chains",
+    "price": "5000.00",
+    "stock": 27,
+    "image": "kyplwl2xo08h7577ju36",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 38,
+  "fields": {
+    "name": "chains",
+    "category": "necklace&style=chains",
+    "price": "5000.00",
+    "stock": 24,
+    "image": "rmrsyt5ykcb4gu784klf",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 39,
+  "fields": {
+    "name": "pendant",
+    "category": "necklace&style=pendants",
+    "price": "2000.00",
+    "stock": 27,
+    "image": "amhgsf88okndpdotksuq",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 40,
+  "fields": {
+    "name": "pendant",
+    "category": "necklace&style=pendants",
+    "price": "2000.00",
+    "stock": 44,
+    "image": "p7l1zdlz9ryyhenxtz5b",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 41,
+  "fields": {
+    "name": "pendant",
+    "category": "necklace&style=pendants",
+    "price": "2000.00",
+    "stock": 45,
+    "image": "wblwacwubbbiiu9qkdh0",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 42,
+  "fields": {
+    "name": "chokers",
+    "category": "necklace&style=chokers",
+    "price": "20000.00",
+    "stock": 33,
+    "image": "t9mmaopgwjk7cxrxa68k",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 43,
+  "fields": {
+    "name": "chokers",
+    "category": "necklace&style=chokers",
+    "price": "20000.00",
+    "stock": 34,
+    "image": "lujvwao5nl6jx8u5kzad",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 44,
+  "fields": {
+    "name": "chokers",
+    "category": "necklace&style=chokers",
+    "price": "20000.00",
+    "stock": 40,
+    "image": "wt3fyxitnw7hkyvodno2",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 45,
+  "fields": {
+    "name": "mangalsutra",
+    "category": "necklace&style=mangalsutra",
+    "price": "12000.00",
+    "stock": 50,
+    "image": "hulrnladcokaf2e3u7y9",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 46,
+  "fields": {
+    "name": "mangalsutra",
+    "category": "necklace&style=mangalsutra",
+    "price": "12000.00",
+    "stock": 26,
+    "image": "okvrabwxhkcuib51wobt",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 47,
+  "fields": {
+    "name": "mangalsutra",
+    "category": "necklace&style=mangalsutra",
+    "price": "12000.00",
+    "stock": 54,
+    "image": "azgsyfd1pxtxdccrx4lj",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 48,
+  "fields": {
+    "name": "layered necklace",
+    "category": "necklace&style=layered",
+    "price": "15000.00",
+    "stock": 52,
+    "image": "m3wulyvrkz0daq87zqcl",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 49,
+  "fields": {
+    "name": "layered necklace",
+    "category": "necklace&style=layered",
+    "price": "15000.00",
+    "stock": 32,
+    "image": "gwtbywxka3zim65r7do7",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 50,
+  "fields": {
+    "name": "layered necklace",
+    "category": "necklace&style=layered",
+    "price": "15000.00",
+    "stock": 32,
+    "image": "rnaqibd22hipysruqjyy",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 51,
+  "fields": {
+    "name": "bracelet",
+    "category": "Bracelets",
+    "price": "3000.00",
+    "stock": 45,
+    "image": "zrxlpn8uhsleopsclazi",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 52,
+  "fields": {
+    "name": "bracelet",
+    "category": "Bracelets",
+    "price": "3000.00",
+    "stock": 31,
+    "image": "ekldzounnibkfqvscddu",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 53,
+  "fields": {
+    "name": "bracelet",
+    "category": "Bracelets",
+    "price": "3000.00",
+    "stock": 26,
+    "image": "mrctlq0ov2ga118x4csh",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 54,
+  "fields": {
+    "name": "latest bracelet",
+    "category": "bracelet&filter=latest, Bracelets",
+    "price": "5000.00",
+    "stock": 28,
+    "image": "zftlftfvhlbo9b1cr0rd",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 55,
+  "fields": {
+    "name": "latest bracelet",
+    "category": "bracelet&filter=latest, Bracelets",
+    "price": "5000.00",
+    "stock": 29,
+    "image": "wbdtzyh9ijeohpkquyzg",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 56,
+  "fields": {
+    "name": "latest bracelet",
+    "category": "bracelet&filter=latest, Bracelets",
+    "price": "5000.00",
+    "stock": 34,
+    "image": "ypjuxrqn5m9lgahfc7s4",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 57,
+  "fields": {
+    "name": "bestseller",
+    "category": "bracelet&filter=bestseller, Bracelets",
+    "price": "2000.00",
+    "stock": 30,
+    "image": "izhzonzk5q6jxy0y7nip",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 58,
+  "fields": {
+    "name": "bestseller",
+    "category": "bracelet&filter=bestseller, Bracelets",
+    "price": "2000.00",
+    "stock": 27,
+    "image": "jqec3idtp3ff1q0gwyj0",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 59,
+  "fields": {
+    "name": "bestseller",
+    "category": "bracelet&filter=bestseller, Bracelets",
+    "price": "2000.00",
+    "stock": 36,
+    "image": "cybvsplkgyim9ytzzmjc",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 60,
+  "fields": {
+    "name": "special bracelet",
+    "category": "bracelet&filter=special",
+    "price": "2000.00",
+    "stock": 46,
+    "image": "nhwhmyugbgg6ap1eal7j",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 61,
+  "fields": {
+    "name": "special bracelet",
+    "category": "bracelet&filter=special",
+    "price": "2000.00",
+    "stock": 34,
+    "image": "xvltwynuxao3gldj5ax9",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 62,
+  "fields": {
+    "name": "special bracelet",
+    "category": "bracelet&filter=special",
+    "price": "2000.00",
+    "stock": 31,
+    "image": "jhesdguhhvhihzt2nit8",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 63,
+  "fields": {
+    "name": "bangles",
+    "category": "bracelet&style=bangles",
+    "price": "3000.00",
+    "stock": 39,
+    "image": "zbsnuhum4bddm46voy1x",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 64,
+  "fields": {
+    "name": "bangles",
+    "category": "bracelet&style=bangles",
+    "price": "3000.00",
+    "stock": 38,
+    "image": "wdkjjajxiwyskiljvgzc",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 65,
+  "fields": {
+    "name": "bangles",
+    "category": "bracelet&style=bangles",
+    "price": "3000.00",
+    "stock": 26,
+    "image": "n7ciuxfep5ey6zsf8lhk",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 66,
+  "fields": {
+    "name": "kadas",
+    "category": "bracelet&style=bangles",
+    "price": "2000.00",
+    "stock": 30,
+    "image": "hzvlxmctfwaqtmo2plxa",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 67,
+  "fields": {
+    "name": "kadas",
+    "category": "bracelet&style=bangles",
+    "price": "2000.00",
+    "stock": 41,
+    "image": "gtg1smfakenr9xiw2cwf",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 68,
+  "fields": {
+    "name": "kadas",
+    "category": "bracelet&style=bangles",
+    "price": "2000.00",
+    "stock": 40,
+    "image": "xaghva96nuva35vwnjv1",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 69,
+  "fields": {
+    "name": "chain bracelet",
+    "category": "bracelet&style=chain",
+    "price": "2000.00",
+    "stock": 32,
+    "image": "nlswwipezcmj8l2ifn5i",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 70,
+  "fields": {
+    "name": "chain bracelet",
+    "category": "bracelet&style=chain",
+    "price": "2000.00",
+    "stock": 52,
+    "image": "dnyfoq03uttkkejmlxbe",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 71,
+  "fields": {
+    "name": "chain bracelet",
+    "category": "bracelet&style=chain",
+    "price": "2000.00",
+    "stock": 45,
+    "image": "obibaeb5hud5sza34een",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 72,
+  "fields": {
+    "name": "charm bracelets",
+    "category": "bracelet&style=charm",
+    "price": "2000.00",
+    "stock": 38,
+    "image": "s4qtjaadyud97gr6gncx",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 73,
+  "fields": {
+    "name": "charm bracelets",
+    "category": "bracelet&style=charm",
+    "price": "2000.00",
+    "stock": 25,
+    "image": "oomc461q691kjfbocc2a",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 74,
+  "fields": {
+    "name": "charm bracelets",
+    "category": "bracelet&style=charm",
+    "price": "2000.00",
+    "stock": 48,
+    "image": "pepgmxkkav5mzpzkok2j",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 75,
+  "fields": {
+    "name": "drops",
+    "category": "earring&style=drops",
+    "price": "1000.00",
+    "stock": 20,
+    "image": "jimdvfrwahlor58omqur",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 76,
+  "fields": {
+    "name": "drops",
+    "category": "earring&style=drops",
+    "price": "1000.00",
+    "stock": 20,
+    "image": "rx7jzgjo8kvidevvdqpo",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 77,
+  "fields": {
+    "name": "drops",
+    "category": "earring&style=drops",
+    "price": "1000.00",
+    "stock": 30,
+    "image": "gvsenwresrmoxlq0lhhe",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 78,
+  "fields": {
+    "name": "jhumkas",
+    "category": "earring&style=jhumkas",
+    "price": "2000.00",
+    "stock": 10,
+    "image": "kvv4k6wboo8vffglnoku",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 79,
+  "fields": {
+    "name": "jhumkas",
+    "category": "earring&style=jhumkas",
+    "price": "2000.00",
+    "stock": 17,
+    "image": "fmskasemk7esctymo6ik",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 80,
+  "fields": {
+    "name": "jhumkas",
+    "category": "earring&style=jhumkas",
+    "price": "2000.00",
+    "stock": 20,
+    "image": "zbpiwtwnb7yedbrymhnl",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 81,
+  "fields": {
+    "name": "earcuffs",
+    "category": "earring&style=earcuffs",
+    "price": "2000.00",
+    "stock": 20,
+    "image": "qwspofytbvufj6wp0kni",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 82,
+  "fields": {
+    "name": "earcuffs",
+    "category": "earring&style=earcuffs",
+    "price": "2000.00",
+    "stock": 20,
+    "image": "nsjfnqmtegwojauxxbyd",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 83,
+  "fields": {
+    "name": "earcuffs",
+    "category": "earring&style=earcuffs",
+    "price": "2000.00",
+    "stock": 20,
+    "image": "apfjhecu4n9amaj2wdag",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 84,
+  "fields": {
+    "name": "tennis bracelets",
+    "category": "bracelet&style=tennis",
+    "price": "1000.00",
+    "stock": 20,
+    "image": "mrtjsc43btdf559wga7s",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 85,
+  "fields": {
+    "name": "tennis bracelets",
+    "category": "bracelet&style=tennis",
+    "price": "1000.00",
+    "stock": 20,
+    "image": "ybdfq4c4lunuhbn6x79d",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 86,
+  "fields": {
+    "name": "tennis bracelets",
+    "category": "bracelet&style=tennis",
+    "price": "1000.00",
+    "stock": 10,
+    "image": "zp20o7qntx4miueaq3k6",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 87,
+  "fields": {
+    "name": "kanjivaram silks",
+    "category": "silk saree style=kanjivaram",
+    "price": "1500.00",
+    "stock": 10,
+    "image": "mt3ijpbaz7mfake3qgpn",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 88,
+  "fields": {
+    "name": "kanjivaram silks",
+    "category": "silk saree style=kanjivaram",
+    "price": "1500.00",
+    "stock": 15,
+    "image": "fqi4hftifusnksljft5s",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 89,
+  "fields": {
+    "name": "kanjivaram silks",
+    "category": "silk saree style=kanjivaram",
+    "price": "1500.00",
+    "stock": 15,
+    "image": "tjmvvjj3vfqhnvjkfb7v",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 90,
+  "fields": {
+    "name": "banarasi silks",
+    "category": "silk saree style=banarasi",
+    "price": "1000.00",
+    "stock": 10,
+    "image": "p0mjl3kcrdqkyl7etbae",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 91,
+  "fields": {
+    "name": "banarasi silks",
+    "category": "silk saree style=banarasi",
+    "price": "1000.00",
+    "stock": 10,
+    "image": "gqowpn6fqqptk5hytwez",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 92,
+  "fields": {
+    "name": "banarasi silks",
+    "category": "silk saree style=banarasi",
+    "price": "1000.00",
+    "stock": 13,
+    "image": "meloyze53fcukenbsp4b",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 93,
+  "fields": {
+    "name": "mysore silks",
+    "category": "silk saree style=mysore",
+    "price": "1000.00",
+    "stock": 10,
+    "image": "oirdz2p2ioj57cnsftxw",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 94,
+  "fields": {
+    "name": "mysore silks",
+    "category": "silk saree style=mysore",
+    "price": "1000.00",
+    "stock": 14,
+    "image": "cio1zsdq9gbwhdpfcp8i",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 95,
+  "fields": {
+    "name": "mysore silks",
+    "category": "silk saree style=mysore",
+    "price": "1000.00",
+    "stock": 19,
+    "image": "odrgzyhn40x5ecf5utrm",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 96,
+  "fields": {
+    "name": "patola silks",
+    "category": "silk+saree&style=patola",
+    "price": "2000.00",
+    "stock": 10,
+    "image": "lvpltvv93edejf0ytyg9",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 97,
+  "fields": {
+    "name": "patola silks",
+    "category": "silk saree style=patola",
+    "price": "2000.00",
+    "stock": 15,
+    "image": "gckh8nlia6mypuuhv7pl",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 98,
+  "fields": {
+    "name": "patola silks",
+    "category": "silk saree style=patola",
+    "price": "2000.00",
+    "stock": 10,
+    "image": "ijveauh4jjptebtqob5a",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 99,
+  "fields": {
+    "name": "chanderi silks",
+    "category": "silk saree style=chanderi",
+    "price": "3000.00",
+    "stock": 15,
+    "image": "bqankcmd5fbgfusgiqew",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 100,
+  "fields": {
+    "name": "chanderi silks",
+    "category": "silk saree style=chanderi",
+    "price": "3000.00",
+    "stock": 15,
+    "image": "dcfqvfd3vzyzmhsylcux",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 101,
+  "fields": {
+    "name": "chanderi silks",
+    "category": "silk saree style=chanderi",
+    "price": "3000.00",
+    "stock": 13,
+    "image": "zwkuuff8oadhl5iz46do",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 102,
+  "fields": {
+    "name": "bridal kanjivaram sarees",
+    "category": "bridal saree&style=kanjivaram",
+    "price": "2500.00",
+    "stock": 10,
+    "image": "e7vpju5sdduvidxumiog",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 103,
+  "fields": {
+    "name": "bridal kanjivaram sarees",
+    "category": "category=bridal saree&style=kanjivaram",
+    "price": "20000.00",
+    "stock": 20,
+    "image": "mv1iad8wmjtkfqueadkk",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 104,
+  "fields": {
+    "name": "bridal kanjivaram sarees",
+    "category": "category=bridal saree&style=kanjivaram",
+    "price": "20000.00",
+    "stock": 10,
+    "image": "gwxzu9gwwwr2zdexpkfb",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 105,
+  "fields": {
+    "name": "bridal banarasi sarees",
+    "category": "category=bridal saree&style=banarasi",
+    "price": "20300.00",
+    "stock": 30,
+    "image": "jxaxavnudkl0epry1bih",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 106,
+  "fields": {
+    "name": "bridal banarasi sarees",
+    "category": "category=bridal saree&style=banarasi",
+    "price": "20700.00",
+    "stock": 12,
+    "image": "p0y968riucvjjvi3k76j",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 107,
+  "fields": {
+    "name": "bridal banarasi sarees",
+    "category": "category=bridal saree&style=banarasi",
+    "price": "20700.00",
+    "stock": 20,
+    "image": "esplsrfjwea3on040fhd",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 108,
+  "fields": {
+    "name": "bridal lehenga",
+    "category": "category=bridal saree&style=lehenga",
+    "price": "30400.00",
+    "stock": 5,
+    "image": "mjt0q1dk8etcweshnoqa",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 109,
+  "fields": {
+    "name": "bridal lehenga",
+    "category": "category=bridal saree&style=lehenga",
+    "price": "30400.00",
+    "stock": 21,
+    "image": "ar6evh4r6phxibbrwhmb",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 110,
+  "fields": {
+    "name": "bridal lehenga",
+    "category": "category=bridal saree&style=lehenga",
+    "price": "24000.00",
+    "stock": 19,
+    "image": "tr5mk6litno5tan3e9fl",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 111,
+  "fields": {
+    "name": "bridal lehenga",
+    "category": "category=bridal saree&style=lehenga",
+    "price": "28000.00",
+    "stock": 21,
+    "image": "w3c3l7j2ulcw6ohs9nvb",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 112,
+  "fields": {
+    "name": "bridal half sarees",
+    "category": "category=bridal saree&style=half",
+    "price": "23000.00",
+    "stock": 5,
+    "image": "sz1ug3yc4ycdhbac0snd",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 113,
+  "fields": {
+    "name": "bridal half sarees",
+    "category": "category=bridal saree&style=half",
+    "price": "28000.00",
+    "stock": 8,
+    "image": "ciycsyarrw2ljuhctecy",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 114,
+  "fields": {
+    "name": "bridal half sarees",
+    "category": "category=bridal saree&style=half",
+    "price": "28000.00",
+    "stock": 6,
+    "image": "rkpihxlyvbewwqpcoui0",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 115,
+  "fields": {
+    "name": "bridal designer saree",
+    "category": "category=bridal saree&style=designer",
+    "price": "32000.00",
+    "stock": 17,
+    "image": "oned7xpqhii6s3ysyvrk",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 116,
+  "fields": {
+    "name": "bridal designer saree",
+    "category": "category=bridal saree&style=designer",
+    "price": "38000.00",
+    "stock": 25,
+    "image": "pzpzlzjzx18tdzrzixvu",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 117,
+  "fields": {
+    "name": "bridal designer saree",
+    "category": "category=bridal saree&style=designer",
+    "price": "28000.00",
+    "stock": 17,
+    "image": "u8tihqpru3mbid9cotso",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 118,
+  "fields": {
+    "name": "anklets",
+    "category": "category=anklet",
+    "price": "12000.00",
+    "stock": 10,
+    "image": "ckwok5u2qyr6pbmui6wg",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 119,
+  "fields": {
+    "name": "anklets",
+    "category": "category=anklet",
+    "price": "12000.00",
+    "stock": 8,
+    "image": "avyw4jdkqvuo5bjcx8rh",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 120,
+  "fields": {
+    "name": "anklets",
+    "category": "category=anklet",
+    "price": "12000.00",
+    "stock": 6,
+    "image": "qtqpy03hxvso6k6shtyd",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 121,
+  "fields": {
+    "name": "maang tikka",
+    "category": "category=maang tikka",
+    "price": "5000.00",
+    "stock": 5,
+    "image": "b42gnrmpcqmacn2vbelu",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 122,
+  "fields": {
+    "name": "maang tikka",
+    "category": "category=maang tikka",
+    "price": "10000.00",
+    "stock": 23,
+    "image": "kw4wexpvqrfnkdji9zsw",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 123,
+  "fields": {
+    "name": "maang tikka",
+    "category": "category=maang tikka",
+    "price": "8000.00",
+    "stock": 13,
+    "image": "j51flzrgosbf7qrid2kq",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 124,
+  "fields": {
+    "name": "nose pin",
+    "category": "category=nose pin",
+    "price": "6000.00",
+    "stock": 8,
+    "image": "wbgokjsjgodupsylx87s",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 125,
+  "fields": {
+    "name": "nose pin",
+    "category": "category=nose pin",
+    "price": "3500.00",
+    "stock": 5,
+    "image": "my3wewwzuzogtlovnxpu",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 126,
+  "fields": {
+    "name": "nose pin",
+    "category": "category=nose pin",
+    "price": "5000.00",
+    "stock": 10,
+    "image": "smfpejaucghgbc3kb9rl",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 127,
+  "fields": {
+    "name": "waist chain",
+    "category": "category=waist chain",
+    "price": "8000.00",
+    "stock": 12,
+    "image": "rllcymqeeforrhidp8i6",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 128,
+  "fields": {
+    "name": "waist chain",
+    "category": "category=waist chain",
+    "price": "68000.00",
+    "stock": 18,
+    "image": "xoqzctvsuapskdzkmtft",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 129,
+  "fields": {
+    "name": "waist chain",
+    "category": "category=waist chain",
+    "price": "6800.00",
+    "stock": 7,
+    "image": "kwn6ida2yhchvo8pq4ie",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 130,
+  "fields": {
+    "name": "haie accessory",
+    "category": "category=hair accessory",
+    "price": "5000.00",
+    "stock": 18,
+    "image": "zymbzzmtvkdt3pri6fw7",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 131,
+  "fields": {
+    "name": "haie accessory",
+    "category": "category=hair accessory",
+    "price": "8000.00",
+    "stock": 27,
+    "image": "v9vjkovophl7ne9tcpzh",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+},
+{
+  "model": "store.product",
+  "pk": 132,
+  "fields": {
+    "name": "haie accessory",
+    "category": "category=hair accessory",
+    "price": "10600.00",
+    "stock": 21,
+    "image": "enpcrt9dx3n9pozom2ln",
+    "image2": "",
+    "image3": "",
+    "image4": "",
+    "description": "",
+    "is_active": true,
+    "show_on_home": false
+  }
+}
+]
